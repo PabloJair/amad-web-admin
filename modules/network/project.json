@@ -1,0 +1,10 @@
+{
+  "name": "modules-network",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "modules/network/src",
+  "prefix": "network",
+  "projectType": "library",
+  "tags": ["network"],
+  "// targets": "to see all targets run: nx show project modules-network --web",
+  "targets": {}
+}

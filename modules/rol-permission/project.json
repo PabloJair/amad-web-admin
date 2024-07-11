@@ -1,0 +1,20 @@
+{
+  "name": "modules-rol-permission",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "modules/rol-permission/src",
+  "prefix": "lib",
+  "projectType": "library",
+  "tags": ["rol-permissions"],
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "modules/rol-permission/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "modules-authentication",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "modules/authentication/src",
+  "prefix": "lib",
+  "projectType": "library",
+  "tags": ["authentication"],
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "modules/authentication/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

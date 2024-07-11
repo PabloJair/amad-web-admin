@@ -8,7 +8,12 @@ module.exports = {
     ...createGlobPatternsForDependencies(__dirname),
   ],
   theme: {
-    extend: {},
+    extend: {
+      switch: {
+        '0%': { transform: 'rotate(0deg)', opacity: 0 },
+        '100%': { transform: 'rotate(180deg)', opacity: 1 },
+      },
+    },
   },
   plugins: [],
 };

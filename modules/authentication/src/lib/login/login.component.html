@@ -1,0 +1,54 @@
+<div class="h-screen flex items-center justify-center bg-gray-200">
+  <div
+    class="w-[60rem] h-[30rem] shadow-lg bg-white flex rounded-lg max-sm:m-5"
+  >
+    <div class="basis-full rounded-l-lg p-10">
+      <form
+        [formGroup]="authForm"
+        (ngSubmit)="login()"
+        class="flex flex-col h-full gap-5"
+      >
+        <p class="text-center text-2xl animate-bounce">Bienvenido a Amad</p>
+        <p class="text-center text-xl">Inicia sesión</p>
+
+        <mat-form-field >
+          <mat-label>Ingresa tu usuario</mat-label>
+          <input matInput placeholder="Usuario" formControlName="user" />
+          @if (authForm.get('user')!.hasError('required') &&
+          authForm.get('user')!.touched) {
+          <mat-error>Campo requerido</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Ingresa tu contraseña</mat-label>
+          <input matInput placeholder="Contraseña" type="password" formControlName="password" />
+          @if (authForm.get('password')!.hasError('required') &&
+          authForm.get('password')!.touched) {
+          <mat-error>Campo requerido</mat-error>
+          }
+        </mat-form-field>
+        <button
+          type="submit"
+          mat-stroked-button
+          class="mt-auto"
+          color="primary"
+          [disabled]="authForm.invalid"
+        >
+          <span class="flex gap-3">
+            @if (showLoader()){
+            <mat-spinner [diameter]="20"></mat-spinner>
+            } Iniciar sesión
+          </span>
+        </button>
+      </form>
+    </div>
+    <div class="basis-2/3 rounded-r-lg max-sm:hidden">
+      <img
+        src="background-login.png"
+        class="h-full rounded-r-lg"
+        alt="background"
+      />
+    </div>
+  </div>
+</div>

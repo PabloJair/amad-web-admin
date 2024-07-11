@@ -1,0 +1,11 @@
+<div class="flex gap-5">
+  @for (item of breadcrumbItems;track item;let idx = $index){
+  <a [routerLink]="item.link" class="{{ item.color }} hover:cursor-pointer">
+    {{ item.name }}
+    @if (idx+1 < breadcrumbItems.length) {
+    <span>/</span>
+    }
+  </a>
+
+  }
+</div>

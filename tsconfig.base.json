@@ -1,0 +1,36 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2022",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@amad-web-admin/modules/authentication": [
+        "modules/authentication/src/index.ts"
+      ],
+      "@amad-web-admin/modules/core": ["modules/core/src/index.ts"],
+      "@amad-web-admin/modules/dashboard": ["modules/dashboard/src/index.ts"],
+      "@amad-web-admin/modules/home": ["modules/home/src/index.ts"],
+      "@amad-web-admin/modules/network": ["modules/network/src/index.ts"],
+      "@amad-web-admin/modules/projects": ["modules/projects/src/index.ts"],
+      "@amad-web-admin/modules/rol-permission": [
+        "modules/rol-permission/src/index.ts"
+      ],
+      "@amad-web-admin/modules/ui-elements": [
+        "modules/ui-elements/src/index.ts"
+      ],
+      "@amad-web-admin/modules/user": ["modules/user/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

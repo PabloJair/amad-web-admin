@@ -1,17 +1,29 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { NxWelcomeComponent } from './nx-welcome.component';
-import { environment } from '../environments/environment';
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import {
+  ApplicationNavigate,
+  AuthenticationInformationService,
+} from '@amad-web-admin/modules/core';
+
 @Component({
   standalone: true,
-  imports: [NxWelcomeComponent, RouterModule],
+  imports: [RouterModule, FormsModule, MatFormFieldModule, MatInputModule],
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'amad-web-admin';
-  constructor() {
-    console.log(environment.apiUrl);
+  constructor(
+    private authService: AuthenticationInformationService,
+    private applicationNavigate: ApplicationNavigate,
+  ) {
+    if (!authService.isAuthenticate()) {
+      applicationNavigate.navigateToAuthentication();
+    } else {
+      applicationNavigate.navigateToDashboard();
+    }
   }
 }
