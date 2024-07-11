@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NxWelcomeComponent } from './nx-welcome.component';
-
+import { environment } from '../environments/environment';
 @Component({
   standalone: true,
   imports: [NxWelcomeComponent, RouterModule],
@@ -11,4 +11,7 @@ import { NxWelcomeComponent } from './nx-welcome.component';
 })
 export class AppComponent {
   title = 'amad-web-admin';
+  constructor() {
+    console.log(environment.apiUrl);
+  }
 }
