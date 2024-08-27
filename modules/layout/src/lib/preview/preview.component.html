@@ -1,0 +1,32 @@
+<div class="flex flex-col gap-5 h-full ">
+  <ui-elements-breadcrumb
+    [breadcrumbItems]="breadcrumbItems"
+  ></ui-elements-breadcrumb>
+
+  <mat-card appearance="outlined" class="h-screen ">
+    <mat-card-header>
+      <mat-card-title>
+        Editor
+      </mat-card-title>
+      <mat-card-subtitle>
+
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="h-full bg-white">
+      <div class="flex  gap-4 w-full  h-full" cdkDropListGroup>
+        <lib-toolbox class="flex-initial w-56"
+                     (onAddComponent)="onAddComponent($event)"
+        ></lib-toolbox>
+        <lib-preview-mobile
+          #previewMobileComponent
+          class="flex-initial w-1/2"
+          (onSelectedComponent)="onSelectedComponent($event)"
+        ></lib-preview-mobile>
+        <div>
+          <lib-properties [componentEntity]="selectedComponent()" class="flex-auto"></lib-properties>
+        </div>
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+</div>

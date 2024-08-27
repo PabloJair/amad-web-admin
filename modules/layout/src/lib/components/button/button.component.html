@@ -1,0 +1,22 @@
+<div >
+
+  <div
+    coreResizable
+    style="width: 200px; height: 200px; background-color: lightgrey;"
+    [ngStyle]="{
+        'fontSize.px': component().properties.fontSize,
+        'background-color':component().properties.background,
+        'color': component().properties.colorText,
+        'width.px':component().properties.size?.width ?? 60,
+        'height.px':component().properties.size?.height ??20,
+        'margin-top.px':component().properties?.margin?.top ??0,
+        'margin-bottom.px':component().properties?.margin?.bottom ??0,
+        'margin-right.px':component().properties?.margin?.right ??0,
+        'margin-left.px':component().properties?.margin?.left ??0
+
+
+        }"
+  >{{component().properties.text ?? 'Botón'}}</div>
+</div>
+
+

@@ -1,0 +1,10 @@
+<button           mat-stroked-button
+                  class="secondary-button"
+        [disabled]="disabled() ||showLoader() " >
+  @if(showLoader()){
+      <mat-spinner [diameter]="20"></mat-spinner>
+    Procesando...
+  } @else {
+    {{text()}}
+  }
+</button>

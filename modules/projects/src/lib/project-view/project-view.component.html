@@ -1,0 +1,45 @@
+<div class="overscroll-y-auto">
+
+  @if ($loading()){
+    <div class="flex flex-row items-center justify-center h-full">
+      <mat-spinner></mat-spinner>
+
+    </div>
+  } @else {
+    @if (projects().length===0){
+      <div class="flex flex-row items-center justify-center h-full">
+        <h4 class="text-gray-500"> No se encontraron datos</h4>
+
+      </div>
+    } @else {
+      <mat-nav-list class="overscroll-y-auto">
+        @for (item of projects(); track item){
+          <a mat-list-item (click)="viewProject(item)" >
+
+            <button matListItemIcon mat-icon-button (click)="changeStatus(item)">
+              <mat-icon
+                matTooltip="{{item.status === ProjectStatus.ACTIVE?'Desactivar':'Activar'}}">
+                {{item.status === ProjectStatus.ACTIVE?"toggle_on":"toggle_off"}}
+              </mat-icon>
+            </button>
+
+
+            <span  matListItemTitle class="font-bold text-xl">{{item.application_name}}</span>
+            <span  matLine class="text-base text-gray-500">
+              {{item.application_description}}
+            </span>
+
+          </a>
+        }
+      </mat-nav-list>
+    }
+
+    <div class="flex flex-row h-24  items-end justify-center">
+      <button mat-raised-button class="w-full" (click)="goToNewProject()">Nuevo proyecto</button>
+
+    </div>
+
+
+  }
+
+</div>

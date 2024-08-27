@@ -1,0 +1,48 @@
+<div class="flex flex-col m-5">
+  <h4>Escoge el horario </h4>
+  <form [formGroup]="dateTimeFormControl">
+    <div class="flex flex-row gap-4">
+      <mat-form-field appearance="outline">
+        <mat-label>Inicio</mat-label>
+        <mat-select formControlName="dayStart">
+          @for (day of days; track day) {
+            <mat-option [value]="day.value">{{day.label}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Fin</mat-label>
+        <mat-select formControlName="dayEnd" >
+          @for (day of days; track day) {
+            <mat-option [value]="day.value">{{day.label}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+    </div>
+
+    <section class="flex flex-row gap-4">
+      <mat-form-field appearance="outline">
+        <mat-label>De: </mat-label>
+
+        <input matInput [ngxMatTimepicker]="start" formControlName="hourStart" >
+        <ngx-mat-timepicker #start></ngx-mat-timepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Hasta</mat-label>
+
+        <input  matInput [ngxMatTimepicker]="end" formControlName="hourEnd" >
+        <ngx-mat-timepicker #end></ngx-mat-timepicker>
+      </mat-form-field>
+
+    </section>
+
+    <p><mat-slide-toggle formControlName="show">Mostar</mat-slide-toggle></p>
+
+    <button mat-raised-button (click)="add()" [disabled]="dateTimeFormControl.invalid">Agregar</button>
+  </form>
+
+
+
+</div>

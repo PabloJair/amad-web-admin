@@ -1,0 +1,67 @@
+<div class="flex flex-col gap-5">
+  <ui-elements-breadcrumb
+    [breadcrumbItems]="breadcrumbItems"
+  ></ui-elements-breadcrumb>
+
+  <p class="text-xl">
+    {{companyItem?.nombre}}
+  </p>
+<mat-card appearance="outlined">
+  <mat-card-header>
+    <mat-card-title > <p class="text-xl">
+      Crear nuevo projecto
+    </p></mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form class="grid grid-cols-2 gap-4" [formGroup]="addCompanyForm">
+      <div class="flex flex-col ">
+        <mat-form-field appearance="outline"  >
+          <mat-label>Nombre del proyecto</mat-label>
+          <input matInput placeholder="Nombre del proyecto" formControlName="application_name">
+        </mat-form-field>
+        <div class="flex flex-row justify-between">
+          <p><mat-slide-toggle #toggle formControlName="status">{{toggle.checked ? "Activado":"Desactivado"}}</mat-slide-toggle></p>
+          <mat-form-field appearance="outline">
+            <mat-label>Versión</mat-label>
+            <input matInput placeholder="Versión"  type="number" formControlName="version">
+          </mat-form-field>
+        </div>
+        <mat-form-field appearance="outline">
+          <mat-label>Página de la empresa</mat-label>
+          <input matInput placeholder="Pagina web"  type="url" formControlName="url">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Descripción</mat-label>
+          <textarea matInput formControlName="application_description"></textarea>
+        </mat-form-field>
+      </div>
+      <div class="flex flex-row justify-between gap-4">
+        <file-upload
+          [multiple]="false" [animation]="true"
+                     [control]="fileUploadControl"
+                     class="w-full file-uploader"  formControlName="icon">
+
+          <ng-template let-isFileDragDropAvailable="isFileDragDropAvailable" #placeholder>
+            <file-upload-drop-zone>
+              @if (isFileDragDropAvailable) {
+                 <b>Drag & Drop</b><br> para subir un archivo
+              } @else {
+                <b>clickea aqui</b><br> para subir un archivo
+              }
+            </file-upload-drop-zone>
+          </ng-template>
+
+          <ng-template let-i="index" let-file="file" let-control="control" #item>
+            <file-upload-list-item  [index]="i" [file]="file" [control]="control">Eliminar</file-upload-list-item>
+          </ng-template>
+        </file-upload>
+      </div>
+    </form>
+  </mat-card-content>
+  <mat-card-actions class="flex gap-5">
+
+    <ui-elements-button-loader text="Agregar" [disabled]="addCompanyForm.invalid" (click)="add()" [showLoader]="loading$()"></ui-elements-button-loader>
+    <button mat-button (click)="navigation.navigateToList()" >Cancelar</button>
+  </mat-card-actions>
+</mat-card>
+</div>

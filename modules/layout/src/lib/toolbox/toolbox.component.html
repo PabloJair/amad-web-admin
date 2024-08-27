@@ -1,0 +1,20 @@
+<div cdkDropList class="h-full border stroke-gray-600"
+     [cdkDropListData]="componentEntities"
+>
+
+  <div class="grid grid-cols-2 gap-2 justify-items-center mt-1">
+    @for (componentEntity of componentEntities; track componentEntity) {
+      <div class="drop-shadow-md bg-gray-300 size-20 hover:animate-pulse rounded-md cursor-pointer"
+           (click)="addComponent(componentEntity.type)">
+        <div class="flex flex-col justify-center items-center  h-full w-full">
+          <span class="text-xs text-white"> {{ getViewNameTypeComponent(componentEntity) }}</span>
+
+          <mat-icon aria-hidden="false" aria-label="Example home icon"
+                    [fontIcon]="getViewIconTypeComponent(componentEntity)"></mat-icon>
+
+        </div>
+      </div>
+    }
+
+  </div>
+</div>
