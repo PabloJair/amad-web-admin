@@ -34,6 +34,20 @@ export const dashboardRoutes: Route[] = [
             value => value.modulesRolPermissionRoutes,
           ),
       },
+      {
+        path: NavigationRoutes.layout.home,
+        loadChildren: () =>
+          import('@amad-web-admin/modules/layout').then(
+            value => value.modulesLayoutRoutes,
+          ),
+      },
+      {
+        path: NavigationRoutes.projects.PROJECT,
+        loadChildren: () =>
+          import('@amad-web-admin/modules/projects').then(
+            value => value.modulesProjectsRoutes,
+          ),
+      },
       { path: '**', pathMatch: 'full', component: Page404Component },
     ],
   },

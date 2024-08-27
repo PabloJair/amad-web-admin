@@ -45,6 +45,49 @@ $amad-web-admin-theme: mat.define-theme(
 
 }
 
+.file-uploader {
+
+  outline: 0;
+  min-height: 180px;
+  border-radius: 5px;
+  border: 1px solid #dae0ec;
+  background-color: transparent;
+
+  .upload-input {
+    color: var(--bodyColor);
+    transition: var(--transition);
+
+    .upload-text {
+      b {
+        font-weight: 500;
+        color: var(--blackColor);
+      }
+    }
+    &:hover {
+      color: var(--daxaColor);
+    }
+  }
+  .file-info {
+    margin-bottom: 3px;
+    color: var(--blackColor);
+  }
+  .remove-btn {
+    color: var(--bodyColor);
+
+    svg {
+      top: 1px;
+      position: relative;
+    }
+  }
+
+}
+.file-uploader{
+  border-radius: 0 !important;
+
+  * {
+    border-radius: 0 !important;
+  }
+}
 // Comment out the line below if you want to use the pre-defined typography utility classes.
 // For more information: https://material.angular.io/guide/typography#using-typography-styles-in-your-application.
 // @include mat.typography-hierarchy($amad-web-admin-theme);

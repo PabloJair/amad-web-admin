@@ -18,9 +18,11 @@
       "@amad-web-admin/modules/authentication": [
         "modules/authentication/src/index.ts"
       ],
+      "@amad-web-admin/modules/companies": ["modules/companies/src/index.ts"],
       "@amad-web-admin/modules/core": ["modules/core/src/index.ts"],
       "@amad-web-admin/modules/dashboard": ["modules/dashboard/src/index.ts"],
       "@amad-web-admin/modules/home": ["modules/home/src/index.ts"],
+      "@amad-web-admin/modules/layout": ["modules/layout/src/index.ts"],
       "@amad-web-admin/modules/network": ["modules/network/src/index.ts"],
       "@amad-web-admin/modules/projects": ["modules/projects/src/index.ts"],
       "@amad-web-admin/modules/rol-permission": [

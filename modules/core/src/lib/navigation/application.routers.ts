@@ -25,17 +25,21 @@ export const NavigationRoutes = {
     ROLES: 'roles',
     ROLES_EDIT: 'roles-edit',
   },
-  projectsList: {
+  projects: {
     PROJECT_LIST: 'project-list',
     PROJECT_ADD: 'project-add',
     PROJECT_CLIENT_LIST: 'project-client-list',
     PROJECT_CLIENT_ADD: 'project-client-add',
     PROJECT: 'project',
     PROJECT_EDIT: 'project-edit',
+    COMPANY_ARGS: 'id_company',
   },
   profileListRoutes: {
     PROFILE: 'settings',
     CHANGE_PASSWORD: 'change-password',
     ACCOUNT_SETTINGS: 'account-settings',
   },
+  layout:{
+    home:"home-layout"
+  }
 };

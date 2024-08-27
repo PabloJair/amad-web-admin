@@ -20,3 +20,9 @@ export * from './lib/rol/entities/user-rol-status';
 export * from './lib/rol/entities/filter-roles';
 export * from './lib/rol/entities/edit-user-rol';
 export * from './lib/rol/entities/add-user-rol';
+
+export * from './lib/projects/entities/filter-projects';
+export * from './lib/projects/entities/projects.entities';
+export * from './lib/projects/projects.service';
+
+export * from './lib/upload/upload.service';

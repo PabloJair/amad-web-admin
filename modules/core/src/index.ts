@@ -14,3 +14,8 @@ export * from './lib/+state/application.actions';
 export * from './lib/+state/application.models';
 export * from './lib/+state/application.reducer';
 export * from './lib/+state/logout.metareducer';
+
+export * from './lib/wrappers/auto-unsubscribe';
+export * from './lib/utils/strings.utils';
+export * from './lib/directives/resizable.directive';
+export * from './lib/directives/draggable.directive';

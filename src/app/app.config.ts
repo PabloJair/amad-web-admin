@@ -22,6 +22,7 @@ import { provideStore } from '@ngrx/store';
 import { metaReducers } from '@amad-web-admin/modules/core';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import * as fromApplication from '@amad-web-admin/modules/core';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -29,6 +30,7 @@ export const appConfig: ApplicationConfig = {
       provide: 'BASE_API_URL',
       useValue: environment.apiUrl,
     },
+    provideAnimations(),
     { provide: HTTP_INTERCEPTORS, useClass: UrlInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: HeadersInterceptor, multi: true },
     importProvidersFrom(HttpClientModule),

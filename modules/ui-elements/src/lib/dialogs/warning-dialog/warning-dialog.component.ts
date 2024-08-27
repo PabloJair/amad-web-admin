@@ -21,12 +21,15 @@ export class WarningDialogComponent {
   buttonOne() {
     this.dialogRef.close({
       resultType: ResultType.BUTTON_ONE,
+      data:null
+
     } as DialogResult);
   }
 
   buttonTwo() {
     this.dialogRef.close({
-      resultType: ResultType.BUTTON_ONE,
+      resultType: ResultType.BUTTON_TWO,
+      data:null
     } as DialogResult);
   }
 }

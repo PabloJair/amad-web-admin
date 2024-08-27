@@ -52,12 +52,12 @@ export class NavMenuComponent {
     {
       title: 'Proyectos',
       icon: 'inventory_2',
-      link: `${NavigationRoutes.dashboard.DASHBOARD}/${NavigationRoutes.userRoutes.USER}`,
+      link: `${NavigationRoutes.projects.PROJECT}`,
     },
     {
       title: 'Maquetador',
       icon: 'palette',
-      link: `${NavigationRoutes.dashboard.DASHBOARD}/${NavigationRoutes.userRoutes.USER}`,
+      link: `${NavigationRoutes.layout.home}`,
     },
   ];
   isOpenMenu = true;

@@ -73,7 +73,7 @@ export class DialogService {
     message: string,
     textButton = CommonsStrings.ACCEPT,
     textButton2 = CommonsStrings.CANCEL,
-  ): Observable<R | undefined> {
+  ){
     return this.openDialog(WarningDialogComponent, {
       title,
       description: message,
