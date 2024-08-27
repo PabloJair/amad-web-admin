@@ -7,10 +7,11 @@ import { AfterViewInit, Directive, ElementRef, HostListener, Renderer2 } from '@
 export class ResizableDirective implements AfterViewInit {
   private resizers: HTMLElement[] = [];
 
-  constructor(private el: ElementRef, private renderer: Renderer2) {}
+  constructor(private el: ElementRef, private renderer: Renderer2) {
+  }
 
   ngAfterViewInit() {
-    this.createResizers();
+    this.createResizes();
   }
 
   @HostListener('mousedown', ['$event']) onMouseDown(event: MouseEvent) {
@@ -19,12 +20,12 @@ export class ResizableDirective implements AfterViewInit {
     }
   }
 
-  private createResizers() {
+  private createResizes() {
     const positions = ['top-left', 'top-right', 'bottom-left', 'bottom-right'];
 
     positions.forEach(pos => {
       const resizer = this.renderer.createElement('div');
-      this.renderer.setStyle(resizer, 'width', '10px');
+      this.renderer.setStyle(resizer, 'width', '20px');
       this.renderer.setStyle(resizer, 'height', '10px');
       this.renderer.setStyle(resizer, 'background', 'grey');
       this.renderer.setStyle(resizer, 'position', 'absolute');

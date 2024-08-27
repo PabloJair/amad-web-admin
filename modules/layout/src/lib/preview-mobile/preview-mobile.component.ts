@@ -10,6 +10,7 @@ import {
 import { ComponentEntity, TypeComponent } from '../entities/component-entity';
 import { MatButton } from '@angular/material/button';
 import { ButtonComponent } from '../components/button/button.component';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'lib-preview-mobile',
@@ -23,28 +24,16 @@ export class PreviewMobileComponent {
 
   onSelectedComponent = output<ComponentEntity>();
 
-
-  drop(event: CdkDragDrop<ComponentEntity[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      copyArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
-    }
-  }
-
   public addNewComponent(typeComponent: TypeComponent): void {
     this.componentEntitiesAdd.push(
       {
         type: typeComponent,
         properties: {},
-        UUID: ''
+        UUID: uuidv4()
       }
     );
+
+    console.log(this.componentEntitiesAdd);
   }
 
 
