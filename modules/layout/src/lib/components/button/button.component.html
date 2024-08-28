@@ -1,14 +1,23 @@
-<div >
+<div
+  class=" w-fit h-fit "
 
+  cdkDrag
+  [cdkDragDisabled]="isDragging"
+  (cdkDragEnded)="onDragMoved($event)"
+  [cdkDragBoundary]="cdkDragBoundaryName()"
+>
   <div
     coreResizable
-    style="width: 200px; height: 200px; background-color: lightgrey;"
+    [minHeight]="CommonsUI.BUTTON_MIN_H"
+    [minWidth]="CommonsUI.BUTTON_MIN_W"
+    (onFinishResize)="onFinishResized($event)"
+    (onResize)="onResize($event)"
     [ngStyle]="{
         'fontSize.px': component().properties.fontSize,
-        'background-color':component().properties.background,
+        'background-color':component().properties.background ?? 'gray',
         'color': component().properties.colorText,
-        'width.px':component().properties.size?.width ?? 60,
-        'height.px':component().properties.size?.height ??20,
+        'width.px':component().properties.size?.width ,
+        'height.px':component().properties.size?.height ,
         'margin-top.px':component().properties?.margin?.top ??0,
         'margin-bottom.px':component().properties?.margin?.bottom ??0,
         'margin-right.px':component().properties?.margin?.right ??0,
@@ -16,7 +25,7 @@
 
 
         }"
-  >{{component().properties.text ?? 'Botón'}}</div>
+  >{{ component().properties.text ?? 'Botón' }}
+  </div>
 </div>
-
 

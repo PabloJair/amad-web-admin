@@ -1,7 +1,7 @@
 <mat-accordion class="w-96">
   <mat-expansion-panel>
     <mat-expansion-panel-header>
-      <mat-panel-title> General </mat-panel-title>
+      <mat-panel-title> General</mat-panel-title>
       <mat-panel-description>
         Definiciones Generales
         <mat-icon>date_range</mat-icon>
@@ -10,11 +10,11 @@
     <div class="flex flex-row gap-4">
       <mat-form-field appearance="outline">
         <mat-label>Texto</mat-label>
-        <input type="text" matInput (keyup) ="changeText($event)">
+        <input type="text" matInput (keyup)="changeText($event)">
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Tamaño de texto</mat-label>
-        <input type="number" matInput (keyup) ="changeFonSize($event)">
+        <input type="number" matInput (keyup)="changeFonSize($event)">
 
       </mat-form-field>
     </div>
@@ -22,7 +22,7 @@
   </mat-expansion-panel>
   <mat-expansion-panel>
     <mat-expansion-panel-header>
-      <mat-panel-title> Colores </mat-panel-title>
+      <mat-panel-title> Colores</mat-panel-title>
       <mat-panel-description>
         Definición de colores
         <mat-icon>palette</mat-icon>
@@ -31,12 +31,12 @@
     <div class="flex flex-row gap-4">
       <mat-form-field appearance="outline">
         <mat-label>Color de fondo</mat-label>
-        <input type="color" matInput (keyup) ="changeBackground($event)">
+        <input type="color" matInput (keyup)="changeBackground($event)">
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Color de texto</mat-label>
-        <input type="color" matInput (keyup) ="changeColor($event)">
+        <input type="color" matInput (keyup)="changeColor($event)">
       </mat-form-field>
     </div>
   </mat-expansion-panel>
@@ -44,7 +44,7 @@
 
   <mat-expansion-panel>
     <mat-expansion-panel-header>
-      <mat-panel-title> Margen y tamaño </mat-panel-title>
+      <mat-panel-title> Margen y tamaño</mat-panel-title>
       <mat-panel-description>
         Definición de margen y tamaño
         <mat-icon>photo_size_select_small</mat-icon>
@@ -54,52 +54,33 @@
     <div class="grid grid-cols-2  gap-3">
       <mat-form-field appearance="outline">
         <mat-label>Ancho</mat-label>
-        <input type="number" matInput (keyup) ="changeWidth($event)">
+        <input type="number" matInput
+               (keyup)="changeWidth($event)"
+               [value]="componentEntity().properties.size.width">
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Largo</mat-label>
-        <input type="number" matInput (keyup) ="changeHeight($event)">
+        <input type="number" matInput
+               [value]="componentEntity().properties.size.height"
+               (keyup)="changeHeight($event)">
       </mat-form-field>
 
     </div>
 
     <mat-divider></mat-divider>
-    <span>Margen</span>
-    <div class="grid grid-cols-2  gap-3">
-      <mat-form-field appearance="outline">
-        <mat-label>Arriba</mat-label>
-        <input type="number" matInput (keyup) ="changeMarginTop($event)">
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Abajo</mat-label>
-        <input type="number" matInput (keyup) ="changeMarginBottom($event)">
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Izquerda</mat-label>
-        <input type="number" matInput (keyup) ="changeMarginLeft($event)">
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Derecha</mat-label>
-        <input type="number" matInput (keyup) ="changeMarginRight($event)">
-      </mat-form-field>
-
-    </div>
   </mat-expansion-panel>
 
   <mat-expansion-panel>
     <mat-expansion-panel-header>
-      <mat-panel-title> Acciones </mat-panel-title>
+      <mat-panel-title> Acciones</mat-panel-title>
     </mat-expansion-panel-header>
 
     <div class="flex flex-row justify-center content-center">
       <mat-checkbox #url>
       </mat-checkbox>
       <mat-form-field appearance="outline" class="w-full">
-        <mat-label>Abrir url </mat-label>
-        <input type="url" matInput (keyup) ="changeText($event)" [disabled]="!url.checked">
+        <mat-label>Abrir url</mat-label>
+        <input type="url" matInput (keyup)="changeText($event)" [disabled]="!url.checked">
       </mat-form-field>
     </div>
 
@@ -107,8 +88,8 @@
       <mat-checkbox #section>
       </mat-checkbox>
       <mat-form-field appearance="outline" class="w-full">
-        <mat-label>Abrir Sección </mat-label>
-        <input type="text" matInput (keyup) ="changeText($event)" [disabled]="!section.checked">
+        <mat-label>Abrir Sección</mat-label>
+        <input type="text" matInput (keyup)="changeText($event)" [disabled]="!section.checked">
       </mat-form-field>
     </div>
 
@@ -116,18 +97,19 @@
       <mat-checkbox #call>
       </mat-checkbox>
       <mat-form-field appearance="outline" class="w-full">
-        <mat-label>LLamar a  </mat-label>
-        <input type="number" matInput (keyup) ="changeText($event)" [disabled]="!call.checked">
+        <mat-label>LLamar a</mat-label>
+        <input type="number" matInput (keyup)="changeText($event)" [disabled]="!call.checked">
       </mat-form-field>
     </div>
 
     <div class="flex flex-col justify-center content-center">
       <mat-divider></mat-divider>
       <span>Horario</span>
-      @for (itemTimeScheduled of componentEntity().actions?.showBySchedule ?? []; track itemTimeScheduled){
+      @for (itemTimeScheduled of componentEntity().actions?.showBySchedule ?? []; track itemTimeScheduled) {
         <p>
-          {{itemTimeScheduled.show ? "Mostrar":"No Mostrar"}}
-          De {{getDayForNumber(itemTimeScheduled.dayStart)}} a {{getDayForNumber(itemTimeScheduled.dayEnd)}}, {{itemTimeScheduled.hourStart}} a las {{itemTimeScheduled.hourEnd}}
+          {{ itemTimeScheduled.show ? "Mostrar" : "No Mostrar" }}
+          De {{ getDayForNumber(itemTimeScheduled.dayStart) }} a {{ getDayForNumber(itemTimeScheduled.dayEnd) }}
+          , {{ itemTimeScheduled.hourStart }} a las {{ itemTimeScheduled.hourEnd }}
         </p>
       }
       <button mat-button (click)="openDialogDate()"> Agregar</button>

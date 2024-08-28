@@ -1,28 +1,49 @@
 import { ComponentEntity, TypeComponent } from './component-entity';
+import { CommonsUI } from '@amad-web-admin/modules/core';
 
 
 export const buttonComponent: ComponentEntity = {
   type: TypeComponent.BUTTON,
-  properties: {},
+  properties: {
+    size: {
+      width: CommonsUI.BUTTON_MIN_W,
+      height: CommonsUI.BUTTON_MIN_H
+    }
+  },
   UUID: ''
 
 
 };
 export const textComponent: ComponentEntity = {
   type: TypeComponent.TEXT,
-  properties: {},
+  properties: {
+    size: {
+      width: 60,
+      height: 20
+    }
+  },
   UUID: ''
 };
 
 export const imageComponent: ComponentEntity = {
   type: TypeComponent.IMAGE,
-  properties: {},
+  properties: {
+    size: {
+      width: 60,
+      height: 20
+    }
+  },
   UUID: ''
 };
 
 export const carouselComponent: ComponentEntity = {
   type: TypeComponent.CARROUSEL,
-  properties: {},
+  properties: {
+    size: {
+      width: 60,
+      height: 20
+    }
+  },
   UUID: ''
 };
 export const componentsToolBox: ComponentEntity[] = [

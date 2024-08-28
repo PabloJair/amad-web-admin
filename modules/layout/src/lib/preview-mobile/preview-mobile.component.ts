@@ -28,7 +28,12 @@ export class PreviewMobileComponent {
     this.componentEntitiesAdd.push(
       {
         type: typeComponent,
-        properties: {},
+        properties: {
+          size: {
+            width: 60,
+            height: 20
+          }
+        },
         UUID: uuidv4()
       }
     );

@@ -6,9 +6,7 @@
     @switch (item.type) {
       @case (TypeComponent.BUTTON) {
         <lib-app-button
-          class="example-box"
-          cdkDragBoundary=".example-boundary"
-          cdkDrag
+          cdkDragBoundaryName=".example-boundary"
           (click)="showProperties(item)"
           [component]="item"
         ></lib-app-button>

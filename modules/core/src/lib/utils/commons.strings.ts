@@ -6,9 +6,14 @@ export enum CommonsStrings {
   LOADER_TEXT = 'Cargando Datos',
   CANCEL = 'Cancel',
   ACCEPT = 'Aceptar',
-  SLASH ="/" ,
-  MIME_TYPE_PNG ="image/png",
-  MIME_TYPE_JPG ="image/jpeg",
-  REGEX_VERSION ="^[1-9]\\d*(\\.[1-9]\\d*)*$",
-  EMPTY_STRING=""
+  SLASH = '/',
+  MIME_TYPE_PNG = 'image/png',
+  MIME_TYPE_JPG = 'image/jpeg',
+  REGEX_VERSION = '^[1-9]\\d*(\\.[1-9]\\d*)*$',
+  EMPTY_STRING = ''
+}
+
+export enum CommonsUI {
+  BUTTON_MIN_W = 60,
+  BUTTON_MIN_H = 40
 }
