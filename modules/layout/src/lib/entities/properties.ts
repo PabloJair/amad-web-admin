@@ -7,13 +7,20 @@ export interface Properties {
   },
   background?: string
   text?: string
+  textAlignment?: 'TS' | 'TC' | 'TE' | 'MS' | 'MC' | 'ME' | 'ES' | 'EC' | 'EE',
   margin?: {
     top?: number,
     bottom?: number,
     left?: number,
     right?: number
   },
-  cornerRadius?: number,
+  position: {
+    x: number,
+    y: number
+  }
+  urlImage?: string
+  base64Image?: string
+  cornerRadius: number,
   fontSize?: number,
   alignment?: 'left' | 'center' | 'right'
   colorText?: string,

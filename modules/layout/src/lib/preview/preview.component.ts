@@ -31,7 +31,8 @@ import { ToolboxComponent } from '../toolbox/toolbox.component';
 import { PropertiesComponent } from '../properties/properties.component';
 import { PreviewMobileComponent } from '../preview-mobile/preview-mobile.component';
 import { CdkDropListGroup } from '@angular/cdk/drag-drop';
-import { ComponentEntity, defaultComponentEntity, TypeComponent } from '../entities/component-entity';
+import { ComponentEntity, TypeComponent } from '../entities/component-entity';
+import { defaultComponentEntity } from '../entities/compontents-utils';
 
 @Component({
   standalone: true,
@@ -95,13 +96,15 @@ export class PreviewComponent {
   }
 
   onSelectedComponent($event: ComponentEntity) {
+    this.showProperties = true;
+    this.selectedComponent.set($event);
 
-    if (this.showProperties) {
-      this.showProperties = false;
-    } else {
-      this.showProperties = true;
-      this.selectedComponent.set($event);
-    }
+  }
+
+  onDelete($event: string) {
+    this.previewMobileComponent?.deleteComponent($event);
+    this.showProperties = false;
+    this.selectedComponent.set(defaultComponentEntity);
 
   }
 }

@@ -5,22 +5,17 @@
 >
 
   <div
-    coreResizable
-    [minHeight]="CommonsUI.BUTTON_MIN_H"
-    [minWidth]="CommonsUI.BUTTON_MIN_W"
-    (onFinishResize)="onFinishResized($event)"
-    (onResize)="onResize($event)"
     [ngStyle]="{
         'fontSize.px': component().properties.fontSize,
-        'background-color':component().properties.background ?? 'gray',
+        'background-color':component().properties.background ?? 'white',
         'color': component().properties.colorText,
         'width.px':component().properties.size?.width ,
         'height.px':component().properties.size?.height ,
         'border-radius.px':component().properties?.cornerRadius ??0
         }"
-    class="flex w-full h-full"
+    class="flex w-auto h-auto "
     [ngClass]="getAlignmentText(component().properties.textAlignment)"
 
-  ><span class="w-fit h-fit">{{ component().properties.text ?? 'Botón' }}</span>
+  ><span class="w-auto h-auto text">{{ component().properties.text ?? 'Texto' }}</span>
   </div>
 </lib-layout-drag>

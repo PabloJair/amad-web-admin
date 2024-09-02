@@ -1,120 +1,222 @@
-<mat-accordion class="w-96">
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title> General</mat-panel-title>
-      <mat-panel-description>
-        Definiciones Generales
-        <mat-icon>date_range</mat-icon>
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-    <div class="flex flex-row gap-4">
-      <mat-form-field appearance="outline">
-        <mat-label>Texto</mat-label>
-        <input type="text" matInput (keyup)="changeText($event)">
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Tamaño de texto</mat-label>
-        <input type="number" matInput (keyup)="changeFonSize($event)">
-
-      </mat-form-field>
+<div class="h-full w-full border stroke-gray-600 p-5">
+  @if (showProperties()) {
+    <div class="flex mb-5">
+       <span class="text-gray-400 text-xs"> ID:  {{ componentEntity().UUID }}
+         Tipo({{ getViewNameTypeComponent(componentEntity()) }}) <mat-icon></mat-icon></span>
+      <button mat-mini-fab aria-label="delete" color="warming" (click)="delete.emit(componentEntity().UUID)">
+        <mat-icon>delete</mat-icon>
+      </button>
     </div>
 
-  </mat-expansion-panel>
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title> Colores</mat-panel-title>
-      <mat-panel-description>
-        Definición de colores
-        <mat-icon>palette</mat-icon>
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-    <div class="flex flex-row gap-4">
-      <mat-form-field appearance="outline">
-        <mat-label>Color de fondo</mat-label>
-        <input type="color" matInput (keyup)="changeBackground($event)">
-      </mat-form-field>
+    <mat-accordion>
+      @if (componentEntity().type !== TypeComponent.IMAGE) {
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title> General</mat-panel-title>
+            <mat-panel-description>
+              Definiciones Generales
+              <mat-icon>date_range</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div class="flex flex-row gap-4">
+            <mat-form-field appearance="outline">
 
-      <mat-form-field appearance="outline">
-        <mat-label>Color de texto</mat-label>
-        <input type="color" matInput (keyup)="changeColor($event)">
-      </mat-form-field>
-    </div>
-  </mat-expansion-panel>
+              <mat-label>Texto</mat-label>
+              @if (componentEntity().type === TypeComponent.TEXT) {
+                <textarea matInput
+                          (keyup)="changeText($event)"
+                          cdkTextareaAutosize
+                          cdkAutosizeMinRows="1"
+                          cdkAutosizeMaxRows="5"></textarea>
+              } @else {
+                <input type="text" matInput (keyup)="changeText($event)">
+              }
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Tamaño de texto</mat-label>
+              <input type="number" matInput (keyup)="changeFonSize($event)">
+
+            </mat-form-field>
+          </div>
+
+          @if (componentEntity().type === TypeComponent.BUTTON ||
+          componentEntity().type === TypeComponent.IMAGE_BUTTON) {
 
 
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title> Margen y tamaño</mat-panel-title>
-      <mat-panel-description>
-        Definición de margen y tamaño
-        <mat-icon>photo_size_select_small</mat-icon>
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-    <span>Tamaño</span>
-    <div class="grid grid-cols-2  gap-3">
-      <mat-form-field appearance="outline">
-        <mat-label>Ancho</mat-label>
-        <input type="number" matInput
-               (keyup)="changeWidth($event)"
-               [value]="componentEntity().properties.size.width">
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Largo</mat-label>
-        <input type="number" matInput
-               [value]="componentEntity().properties.size.height"
-               (keyup)="changeHeight($event)">
-      </mat-form-field>
+            <mat-slider min="0" max="20" showTickMarks discrete>
+              <input matSliderThumb (valueChange)="changeCornerRadius($event)">
+            </mat-slider>
+          }
+          <section>
+            <span>Alineación del texto</span>
+            <mat-radio-group class=" grid grid-cols-5 grid-rows-5  justify-items-center"
+                             (change)="changeTextAlignment($event)">
+              <mat-radio-button value="TS">
+              </mat-radio-button>
+              <mat-radio-button value="TC">
+              </mat-radio-button>
+              <mat-radio-button value="TE">
+              </mat-radio-button>
+              <mat-radio-button value="MS" class="row-start-2">
+              </mat-radio-button>
+              <mat-radio-button value="MC" class="row-start-2">
+              </mat-radio-button>
+              <mat-radio-button value="ME" class="row-start-2">
+              </mat-radio-button>
+              <mat-radio-button value="EE" class="col-start-3 row-start-3">
+              </mat-radio-button>
+              <mat-radio-button value="EC" class="col-start-2 row-start-3">
+              </mat-radio-button>
+              <mat-radio-button value="ES" class="col-start-1 row-start-3">
+              </mat-radio-button>
 
-    </div>
+            </mat-radio-group>
+          </section>
+        </mat-expansion-panel>
+      } @else {
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title> Carga de imagen</mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-panel-description>
+            <file-upload
+              [multiple]="false" [animation]="true"
+              [control]="fileUploadControl"
+              class="w-full file-uploader">
 
-    <mat-divider></mat-divider>
-  </mat-expansion-panel>
+              <ng-template let-isFileDragDropAvailable="isFileDragDropAvailable" #placeholder>
+                <file-upload-drop-zone>
+                  @if (isFileDragDropAvailable) {
+                    <b>Drag & Drop</b><br> para subir un archivo
+                  } @else {
+                    <b>clickea aqui</b><br> para subir un archivo
+                  }
+                </file-upload-drop-zone>
+              </ng-template>
 
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title> Acciones</mat-panel-title>
-    </mat-expansion-panel-header>
+              <ng-template let-i="index" let-file="file" let-control="control" #item>
+                <file-upload-list-item [index]="i" [file]="file" [control]="control">Eliminar</file-upload-list-item>
+              </ng-template>
+            </file-upload>
 
-    <div class="flex flex-row justify-center content-center">
-      <mat-checkbox #url>
-      </mat-checkbox>
-      <mat-form-field appearance="outline" class="w-full">
-        <mat-label>Abrir url</mat-label>
-        <input type="url" matInput (keyup)="changeText($event)" [disabled]="!url.checked">
-      </mat-form-field>
-    </div>
+          </mat-panel-description>
 
-    <div class="flex flex-row justify-center content-center">
-      <mat-checkbox #section>
-      </mat-checkbox>
-      <mat-form-field appearance="outline" class="w-full">
-        <mat-label>Abrir Sección</mat-label>
-        <input type="text" matInput (keyup)="changeText($event)" [disabled]="!section.checked">
-      </mat-form-field>
-    </div>
-
-    <div class="flex flex-row justify-center content-center">
-      <mat-checkbox #call>
-      </mat-checkbox>
-      <mat-form-field appearance="outline" class="w-full">
-        <mat-label>LLamar a</mat-label>
-        <input type="number" matInput (keyup)="changeText($event)" [disabled]="!call.checked">
-      </mat-form-field>
-    </div>
-
-    <div class="flex flex-col justify-center content-center">
-      <mat-divider></mat-divider>
-      <span>Horario</span>
-      @for (itemTimeScheduled of componentEntity().actions?.showBySchedule ?? []; track itemTimeScheduled) {
-        <p>
-          {{ itemTimeScheduled.show ? "Mostrar" : "No Mostrar" }}
-          De {{ getDayForNumber(itemTimeScheduled.dayStart) }} a {{ getDayForNumber(itemTimeScheduled.dayEnd) }}
-          , {{ itemTimeScheduled.hourStart }} a las {{ itemTimeScheduled.hourEnd }}
-        </p>
+        </mat-expansion-panel>
       }
-      <button mat-button (click)="openDialogDate()"> Agregar</button>
 
-    </div>
 
-  </mat-expansion-panel>
-</mat-accordion>
+      @if (componentEntity().type !== TypeComponent.IMAGE) {
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title> Colores</mat-panel-title>
+            <mat-panel-description>
+              Definición de colores
+              <mat-icon>palette</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div class="flex flex-row gap-4">
+            <mat-form-field appearance="outline">
+              <mat-label>Color de fondo</mat-label>
+              <input type="color" matInput (input)="changeBackground($event)">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Color de texto</mat-label>
+              <input type="color" matInput (input)="changeColor($event)">
+            </mat-form-field>
+
+          </div>
+        </mat-expansion-panel>
+      }
+
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title> Margen y tamaño</mat-panel-title>
+          <mat-panel-description>
+            Definición de margen y tamaño
+            <mat-icon>photo_size_select_small</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <span>Tamaño</span>
+        <div class="grid grid-cols-2  gap-3">
+          <mat-form-field appearance="outline">
+            <mat-label>Ancho</mat-label>
+            <input type="number" matInput
+                   (keyup)="changeWidth($event)"
+                   [value]="componentEntity().properties.size.width">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Largo</mat-label>
+            <input type="number" matInput
+                   [value]="componentEntity().properties.size.height"
+                   (keyup)="changeHeight($event)">
+          </mat-form-field>
+
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <span>Posición</span>
+
+        <p>X:{{ componentEntity().properties.position.x }}, Y:{{ componentEntity().properties.position.y }}</p>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title> Acciones</mat-panel-title>
+        </mat-expansion-panel-header>
+
+        @if (componentEntity().type === TypeComponent.BUTTON || componentEntity().type === TypeComponent.IMAGE_BUTTON) {
+          <section>
+            <div class="flex flex-row justify-center content-center">
+              <mat-checkbox #url>
+              </mat-checkbox>
+              <mat-form-field appearance="outline" class="w-full">
+                <mat-label>Abrir url</mat-label>
+                <input type="url" matInput (keyup)="changeText($event)" [disabled]="!url.checked">
+              </mat-form-field>
+            </div>
+
+            <div class="flex flex-row justify-center content-center">
+              <mat-checkbox #section>
+              </mat-checkbox>
+              <mat-form-field appearance="outline" class="w-full">
+                <mat-label>Abrir Sección</mat-label>
+                <input type="text" matInput (keyup)="changeText($event)" [disabled]="!section.checked">
+              </mat-form-field>
+            </div>
+
+            <div class="flex flex-row justify-center content-center">
+              <mat-checkbox #call>
+              </mat-checkbox>
+              <mat-form-field appearance="outline" class="w-full">
+                <mat-label>LLamar a</mat-label>
+                <input type="number" matInput (keyup)="changeText($event)" [disabled]="!call.checked">
+              </mat-form-field>
+            </div>
+          </section>
+
+        }
+
+
+        <div class="flex flex-col justify-center content-center">
+          <mat-divider></mat-divider>
+          <span>Horario</span>
+          @for (itemTimeScheduled of componentEntity().actions?.showBySchedule ?? []; track itemTimeScheduled) {
+            <p>
+              {{ itemTimeScheduled.show ? "Mostrar" : "No Mostrar" }}
+              De {{ getDayForNumber(itemTimeScheduled.dayStart) }} a {{ getDayForNumber(itemTimeScheduled.dayEnd) }}
+              , {{ itemTimeScheduled.hourStart }} a las {{ itemTimeScheduled.hourEnd }}
+            </p>
+          }
+          <button mat-button (click)="openDialogDate()"> Agregar</button>
+
+        </div>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+
+  } @else {
+    <span class="text-xl">Selecciona un elemento</span>
+  }
+</div>

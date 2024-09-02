@@ -6,8 +6,8 @@
 
   <div
     coreResizable
-    [minHeight]="CommonsUI.BUTTON_MIN_H"
-    [minWidth]="CommonsUI.BUTTON_MIN_W"
+    [minHeight]="CommonsUI.BUTTON_IMAGE_MIN_H"
+    [minWidth]="CommonsUI.BUTTON_IMAGE_MIN_W"
     (onFinishResize)="onFinishResized($event)"
     (onResize)="onResize($event)"
     [ngStyle]="{
@@ -21,6 +21,18 @@
     class="flex w-full h-full"
     [ngClass]="getAlignmentText(component().properties.textAlignment)"
 
-  ><span class="w-fit h-fit">{{ component().properties.text ?? 'Botón' }}</span>
+  >
+    <div class="flex flex-row ">
+      <section class="flex flex-row justify-center items-center gap-4">
+
+        <span class="w-fit h-fit">{{ component().properties.text ?? 'Imagen-Boton' }}</span>
+        <img [src]="component().properties.base64Image??'img.png'"
+             alt="image" class="h-5 w-5"
+        >
+      </section>
+
+
+    </div>
+
   </div>
 </lib-layout-drag>

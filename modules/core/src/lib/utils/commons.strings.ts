@@ -15,5 +15,9 @@ export enum CommonsStrings {
 
 export enum CommonsUI {
   BUTTON_MIN_W = 60,
-  BUTTON_MIN_H = 40
+  BUTTON_MIN_H = 40,
+  IMAGE_MIN_W = 200,
+  IMAGE_MIN_H = 100,
+  BUTTON_IMAGE_MIN_W = 120,
+  BUTTON_IMAGE_MIN_H = 50,
 }

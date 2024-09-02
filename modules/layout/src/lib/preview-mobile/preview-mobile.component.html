@@ -1,26 +1,37 @@
 <div
-  class="bg-white h-full example-boundary"
+  class="bg-white h-full boundary"
 >
 
   @for (item of componentEntitiesAdd; track item) {
     @switch (item.type) {
       @case (TypeComponent.BUTTON) {
         <lib-app-button
-          cdkDragBoundaryName=".example-boundary"
+          cdkDragBoundaryName=".boundary"
           (click)="showProperties(item)"
           [component]="item"
         ></lib-app-button>
       }
       @case (TypeComponent.TEXT) {
-        <div class="w-full h-auto cursor-pointer border border-slate-500" cdkDrag (click)="showProperties(item)">
-          <span>{{ item.properties.text ?? "Texto" }}</span>
-        </div>
+        <lib-text
+          cdkDragBoundaryName=".boundary"
+
+          (click)="showProperties(item)"
+          [component]="item"
+        ></lib-text>
       }
       @case (TypeComponent.IMAGE) {
-        <div class="w-full h-auto cursor-pointer border border-slate-500" cdkDrag (click)="showProperties(item)">
-          <img ngSrc="img.png" width="50" height="100" alt="image">
-
-        </div>
+        <lib-image
+          cdkDragBoundaryName=".boundary"
+          (click)="showProperties(item)"
+          [component]="item"
+        ></lib-image>
+      }
+      @case (TypeComponent.IMAGE_BUTTON) {
+        <lib-button-image
+          cdkDragBoundaryName=".boundary"
+          (click)="showProperties(item)"
+          [component]="item"
+        ></lib-button-image>
       }
       @case (TypeComponent.CARROUSEL) {
 

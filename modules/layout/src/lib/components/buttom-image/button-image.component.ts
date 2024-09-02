@@ -1,21 +1,18 @@
 import { Component, computed, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatButton } from '@angular/material/button';
-import { ComponentEntity } from '../../entities/component-entity';
-import { CommonsUI, ResizableDirective } from '@amad-web-admin/modules/core';
-import { CdkDrag } from '@angular/cdk/drag-drop';
 import { LayoutDragComponent } from '../layout-drag/layout-drag.component';
+import { ComponentEntity } from '../../entities/component-entity';
 import { defaultComponentEntity, getAlignmentText } from '../../entities/compontents-utils';
+import { CommonsUI, ResizableDirective } from '@amad-web-admin/modules/core';
 
 @Component({
-  selector: 'lib-app-button',
+  selector: 'lib-button-image',
   standalone: true,
-  imports: [CommonModule, MatButton, ResizableDirective, CdkDrag, LayoutDragComponent],
-  templateUrl: './button.component.html',
-  styleUrl: './button.component.scss'
+  imports: [CommonModule, LayoutDragComponent, ResizableDirective],
+  templateUrl: './button-image.component.html',
+  styleUrl: './button-image.component.scss'
 })
-export class ButtonComponent {
-
+export class ButtonImageComponent {
   cdkDragBoundaryName = input<string>('');
 
   component = input<ComponentEntity>(defaultComponentEntity);
@@ -44,4 +41,3 @@ export class ButtonComponent {
 
   protected readonly getAlignmentText = getAlignmentText;
 }
-

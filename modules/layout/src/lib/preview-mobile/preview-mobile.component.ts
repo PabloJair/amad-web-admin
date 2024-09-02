@@ -2,45 +2,41 @@ import { Component, output } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import {
   CdkDrag,
-  CdkDragDrop,
-  CdkDropList,
-  copyArrayItem,
-  moveItemInArray
+  CdkDropList
 } from '@angular/cdk/drag-drop';
 import { ComponentEntity, TypeComponent } from '../entities/component-entity';
 import { MatButton } from '@angular/material/button';
 import { ButtonComponent } from '../components/button/button.component';
-import { v4 as uuidv4 } from 'uuid';
+import { createComponent } from '../entities/compontents-utils';
+import { TextComponent } from '../components/text/text.component';
+import { ImageComponent } from '../components/image/image.component';
+import { ButtonImageComponent } from '../components/buttom-image/button-image.component';
 
 @Component({
   selector: 'lib-preview-mobile',
   standalone: true,
-  imports: [CommonModule, CdkDrag, NgOptimizedImage, CdkDropList, MatButton, ButtonComponent],
+  imports: [CommonModule, CdkDrag, NgOptimizedImage, CdkDropList, MatButton, ButtonComponent, TextComponent, ImageComponent, ButtonImageComponent],
   templateUrl: './preview-mobile.component.html',
   styleUrl: './preview-mobile.component.scss'
 })
 export class PreviewMobileComponent {
   componentEntitiesAdd: ComponentEntity[] = [];
-
   onSelectedComponent = output<ComponentEntity>();
 
   public addNewComponent(typeComponent: TypeComponent): void {
-    this.componentEntitiesAdd.push(
-      {
-        type: typeComponent,
-        properties: {
-          size: {
-            width: 60,
-            height: 20
-          }
-        },
-        UUID: uuidv4()
-      }
-    );
+    const newComponent = createComponent(typeComponent);
+    const clonedComponent = { ...newComponent };
 
+    this.componentEntitiesAdd.push(clonedComponent);
+    console.log(clonedComponent);
     console.log(this.componentEntitiesAdd);
+
   }
 
+  public deleteComponent(uuid: string): void {
+    this.componentEntitiesAdd = this.componentEntitiesAdd.filter(value => value.UUID !== uuid);
+
+  }
 
   protected readonly TypeComponent = TypeComponent;
 
