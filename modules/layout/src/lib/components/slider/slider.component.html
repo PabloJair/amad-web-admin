@@ -1,0 +1,22 @@
+<div class="carousel">
+  @for (item of slides(); track item; let i = $index) {
+    <ng-container>
+      @if (i === currentSlide) {
+        <img
+          [src]="item.src"
+          class="slide"
+        />
+      }
+
+    </ng-container>
+  }
+
+
+  <!-- controls -->
+  <button class="control prev" (click)="onPreviousClick()">
+    <span class="arrow left"></span>
+  </button>
+  <button class="control next" (click)="onNextClick()">
+    <span class="arrow right"></span>
+  </button>
+</div>

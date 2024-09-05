@@ -1,0 +1,67 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title> General</mat-panel-title>
+    <mat-panel-description>
+      Definiciones Generales
+      <mat-icon>date_range</mat-icon>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <ng-template matExpansionPanelContent>
+
+    <div class="flex flex-row gap-4">
+      <mat-form-field appearance="outline">
+
+        <mat-label>Texto</mat-label>
+        @if (componentEntity().type === TypeComponent.TEXT) {
+          <textarea matInput
+                    (keyup)="changeText($event)"
+                    cdkTextareaAutosize
+                    cdkAutosizeMinRows="1"
+                    cdkAutosizeMaxRows="5"></textarea>
+        } @else {
+          <input type="text" matInput (keyup)="changeText($event)">
+        }
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Tamaño de texto</mat-label>
+        <input type="number" matInput (keyup)="changeFonSize($event)">
+
+      </mat-form-field>
+    </div>
+
+    @if (componentEntity().type === TypeComponent.BUTTON ||
+    componentEntity().type === TypeComponent.IMAGE_BUTTON) {
+
+
+      <mat-slider min="0" max="20" showTickMarks discrete>
+        <input matSliderThumb (valueChange)="changeCornerRadius($event)">
+      </mat-slider>
+    }
+    <section>
+      <span>Alineación del texto</span>
+      <mat-radio-group class=" grid grid-cols-5 grid-rows-5  justify-items-center"
+                       (change)="changeTextAlignment($event)">
+        <mat-radio-button value="TS">
+        </mat-radio-button>
+        <mat-radio-button value="TC">
+        </mat-radio-button>
+        <mat-radio-button value="TE">
+        </mat-radio-button>
+        <mat-radio-button value="MS" class="row-start-2">
+        </mat-radio-button>
+        <mat-radio-button value="MC" class="row-start-2">
+        </mat-radio-button>
+        <mat-radio-button value="ME" class="row-start-2">
+        </mat-radio-button>
+        <mat-radio-button value="EE" class="col-start-3 row-start-3">
+        </mat-radio-button>
+        <mat-radio-button value="EC" class="col-start-2 row-start-3">
+        </mat-radio-button>
+        <mat-radio-button value="ES" class="col-start-1 row-start-3">
+        </mat-radio-button>
+
+      </mat-radio-group>
+    </section>
+  </ng-template>
+
+</mat-expansion-panel>

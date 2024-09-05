@@ -1,0 +1,53 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title> Acciones</mat-panel-title>
+  </mat-expansion-panel-header>
+
+  @if (componentEntity().type === TypeComponent.BUTTON || componentEntity().type === TypeComponent.IMAGE_BUTTON) {
+    <section>
+      <div class="flex flex-row justify-center content-center">
+        <mat-checkbox #url>
+        </mat-checkbox>
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Abrir url</mat-label>
+          <input type="url" matInput [disabled]="!url.checked">
+        </mat-form-field>
+      </div>
+
+      <div class="flex flex-row justify-center content-center">
+        <mat-checkbox #section>
+        </mat-checkbox>
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Abrir Sección</mat-label>
+          <input type="text" matInput [disabled]="!section.checked">
+        </mat-form-field>
+      </div>
+
+      <div class="flex flex-row justify-center content-center">
+        <mat-checkbox #call>
+        </mat-checkbox>
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>LLamar a</mat-label>
+          <input type="number" matInput [disabled]="!call.checked">
+        </mat-form-field>
+      </div>
+    </section>
+
+  }
+
+
+  <div class="flex flex-col justify-center content-center">
+    <mat-divider></mat-divider>
+    <span>Horario</span>
+    @for (itemTimeScheduled of componentEntity().actions?.showBySchedule ?? []; track itemTimeScheduled) {
+      <p>
+        {{ itemTimeScheduled.show ? "Mostrar" : "No Mostrar" }}
+        De {{ getDayForNumber(itemTimeScheduled.dayStart) }} a {{ getDayForNumber(itemTimeScheduled.dayEnd) }}
+        , {{ itemTimeScheduled.hourStart }} a las {{ itemTimeScheduled.hourEnd }}
+      </p>
+    }
+    <button mat-button (click)="openDialogDate()"> Agregar</button>
+
+  </div>
+
+</mat-expansion-panel>

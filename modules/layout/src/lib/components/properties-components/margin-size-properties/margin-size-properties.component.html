@@ -1,0 +1,31 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title> Margen y tamaño</mat-panel-title>
+    <mat-panel-description>
+      Definición de margen y tamaño
+      <mat-icon>photo_size_select_small</mat-icon>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <span>Tamaño</span>
+  <div class="grid grid-cols-2  gap-3">
+    <mat-form-field appearance="outline">
+      <mat-label>Ancho</mat-label>
+      <input type="number" matInput
+             (keyup)="changeWidth($event)"
+             [value]="componentEntity().properties.size.width">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Largo</mat-label>
+      <input type="number" matInput
+             [value]="componentEntity().properties.size.height"
+             (keyup)="changeHeight($event)">
+    </mat-form-field>
+
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <span>Posición</span>
+
+  <p>X:{{ componentEntity().properties.position.x }}, Y:{{ componentEntity().properties.position.y }}</p>
+</mat-expansion-panel>

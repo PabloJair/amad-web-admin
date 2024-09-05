@@ -1,0 +1,21 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title> Colores</mat-panel-title>
+    <mat-panel-description>
+      Definición de colores
+      <mat-icon>palette</mat-icon>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <div class="flex flex-row gap-4">
+    <mat-form-field appearance="outline">
+      <mat-label>Color de fondo</mat-label>
+      <input type="color" matInput (input)="changeBackground($event)">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Color de texto</mat-label>
+      <input type="color" matInput (input)="changeColor($event)">
+    </mat-form-field>
+
+  </div>
+</mat-expansion-panel>

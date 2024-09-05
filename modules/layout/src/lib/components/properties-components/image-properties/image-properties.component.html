@@ -1,0 +1,28 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title> Carga de imagen</mat-panel-title>
+  </mat-expansion-panel-header>
+  <mat-panel-description>
+    <file-upload
+      [multiple]="false" [animation]="true"
+      [control]="fileUploadControl"
+      class="w-full file-uploader">
+
+      <ng-template let-isFileDragDropAvailable="isFileDragDropAvailable" #placeholder>
+        <file-upload-drop-zone>
+          @if (isFileDragDropAvailable) {
+            <b>Drag & Drop</b><br> para subir un archivo
+          } @else {
+            <b>clickea aqui</b><br> para subir un archivo
+          }
+        </file-upload-drop-zone>
+      </ng-template>
+
+      <ng-template let-i="index" let-file="file" let-control="control" #item>
+        <file-upload-list-item [index]="i" [file]="file" [control]="control">Eliminar</file-upload-list-item>
+      </ng-template>
+    </file-upload>
+
+  </mat-panel-description>
+
+</mat-expansion-panel>
