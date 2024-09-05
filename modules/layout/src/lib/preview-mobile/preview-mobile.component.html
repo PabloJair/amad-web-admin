@@ -1,5 +1,5 @@
 <div
-  class="bg-white h-full boundary"
+  class="bg-white h-full min-h-max  max-w-2xl boundary overflow-y-scroll"
 >
 
   @for (item of componentEntitiesAdd; track item) {
@@ -34,7 +34,11 @@
         ></lib-button-image>
       }
       @case (TypeComponent.CARROUSEL) {
-
+        <lib-carousel
+          cdkDragBoundaryName=".boundary"
+          (click)="showProperties(item)"
+          [component]="item"
+        ></lib-carousel>
       }
     }
 

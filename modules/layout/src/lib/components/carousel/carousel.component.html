@@ -1,1 +1,22 @@
-<p>carousel works!</p>
+<lib-layout-drag
+  [cdkDragBoundaryName]="cdkDragBoundaryName()"
+  [isDragging]="isDragging"
+  (changePosition)="changePosition($event)"
+>
+  <div
+    class="flex w-full h-full bg-green-400 p-1"
+    coreResizable
+    [ngStyle]="{
+        'fontSize.px': component().properties.fontSize,
+        'background-color':component().properties.background ?? 'gray',
+        'color': component().properties.colorText,
+        'width.px':component().properties.size.width ,
+        'height.px':component().properties.size.height ,
+        }"
+    (onFinishResize)="onFinishResized($event)"
+    (onResize)="onResize($event)"
+  >
+    <lib-slider [slides]="component().properties.itemCarousel ?? []"></lib-slider>
+  </div>
+
+</lib-layout-drag>

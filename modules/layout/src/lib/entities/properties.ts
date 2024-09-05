@@ -28,4 +28,11 @@ export interface Properties {
     start?: string,
     end?: string,
   }
+  itemCarousel?: ItemCarousel[]
+}
+
+export interface ItemCarousel {
+  src: string,
+  title: string
+  id: string
 }

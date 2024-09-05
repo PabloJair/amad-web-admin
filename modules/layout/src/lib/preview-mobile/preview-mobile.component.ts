@@ -11,11 +11,12 @@ import { createComponent } from '../entities/compontents-utils';
 import { TextComponent } from '../components/text/text.component';
 import { ImageComponent } from '../components/image/image.component';
 import { ButtonImageComponent } from '../components/buttom-image/button-image.component';
+import { CarouselComponent } from '../components/carousel/carousel.component';
 
 @Component({
   selector: 'lib-preview-mobile',
   standalone: true,
-  imports: [CommonModule, CdkDrag, NgOptimizedImage, CdkDropList, MatButton, ButtonComponent, TextComponent, ImageComponent, ButtonImageComponent],
+  imports: [CommonModule, CdkDrag, NgOptimizedImage, CdkDropList, MatButton, ButtonComponent, TextComponent, ImageComponent, ButtonImageComponent, CarouselComponent],
   templateUrl: './preview-mobile.component.html',
   styleUrl: './preview-mobile.component.scss'
 })

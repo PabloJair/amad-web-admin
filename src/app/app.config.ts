@@ -1,12 +1,12 @@
 import {
   ApplicationConfig,
   importProvidersFrom,
-  isDevMode,
+  isDevMode
 } from '@angular/core';
 import {
   provideRouter,
   withEnabledBlockingInitialNavigation,
-  withHashLocation,
+  withHashLocation
 } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -16,20 +16,21 @@ import {
   ApplicationNavigate,
   AuthenticationInformationService,
   HeadersInterceptor,
-  UrlInterceptor,
+  UrlInterceptor
 } from '@amad-web-admin/modules/core';
 import { provideStore } from '@ngrx/store';
 import { metaReducers } from '@amad-web-admin/modules/core';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import * as fromApplication from '@amad-web-admin/modules/core';
-import { provideAnimations } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     {
       provide: 'BASE_API_URL',
-      useValue: environment.apiUrl,
+      useValue: environment.apiUrl
     },
+    BrowserAnimationsModule,
     provideAnimations(),
     { provide: HTTP_INTERCEPTORS, useClass: UrlInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: HeadersInterceptor, multi: true },
@@ -37,10 +38,10 @@ export const appConfig: ApplicationConfig = {
     provideRouter(
       appRoutes,
       withHashLocation(),
-      withEnabledBlockingInitialNavigation(),
+      withEnabledBlockingInitialNavigation()
     ),
     provideStore(fromApplication.appStoreReducer, {
-      metaReducers: metaReducers,
+      metaReducers: metaReducers
     }),
 
     provideStoreDevtools({
@@ -48,10 +49,10 @@ export const appConfig: ApplicationConfig = {
       logOnly: !isDevMode(),
       autoPause: true,
       trace: true,
-      traceLimit: 75, // maximum stack trace frames to be stored (in case trace option was provided as true)
+      traceLimit: 75 // maximum stack trace frames to be stored (in case trace option was provided as true)
     }),
     provideAnimationsAsync(),
     AuthenticationInformationService,
-    ApplicationNavigate,
-  ],
+    ApplicationNavigate
+  ]
 };

@@ -1,6 +1,7 @@
 import { ComponentEntity, TypeComponent } from './component-entity';
 import { CommonsUI } from '@amad-web-admin/modules/core';
 import { v4 as uuidv4 } from 'uuid';
+import { computed, InputSignal } from '@angular/core';
 
 
 export const buttonComponent: ComponentEntity = {
@@ -91,10 +92,11 @@ export const carouselComponent: ComponentEntity = {
       y: 0
     },
     size: {
-      width: 60,
-      height: 20
+      width: CommonsUI.CAROUSEL_MIN_W,
+      height: CommonsUI.CAROUSEL_MIN_H
     },
-    cornerRadius: 0
+    cornerRadius: 0,
+    itemCarousel: []
   },
   UUID: ''
 };
@@ -215,4 +217,15 @@ export function getAlignmentText(typeAlignment?: 'TS' | 'TC' | 'TE' | 'MS' | 'MC
   };
 
   return viewNameMap[alignmentText] ?? 'Unknown Component Type';
+}
+
+
+export function updateProperty(name: string, value: any, componentEntity: InputSignal<ComponentEntity>) {
+
+  const newComponent = computed(() => componentEntity());
+  newComponent().properties = ({
+    ...newComponent().properties,
+    [name]: value
+  });
+  return newComponent;
 }

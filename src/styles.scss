@@ -1,5 +1,6 @@
 @use '@angular/material' as mat;
 @use "m3-theme" as mat3-theme;
+
 @include mat.core();
 
 @tailwind base;
@@ -17,24 +18,24 @@
 
 
 $amad-web-admin-theme: mat.define-theme(
-  (
-    color: (
-      theme-type: light,
-            primary: mat.$azure-palette,
-            tertiary: mat.$blue-palette,
-    ), density: (
-          scale: -2
-  ),
-
-          typography: (
-                  use-system-variables: true,
-          ),
-  )
+                (
+                        color: (
+                                theme-type: light,
+                                primary: mat.$azure-palette,
+                                tertiary: mat.$blue-palette,
+                        ), density: (
+                        scale: -2
+                ),
+                        typography: (
+                                use-system-variables: true,
+                        ),
+                )
 );
 .mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field,
 .mdc-notched-outline__notch {
   border-right-style: hidden;
 }
+
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
@@ -63,14 +64,17 @@ $amad-web-admin-theme: mat.define-theme(
         color: var(--blackColor);
       }
     }
+
     &:hover {
       color: var(--daxaColor);
     }
   }
+
   .file-info {
     margin-bottom: 3px;
     color: var(--blackColor);
   }
+
   .remove-btn {
     color: var(--bodyColor);
 
@@ -81,13 +85,15 @@ $amad-web-admin-theme: mat.define-theme(
   }
 
 }
-.file-uploader{
+
+.file-uploader {
   border-radius: 0 !important;
 
   * {
     border-radius: 0 !important;
   }
 }
+
 // Comment out the line below if you want to use the pre-defined typography utility classes.
 // For more information: https://material.angular.io/guide/typography#using-typography-styles-in-your-application.
 // @include mat.typography-hierarchy($amad-web-admin-theme);
@@ -98,13 +104,16 @@ $amad-web-admin-theme: mat.define-theme(
 .warning-button-color {
   @include mat.button-color($amad-web-admin-theme, $color-variant: tertiary);
 }
+
 .cancel-button-color {
   @include mat.button-color($amad-web-admin-theme, $color-variant: error);
 }
+
 html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
