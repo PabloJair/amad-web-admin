@@ -1,6 +1,6 @@
 <div class="grid grid-cols-3 gap-4">
   @for (item of items; track item) {
-    <mat-card class="hover:cursor-pointer h-24 bg-white" matRipple>
+    <mat-card class="hover:cursor-pointer h-24 bg-white" matRipple (click)="goTo(item)">
       <mat-card-header>
         <mat-card-title-group>
           <mat-card-title class="text-red-600">{{ item.title }}</mat-card-title>

@@ -1,16 +1,32 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BreadcrumbComponent, BreadcrumbItem, DialogService } from '@amad-web-admin/modules/ui-elements';
+import {
+  BreadcrumbComponent,
+  BreadcrumbItem,
+  DialogService,
+} from '@amad-web-admin/modules/ui-elements';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAnchor, MatIconButton } from '@angular/material/button';
-import { MatCard, MatCardContent, MatCardHeader, MatCardSubtitle, MatCardTitle } from '@angular/material/card';
+import {
+  MatCard,
+  MatCardContent,
+  MatCardHeader,
+  MatCardSubtitle,
+  MatCardTitle,
+} from '@angular/material/card';
 import {
   MatCell,
   MatCellDef,
   MatColumnDef,
-  MatHeaderCell, MatHeaderCellDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
   MatHeaderRow,
-  MatHeaderRowDef, MatNoDataRow, MatRow, MatRowDef, MatTable, MatTableDataSource
+  MatHeaderRowDef,
+  MatNoDataRow,
+  MatRow,
+  MatRowDef,
+  MatTable,
+  MatTableDataSource,
 } from '@angular/material/table';
 import { MatChipListbox, MatChipOption } from '@angular/material/chips';
 import { MatFormField } from '@angular/material/form-field';
@@ -19,33 +35,76 @@ import { MatInput } from '@angular/material/input';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTooltip } from '@angular/material/tooltip';
 import { RouterLink } from '@angular/router';
-import { CommonsStrings, defaultEmptyOrNull, NavigationRoutes } from '@amad-web-admin/modules/core';
+import {
+  CommonsStrings,
+  defaultEmptyOrNull,
+  NavigationRoutes,
+} from '@amad-web-admin/modules/core';
 import { CompanyItem, ProjectStatus } from '@amad-web-admin/modules/network';
 import { Subscription } from 'rxjs';
 import { ProjectsFacade } from '../+state/projects.facade';
 import { AutoUnsubscribe } from '@amad-web-admin/modules/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { ProjectViewComponent } from '../project-view/project-view.component';
-import { BadgeGreenComponent } from '../../../../ui-elements/src/lib/badges/badge-green/badge-green.component';
-import { BadgeRedComponent } from '../../../../ui-elements/src/lib/badges/badge-red/badge-red.component';
+import { BadgeGreenComponent } from '@amad-web-admin/modules/ui-elements';
+import { BadgeRedComponent } from '@amad-web-admin/modules/ui-elements';
 
 @AutoUnsubscribe
 @Component({
   standalone: true,
-  imports: [CommonModule, BreadcrumbComponent, FormsModule, MatAnchor, MatCard, MatCardContent, MatCardHeader, MatCardSubtitle, MatCardTitle, MatCell, MatCellDef, MatChipListbox, MatChipOption, MatColumnDef, MatFormField, MatHeaderCell, MatHeaderRow, MatHeaderRowDef, MatIcon, MatIconButton, MatInput, MatPaginator, MatRow, MatRowDef, MatTable, MatTooltip, ReactiveFormsModule, RouterLink, MatHeaderCellDef, MatNoDataRow, BadgeGreenComponent, BadgeRedComponent],
+  imports: [
+    CommonModule,
+    BreadcrumbComponent,
+    FormsModule,
+    MatAnchor,
+    MatCard,
+    MatCardContent,
+    MatCardHeader,
+    MatCardSubtitle,
+    MatCardTitle,
+    MatCell,
+    MatCellDef,
+    MatChipListbox,
+    MatChipOption,
+    MatColumnDef,
+    MatFormField,
+    MatHeaderCell,
+    MatHeaderRow,
+    MatHeaderRowDef,
+    MatIcon,
+    MatIconButton,
+    MatInput,
+    MatPaginator,
+    MatRow,
+    MatRowDef,
+    MatTable,
+    MatTooltip,
+    ReactiveFormsModule,
+    RouterLink,
+    MatHeaderCellDef,
+    MatNoDataRow,
+    BadgeGreenComponent,
+    BadgeRedComponent,
+  ],
   templateUrl: './projects-list.component.html',
   styleUrl: './projects-list.component.scss',
 })
-export class ProjectsListComponent implements AfterViewInit{
+export class ProjectsListComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
   private listUser$$?: Subscription;
   private loaded$$?: Subscription;
-  constructor(public projectFacade: ProjectsFacade,private _bottomSheet: MatBottomSheet,private dialog:DialogService) {
+
+  constructor(
+    public projectFacade: ProjectsFacade,
+    private _bottomSheet: MatBottomSheet,
+    private dialog: DialogService
+  ) {
     this.projectFacade.reset();
-    this.listUser$$ = this.projectFacade.listCompanies$.subscribe(value => {
+    this.listUser$$ = this.projectFacade.listCompanies$.subscribe((value) => {
       this.dataSource.data = value;
     });
   }
+
   protected breadcrumbItems: BreadcrumbItem[] = [
     {
       color: 'text-blue-600',
@@ -71,12 +130,11 @@ export class ProjectsListComponent implements AfterViewInit{
   ];
   dataSource = new MatTableDataSource<CompanyItem>([]);
 
-
   ngAfterViewInit() {
     this.dataSource.paginator = <MatPaginator>this.paginator;
 
     this.projectFacade.getListCompanies({
-      nombre_comercial:""
+      nombre_comercial: '',
     });
   }
 
@@ -89,13 +147,17 @@ export class ProjectsListComponent implements AfterViewInit{
   protected readonly defaultEmptyOrNull = defaultEmptyOrNull;
 
   viewProject(companyItem: CompanyItem) {
-    this._bottomSheet.open(ProjectViewComponent,{
-      data:companyItem
-    })
-
+    this._bottomSheet.open(ProjectViewComponent, {
+      data: companyItem,
+    });
   }
 
   changeStatus(item: CompanyItem) {
-  this.dialog.showWarning("Atención",`¿Deseas cambiar el estatus de ${item.nombre_comercial}?`,CommonsStrings.ACCEPT,CommonsStrings.CANCEL)
+    this.dialog.showWarning(
+      'Atención',
+      `¿Deseas cambiar el estatus de ${item.nombre_comercial}?`,
+      CommonsStrings.ACCEPT,
+      CommonsStrings.CANCEL
+    );
   }
 }

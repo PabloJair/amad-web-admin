@@ -47,7 +47,7 @@ export class NavMenuComponent {
     {
       title: 'Compañias',
       icon: 'apartment',
-      link: `${NavigationRoutes.dashboard.DASHBOARD}/${NavigationRoutes.userRoutes.USER}`,
+      link: `${NavigationRoutes.company.COMPANY}`,
     },
     {
       title: 'Proyectos',
@@ -57,7 +57,7 @@ export class NavMenuComponent {
     {
       title: 'Maquetador',
       icon: 'palette',
-      link: `${NavigationRoutes.layout.home}`,
+      link: `${NavigationRoutes.layout.HOME}`,
     },
   ];
   isOpenMenu = true;
@@ -69,7 +69,7 @@ export class NavMenuComponent {
       '¿Deseas cerrar sesión?',
       '',
       CommonsStrings.ACCEPT,
-      CommonsStrings.CANCEL,
+      CommonsStrings.CANCEL
     );
   }
 }

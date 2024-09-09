@@ -25,6 +25,13 @@ export const NavigationRoutes = {
     ROLES: 'roles',
     ROLES_EDIT: 'roles-edit',
   },
+  company: {
+    COMPANY_LIST: 'company-list',
+    COMPANY_ADD: 'company-add',
+    COMPANY: 'company',
+    COMPANY_EDIT: 'company-edit',
+    COMPANY_ARGS: 'id_company',
+  },
   projects: {
     PROJECT_LIST: 'project-list',
     PROJECT_ADD: 'project-add',
@@ -39,7 +46,7 @@ export const NavigationRoutes = {
     CHANGE_PASSWORD: 'change-password',
     ACCOUNT_SETTINGS: 'account-settings',
   },
-  layout:{
-    home:"home-layout"
-  }
+  layout: {
+    HOME: 'home-layout',
+  },
 };

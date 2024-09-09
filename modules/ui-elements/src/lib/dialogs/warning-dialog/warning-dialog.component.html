@@ -33,19 +33,20 @@
     </div>
   </div>
   <div content-actions>
-    @if(data.textSecondButton){
+    @if (data.textSecondButton) {
       <button mat-stroked-button
               class="cancel-button-color"
 
-              (click)="buttonTwo()"
+              (click)="buttonOne()"
       >
         {{ data.textSecondButton }}
       </button>
     }
     <button mat-stroked-button
             class="warning-button-color"
-            (click)="buttonOne()">
-      {{ data.textFirstButton }}</button>
+            (click)="buttonTwo()">
+      {{ data.textFirstButton }}
+    </button>
 
   </div>
 </dialog-layout>

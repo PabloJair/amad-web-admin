@@ -17,35 +17,42 @@ export const dashboardRoutes: Route[] = [
         path: '',
         loadChildren: () =>
           import('@amad-web-admin/modules/home').then(
-            value => value.modulesHomeRoutes,
+            (value) => value.modulesHomeRoutes
           ),
       },
       {
         path: NavigationRoutes.userRoutes.USER,
         loadChildren: () =>
           import('@amad-web-admin/modules/user').then(
-            value => value.modulesUserRoutes,
+            (value) => value.modulesUserRoutes
           ),
       },
       {
         path: NavigationRoutes.rolesAndPermission.ROLES,
         loadChildren: () =>
           import('@amad-web-admin/modules/rol-permission').then(
-            value => value.modulesRolPermissionRoutes,
+            (value) => value.modulesRolPermissionRoutes
           ),
       },
       {
-        path: NavigationRoutes.layout.home,
+        path: NavigationRoutes.layout.HOME,
         loadChildren: () =>
           import('@amad-web-admin/modules/layout').then(
-            value => value.modulesLayoutRoutes,
+            (value) => value.modulesLayoutRoutes
           ),
       },
       {
         path: NavigationRoutes.projects.PROJECT,
         loadChildren: () =>
           import('@amad-web-admin/modules/projects').then(
-            value => value.modulesProjectsRoutes,
+            (value) => value.modulesProjectsRoutes
+          ),
+      },
+      {
+        path: NavigationRoutes.company.COMPANY,
+        loadChildren: () =>
+          import('@amad-web-admin/modules/companies').then(
+            (value) => value.modulesCompaniesRoutes
           ),
       },
       { path: '**', pathMatch: 'full', component: Page404Component },

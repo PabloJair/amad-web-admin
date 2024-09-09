@@ -1,10 +1,7 @@
 import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { UserItem, UserStatus } from '@amad-web-admin/modules/network';
-import {
-  MatTableDataSource,
-  MatTableModule,
-} from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { UsersFacade } from '../+state/user.facade';
 import { Subscription } from 'rxjs';
@@ -25,6 +22,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatIcon } from '@angular/material/icon';
+import { UserNavigationService } from '../commons/user-navigation.service';
 
 @Component({
   selector: 'lib-user-list',
@@ -82,9 +80,13 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
       name: 'Lista de usuarios',
     },
   ];
-  constructor(public userFacade: UsersFacade) {
+
+  constructor(
+    public userFacade: UsersFacade,
+    public navigation: UserNavigationService
+  ) {
     this.userFacade.reset();
-    this.listUser$$ = this.userFacade.listUser$.subscribe(value => {
+    this.listUser$$ = this.userFacade.listUser$.subscribe((value) => {
       this.dataSource.data = value;
     });
   }
@@ -104,5 +106,10 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
   protected readonly UserStatus = UserStatus;
+
+  edit(element: UserItem) {
+    this.navigation.navigateToEdit(element);
+  }
 }

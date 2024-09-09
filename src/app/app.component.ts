@@ -5,7 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {
   ApplicationNavigate,
-  AuthenticationInformationService
+  AuthenticationInformationService,
 } from '@amad-web-admin/modules/core';
 
 @Component({
@@ -13,7 +13,7 @@ import {
   imports: [RouterModule, FormsModule, MatFormFieldModule, MatInputModule],
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
   constructor(

@@ -39,12 +39,12 @@ export const userReducer = createReducer(
     error: null,
     loader: false,
   })),
-  on(userRequestAction.list, state => ({
+  on(userRequestAction.list, (state) => ({
     ...state,
     userState: userAdapter.setAll([], state.userState),
     loader: true,
   })),
-  on(userRequestAction.getInformation, state => ({
+  on(userRequestAction.getInformation, (state) => ({
     ...state,
     loader: true,
     userState: {
@@ -61,7 +61,7 @@ export const userReducer = createReducer(
     },
   })),
 
-  on(userRequestAction.delete, state => ({
+  on(userRequestAction.delete, (state) => ({
     ...state,
     loader: true,
   })),
@@ -70,7 +70,7 @@ export const userReducer = createReducer(
     loader: false,
     userState: userAdapter.removeOne(item.value.id_usuario, state.userState),
   })),
-  on(userRequestAction.add, state => ({
+  on(userRequestAction.add, (state) => ({
     ...state,
     loader: true,
     anySuccess: undefined,
@@ -78,9 +78,10 @@ export const userReducer = createReducer(
   on(userResponseAction.successAdd, (state, item) => ({
     ...state,
     anySuccess: item.value,
+    loader: false,
   })),
 
-  on(userRequestAction.edit, state => ({
+  on(userRequestAction.edit, (state) => ({
     ...state,
     loader: true,
     anySuccess: undefined,
@@ -100,15 +101,15 @@ export const userReducer = createReducer(
     loader: false,
     userRolesState: userRolAdapter.addMany(items.value, state.userRolesState),
   })),
-  on(userRequestAction.listRoles, state => ({
+  on(userRequestAction.listRoles, (state) => ({
     ...state,
     userRolesState: userRolAdapter.setAll([], state.userRolesState),
     loader: true,
   })),
-  on(userAppAction.reset, state => ({
+  on(userAppAction.reset, (state) => ({
     ...state,
     userInitialState,
-  })),
+  }))
 );
 
 export const userFeature = createFeature({

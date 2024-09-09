@@ -1,10 +1,13 @@
-<button           mat-stroked-button
-                  class="secondary-button"
-        [disabled]="disabled() ||showLoader() " >
-  @if(showLoader()){
+<button mat-stroked-button
+        class="secondary-button w-56"
+        [disabled]="disabled() ||showLoader() ">
+  @if (showLoader()) {
+    <div class="flex">
       <mat-spinner [diameter]="20"></mat-spinner>
-    Procesando...
+      <span>Procesando...</span>
+    </div>
+
   } @else {
-    {{text()}}
+    {{ text() }}
   }
 </button>

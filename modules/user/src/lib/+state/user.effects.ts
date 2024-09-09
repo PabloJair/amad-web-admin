@@ -15,79 +15,95 @@ export class UserEffects {
   requestListUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(userRequestAction.list),
-      switchMap(request =>
+      switchMap((request) =>
         this.service$.list(request.value).pipe(
-          map(response =>
+          map((response) =>
             userResponseAction.successList({
               value: response.data,
-            }),
+            })
           ),
-          catchError(error => of(userAppAction.fail(error.error))),
-        ),
-      ),
-    ),
+          catchError((error) => of(userAppAction.fail(error.error)))
+        )
+      )
+    )
   );
   requestUserInformation$ = createEffect(() =>
     this.actions$.pipe(
       ofType(userRequestAction.getInformation),
-      switchMap(request =>
+      switchMap((request) =>
         this.service$.getInformationUser(request.value).pipe(
-          map(response =>
+          map((response) =>
             userResponseAction.successGetInformation({
               value: response.data,
-            }),
+            })
           ),
-          catchError(error => of(userAppAction.fail(error.error))),
-        ),
-      ),
-    ),
+          catchError((error) => of(userAppAction.fail(error.error)))
+        )
+      )
+    )
   );
 
   requestAddUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(userRequestAction.add),
-      switchMap(request => {
+      switchMap((request) => {
         return this.service$.add(request.value).pipe(
           map(() =>
             userResponseAction.successAdd({
               value: request.value,
-            }),
+            })
           ),
-          catchError(error => of(userAppAction.fail(error))),
+          catchError((error) => of(userAppAction.fail(error)))
         );
-      }),
-    ),
+      })
+    )
   );
 
   requestEditUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(userRequestAction.edit),
-      switchMap(request => {
+      switchMap((request) => {
         return this.service$.edit(request.value, request.idUser).pipe(
           map(() =>
             userResponseAction.successEdit({
               value: request.value,
-            }),
+            })
           ),
-          catchError(error => of(userAppAction.fail(error))),
+          catchError((error) => of(userAppAction.fail(error)))
         );
-      }),
-    ),
+      })
+    )
   );
 
   requestDeleteUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(userRequestAction.delete),
-      switchMap(request => {
+      switchMap((request) => {
         return this.service$.delete(request.value).pipe(
           map(() =>
             userResponseAction.successDelete({
               value: request.value,
-            }),
+            })
           ),
-          catchError(error => of(userAppAction.fail(error.error))),
+          catchError((error) => of(userAppAction.fail(error.error)))
         );
-      }),
-    ),
+      })
+    )
+  );
+
+  listRol$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(userRequestAction.listRoles),
+      switchMap((request) => {
+        return this.service$.listRol(request.value).pipe(
+          map((response) =>
+            userResponseAction.successListRoles({
+              value: response.data,
+            })
+          ),
+          catchError((error) => of(userAppAction.fail(error.error)))
+        );
+      })
+    )
   );
 }
