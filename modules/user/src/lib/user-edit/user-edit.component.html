@@ -1,0 +1,65 @@
+<div class="flex flex-col gap-5">
+  <ui-elements-breadcrumb
+    [breadcrumbItems]="breadcrumbItems"
+  ></ui-elements-breadcrumb>
+  <mat-card appearance="outlined">
+    <mat-card-header>
+      <mat-card-title><p class="text-xl">
+        Crear nuevo Usuario
+      </p></mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form class="" [formGroup]="editUserForm">
+        <div class="flex flex-row gap-4 w-full">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Nombre</mat-label>
+            <input matInput placeholder="Nombre" formControlName="nombre">
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Apellido Paterno</mat-label>
+            <input matInput placeholder="Apellido Paterno" formControlName="a_materno">
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Apellido Materno</mat-label>
+            <input matInput placeholder="Apellido Materno" formControlName="a_paterno">
+          </mat-form-field>
+        </div>
+        <div class="flex flex-row gap-4">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Usuario</mat-label>
+            <input matInput placeholder="Usuario" formControlName="user">
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Contraseña</mat-label>
+            <input matInput placeholder="Contraseña" formControlName="password">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Correo</mat-label>
+            <input matInput placeholder="Correo" formControlName="email">
+          </mat-form-field>
+        </div>
+
+        <div class="flex gap-4  items-center">
+          <mat-form-field appearance="outline" class="w-72">
+            <mat-label>Selecciona un rol</mat-label>
+            <mat-select formControlName="rol">
+              @for (item of listRol$(); track item) {
+                <mat-option [value]="item.id_rol">{{ item.desc_rol }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+          <mat-slide-toggle #status formControlName="estatus">{{ status.checked ? 'Activo' : 'Desactivado' }}
+          </mat-slide-toggle>
+        </div>
+
+      </form>
+    </mat-card-content>
+    <mat-card-actions class="flex gap-5">
+
+      <ui-elements-button-loader text="Agregar" [disabled]="editUserForm.invalid" (click)="edit()"
+                                 [showLoader]="loading$()"></ui-elements-button-loader>
+      <button mat-button (click)="navigation.navigateToList()">Cancelar</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

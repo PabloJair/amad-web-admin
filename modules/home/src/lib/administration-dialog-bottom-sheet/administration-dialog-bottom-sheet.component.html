@@ -1,0 +1,10 @@
+<mat-nav-list class="overscroll-y-auto">
+  @for (item of items; track item) {
+    <a mat-list-item (click)="goTo(item)">
+      <span matListItemTitle class="font-bold text-xl">{{ item.name }}</span>
+      <span matLine class="text-base text-gray-500">
+              {{ item.description }}
+            </span>
+    </a>
+  }
+</mat-nav-list>

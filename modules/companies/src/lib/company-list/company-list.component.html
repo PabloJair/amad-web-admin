@@ -1,0 +1,127 @@
+<div class="flex flex-col gap-5">
+  <ui-elements-breadcrumb
+    [breadcrumbItems]="breadcrumbItems"
+  ></ui-elements-breadcrumb>
+
+  <mat-card appearance="outlined">
+    <mat-card-header>
+      <mat-card-title>
+        <form class="search-box position-relative">
+          <mat-icon>search</mat-icon>
+          <mat-form-field appearance="outline">
+            <input
+              type="text"
+              matInput
+              class="input-search d-block w-100 border-none outline-0"
+              placeholder="Buscar usuario"
+              (keyup)="applyFilter($event)"
+              #input
+            />
+          </mat-form-field>
+        </form>
+      </mat-card-title>
+      <mat-card-subtitle>
+        <mat-chip-listbox aria-label="Fish selection">
+          <mat-chip-option color="primary" selected
+          >Ver Activos
+          </mat-chip-option
+          >
+          <mat-chip-option color="warn">Ver inactivos</mat-chip-option>
+        </mat-chip-listbox>
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="users-table">
+        <table mat-table [dataSource]="dataSource" class="table-fixed">
+          <!-- User ID Column -->
+          <ng-container matColumnDef="companyID">
+            <th mat-header-cell *matHeaderCellDef>ID compañia</th>
+            <td mat-cell *matCellDef="let element">
+              # {{ element.id_cia }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="companyName">
+            <th mat-header-cell *matHeaderCellDef>Usuario</th>
+            <td mat-cell *matCellDef="let element" class="text-black">
+              <div class="info d-flex align-items-center">
+                  <span class="d-block fw-medium">
+                    {{ element.nombre }}
+                  </span>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="companyCommerceName">
+            <th mat-header-cell *matHeaderCellDef>Email</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.nombre_comercial }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="phone">
+            <th mat-header-cell *matHeaderCellDef>Nombre de usuario</th>
+            <td mat-cell *matCellDef="let element">
+              {{ defaultEmptyOrNull(element.telefono, "Sin telefono") }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Estatus</th>
+            <td mat-cell *matCellDef="let element">
+              @if (element.status === CompanyStatus.ACTIVE) {
+                <ui-elements-badge-green text="Activo"></ui-elements-badge-green>
+
+              } @else {
+                <ui-elements-badge-red text="Desactivado"></ui-elements-badge-red>
+
+              }
+            </td>
+          </ng-container>
+
+          <!-- Action Column -->
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>Acciones</th>
+            <td mat-cell *matCellDef="let element">
+              <div class="action-info">
+                <button
+                  mat-icon-button
+                  matTooltip="editar"
+                  matTooltipPosition="above"
+                >
+                  <mat-icon>edit</mat-icon>
+                </button>
+                @if (element.status !== CompanyStatus.DISABLE) {
+                  <button
+                    type="button"
+                    mat-icon-button
+                    matTooltip="eliminar"
+                    matTooltipPosition="above"
+                    (click)="changeStatus(element)"
+                  >
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                }
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+          <!-- Row shown when there is no matching data. -->
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">
+              No hay Información disponible"
+            </td>
+          </tr>
+        </table>
+
+        <mat-paginator
+          [pageSizeOptions]="[10, 20, 30]"
+          showFirstLastButtons
+        ></mat-paginator>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
