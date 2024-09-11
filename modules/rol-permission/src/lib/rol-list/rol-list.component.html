@@ -24,16 +24,20 @@
         <mat-card-subtitle>
           <mat-chip-listbox aria-label="Fish selection">
             <mat-chip-option color="primary" selected
-              >Ver Activos</mat-chip-option
+                             (click)="showStatus(StatusRol.ENABLED)"
+            >Ver Activos
+            </mat-chip-option
             >
-            <mat-chip-option color="warn">Ver inactivos</mat-chip-option>
+            <mat-chip-option color="warn" (click)="showStatus(StatusRol.DISABLED)"
+            >Ver inactivos
+            </mat-chip-option>
           </mat-chip-listbox>
         </mat-card-subtitle>
         <mat-card-subtitle>
           <a
             mat-button
             class="add-new-btn"
-            routerLink="/dashboard/user/users-add"
+            routerLink="/dashboard/roles/roles-add"
           >
             + Nuevo Rol
           </a>
@@ -75,17 +79,15 @@
               <ng-container matColumnDef="status">
                 <th mat-header-cell *matHeaderCellDef>Estatus</th>
                 <td mat-cell *matCellDef="let element">
-                  @if (element.status ===UserRolStatus.ACTIVE){
-                  <span class="badge rounded-pill text-soft-primary"
-                    >Activo</span
-                  >
 
-                  }@else{
-                  <span class="badge rounded-pill text-soft-danger"
-                    >Desactivado</span
-                  >
+                  @if (element.status === UserRolStatus.ACTIVE) {
+                    <ui-elements-badge-green text="Activo"></ui-elements-badge-green>
+
+                  } @else {
+                    <ui-elements-badge-red text="Desactivado"></ui-elements-badge-red>
 
                   }
+          
                 </td>
               </ng-container>
 
@@ -103,16 +105,18 @@
                     >
                       <mat-icon>edit</mat-icon>
                     </button>
-                    @if (element.status === UserRolStatus.ACTIVE){
-                    <button
-                      type="button"
-                      mat-button
-                      matTooltip="eliminar"
-                      (click)="delete(element)"
-                      matTooltipPosition="above"
-                    >
-                      <mat-icon>delete</mat-icon>
-                    </button>
+
+
+                    @if (element.status === UserRolStatus.ACTIVE) {
+                      <button
+                        type="button"
+                        mat-button
+                        matTooltip="eliminar"
+                        (click)="delete(element)"
+                        matTooltipPosition="above"
+                      >
+                        <mat-icon>delete</mat-icon>
+                      </button>
                     }
                   </div>
                 </td>

@@ -22,12 +22,20 @@
       </mat-card-title>
       <mat-card-subtitle>
         <mat-chip-listbox aria-label="Fish selection">
-          <mat-chip-option color="primary" selected
-          >Ver Activos
+          <mat-chip-option color="primary" selected (click)=changeTypeCompany(CompanyStatus.ACTIVE)>Ver Activos
           </mat-chip-option
           >
-          <mat-chip-option color="warn">Ver inactivos</mat-chip-option>
+          <mat-chip-option color="warn" (click)=changeTypeCompany(CompanyStatus.DISABLE)>Ver inactivos</mat-chip-option>
         </mat-chip-listbox>
+      </mat-card-subtitle>
+      <mat-card-subtitle>
+        <a
+          mat-button
+          class="add-new-btn"
+          routerLink="/dashboard/company/company-add"
+        >
+          + Nueva Compañia
+        </a>
       </mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
@@ -88,6 +96,7 @@
                   mat-icon-button
                   matTooltip="editar"
                   matTooltipPosition="above"
+                  (click)="edit(element)"
                 >
                   <mat-icon>edit</mat-icon>
                 </button>

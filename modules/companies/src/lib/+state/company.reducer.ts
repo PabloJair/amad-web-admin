@@ -31,11 +31,42 @@ export const companyAppReducer = createReducer(
     ...state,
     companies: companiesAdapter.setAll([], state.companies),
     loader: true,
+    error: null,
   })),
   on(companyResponseAction.successListCompany, (state, items) => ({
     ...state,
     companies: companiesAdapter.addMany(items.value, state.companies),
     error: null,
+    loader: false,
+  })),
+  on(companyResponseAction.successAdd, (state, items) => ({
+    ...state,
+    anySuccess: items.value,
+    error: null,
+    loader: false,
+  })),
+  on(companyRequestAction.delete, (state, items) => ({
+    ...state,
+    anySuccess: null,
+    error: null,
+    loader: true,
+  })),
+  on(companyResponseAction.successDelete, (state, items) => ({
+    ...state,
+    anySuccess: companyResponseAction.successDelete,
+    error: null,
+    loader: false,
+  })),
+  on(companyResponseAction.successEdit, (state, items) => ({
+    ...state,
+    anySuccess: items.value,
+    error: null,
+    loader: false,
+  })),
+  on(companyAppAction.fail, (state, items) => ({
+    ...state,
+    anySuccess: null,
+    error: items,
     loader: false,
   })),
   on(companyAppAction.reset, (state) => ({

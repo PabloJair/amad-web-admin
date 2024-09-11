@@ -23,19 +23,22 @@ import {
 } from '@angular/material/card';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
+import { MatOption } from '@angular/material/autocomplete';
+import { MatSelect } from '@angular/material/select';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import {
   AutoUnsubscribe,
   CommonsStrings,
   NavigationRoutes,
 } from '@amad-web-admin/modules/core';
-import { CompanyFacade } from '../+state/company.facade';
-import { CompaniesNavigationService } from '../commons/companies-navigation.service';
 import { Subscription } from 'rxjs';
+import { RolesAndPermissionFacade } from '../+store/roles-and-permission.facade';
+import { AddUserRol } from '@amad-web-admin/modules/network';
+import { RolPermissionNavigationService } from '../commons/rol-permission-navigation.service';
 
 @AutoUnsubscribe
 @Component({
-  selector: 'lib-company-add',
+  selector: 'lib-rol-add',
   standalone: true,
   imports: [
     CommonModule,
@@ -51,33 +54,36 @@ import { Subscription } from 'rxjs';
     MatFormField,
     MatInput,
     MatLabel,
+    MatOption,
+    MatSelect,
     MatSlideToggle,
     ReactiveFormsModule,
   ],
-  templateUrl: './company-add.component.html',
-  styleUrl: './company-add.component.scss',
+  templateUrl: './rol-add.component.html',
+  styleUrl: './rol-add.component.scss',
 })
-export class CompanyAddComponent {
+export class RolAddComponent {
   private successAddRol$$?: Subscription = undefined;
   private error$$?: Subscription = undefined;
   private loading$$?: Subscription = undefined;
   protected loading$ = signal(false);
 
   constructor(
-    public facade: CompanyFacade,
-    protected navigate: CompaniesNavigationService,
-    protected dialogService: DialogService
+    protected dialogService: DialogService,
+    protected rolesAndPermissionFacade: RolesAndPermissionFacade,
+    protected navigation: RolPermissionNavigationService
   ) {
-    this.successAddRol$$ = this.facade.success$.subscribe((value) => {
-      this.loading$.set(false);
-      this.navigate.navigateToList();
-    });
-
-    this.loading$$ = this.facade.loaded$.subscribe((value) =>
+    this.successAddRol$$ = rolesAndPermissionFacade.successRol$.subscribe(
+      (value) => {
+        this.loading$.set(false);
+        this.navigation.navigateToList();
+      }
+    );
+    this.loading$$ = this.rolesAndPermissionFacade.loaded$.subscribe((value) =>
       this.loading$.set(value)
     );
 
-    this.error$$ = this.facade.error$.subscribe((value) => {
+    this.error$$ = this.rolesAndPermissionFacade.error$.subscribe((value) => {
       this.dialogService.showError(
         CommonsStrings.ERROR_GENERIC_TITLE,
         value.message
@@ -93,39 +99,33 @@ export class CompanyAddComponent {
     },
     {
       color: 'text-blue-600',
-      name: 'Compañias',
-      link: `/${NavigationRoutes.dashboard.DASHBOARD}/${NavigationRoutes.company.COMPANY_ADD}`,
+      name: 'Rol',
+      link: `/${NavigationRoutes.dashboard.DASHBOARD}/${NavigationRoutes.rolesAndPermission.ROLES_LIST}`,
     },
     {
       color: 'text-yellow-600',
-      name: 'Nuevo compañia',
+      name: 'Nuevo Rol',
     },
   ];
 
-  addCompanyForm = new FormGroup({
-    contacto: new FormControl<string>(CommonsStrings.EMPTY_STRING, {
+  addRolForm = new FormGroup({
+    desc_rol: new FormControl<string>(CommonsStrings.EMPTY_STRING, {
       nonNullable: true,
       validators: Validators.required,
     }),
-    nombre_comercial: new FormControl<string>(CommonsStrings.EMPTY_STRING, {
+    status: new FormControl<string>(CommonsStrings.EMPTY_STRING, {
       nonNullable: true,
       validators: Validators.required,
     }),
-    telefono: new FormControl<string>(CommonsStrings.EMPTY_STRING, {
-      nonNullable: true,
-      validators: Validators.required,
-    }),
-    status: new FormControl<number>(1, {
-      nonNullable: true,
-      validators: Validators.required,
-    }),
-    nombre: new FormControl<string>('', {
+    desc_larga: new FormControl<string>('', {
       nonNullable: true,
       validators: [Validators.required],
     }),
   });
 
   add() {
-    this.facade.addCompany(this.addCompanyForm.getRawValue());
+    this.rolesAndPermissionFacade.addUser(
+      this.addRolForm.getRawValue() as unknown as AddUserRol
+    );
   }
 }

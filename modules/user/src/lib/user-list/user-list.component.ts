@@ -1,6 +1,10 @@
 import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { UserItem, UserStatus } from '@amad-web-admin/modules/network';
+import {
+  UserItem,
+  UserRolStatus,
+  UserStatus,
+} from '@amad-web-admin/modules/network';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { UsersFacade } from '../+state/user.facade';
@@ -8,6 +12,8 @@ import { Subscription } from 'rxjs';
 import { RouterLink } from '@angular/router';
 import { NavigationRoutes } from '@amad-web-admin/modules/core';
 import {
+  BadgeGreenComponent,
+  BadgeRedComponent,
   BreadcrumbComponent,
   BreadcrumbItem,
 } from '@amad-web-admin/modules/ui-elements';
@@ -45,6 +51,8 @@ import { UserNavigationService } from '../commons/user-navigation.service';
     MatFormFieldModule,
     MatInputModule,
     MatIcon,
+    BadgeGreenComponent,
+    BadgeRedComponent,
   ],
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.scss',
@@ -91,10 +99,13 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
     });
   }
 
+  changeUserRol(userStatus: UserStatus) {
+    this.userFacade.getListUsers({ status: userStatus });
+  }
+
   ngAfterViewInit() {
     this.dataSource.paginator = <MatPaginator>this.paginator;
-
-    this.userFacade.getListUsers({ status: UserStatus.ENABLE });
+    this.changeUserRol(UserStatus.ENABLE);
   }
 
   ngOnDestroy(): void {
@@ -112,4 +123,6 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
   edit(element: UserItem) {
     this.navigation.navigateToEdit(element);
   }
+
+  protected readonly UserRolStatus = UserRolStatus;
 }

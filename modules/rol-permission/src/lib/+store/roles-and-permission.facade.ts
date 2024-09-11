@@ -19,15 +19,15 @@ export class RolesAndPermissionFacade {
 
   loaded$ = this.store.pipe(
     select(rolesAndPermissionsSelector.loader),
-    skip(1),
+    skip(1)
   );
   listRol$ = this.store.pipe(
-    select(rolesAndPermissionsSelector.userRolesState),
+    select(rolesAndPermissionsSelector.userRolesState)
   );
   error$ = this.store.pipe(select(rolesAndPermissionsSelector.error), skip(1));
-  successUser$ = this.store.pipe(
+  successRol$ = this.store.pipe(
     select(rolesAndPermissionsSelector.anySuccess),
-    filter(filter => filter != null),
+    filter((filter) => filter != null)
   );
 
   public getListRolesUsers(filter: FilterRoles) {

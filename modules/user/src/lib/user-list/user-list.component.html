@@ -23,10 +23,13 @@
       <mat-card-subtitle>
         <mat-chip-listbox aria-label="Fish selection">
           <mat-chip-option color="primary" selected
+                           (click)="changeUserRol(UserStatus.ENABLE)"
           >Ver Activos
           </mat-chip-option
           >
-          <mat-chip-option color="warn">Ver inactivos</mat-chip-option>
+          <mat-chip-option color="warn" (click)="changeUserRol(UserStatus.DISABLE)"
+          >Ver inactivos
+          </mat-chip-option>
         </mat-chip-listbox>
       </mat-card-subtitle>
       <mat-card-subtitle>
@@ -92,15 +95,15 @@
             <ng-container matColumnDef="status">
               <th mat-header-cell *matHeaderCellDef>Estatus</th>
               <td mat-cell *matCellDef="let element">
-                @if (element.status === 1) {
-                  <span class="badge rounded-pill text-soft-primary"
-                  >Activo</span
-                  >
+
+                @if (element.status === UserStatus.ENABLE) {
+                  <ui-elements-badge-green text="Activo"></ui-elements-badge-green>
+
                 } @else {
-                  <span class="badge rounded-pill text-soft-danger"
-                  >Desactivado</span
-                  >
+                  <ui-elements-badge-red text="Desactivado"></ui-elements-badge-red>
+
                 }
+          
               </td>
             </ng-container>
 

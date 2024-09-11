@@ -20,10 +20,8 @@ export class AppComponent {
     private authService: AuthenticationInformationService,
     private applicationNavigate: ApplicationNavigate
   ) {
-    /* if (!authService.isAuthenticate()) {
-       applicationNavigate.navigateToAuthentication();
-     } else {
-       applicationNavigate.navigateToDashboard();
-     }*/
+    if (!authService.isAuthenticate()) {
+      applicationNavigate.navigateToAuthentication();
+    }
   }
 }

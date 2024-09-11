@@ -7,7 +7,7 @@ export interface UserEdit {
   user: string;
   email: string;
   rol: number;
-  estatus: UserStatus;
+  status: UserStatus;
   id_usuario: number;
   proyectos: number[];
 }

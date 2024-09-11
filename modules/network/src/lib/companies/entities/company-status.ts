@@ -1,4 +1,4 @@
 export enum CompanyStatus {
-  DISABLE,
-  ACTIVE,
+  DISABLE = 2,
+  ACTIVE = 1,
 }

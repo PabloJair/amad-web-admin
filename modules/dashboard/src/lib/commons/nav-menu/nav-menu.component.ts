@@ -6,8 +6,14 @@ import { MatIconButton } from '@angular/material/button';
 import { NgClass } from '@angular/common';
 import { MatRipple } from '@angular/material/core';
 import { DialogService } from '@amad-web-admin/modules/ui-elements';
-import { CommonsStrings, NavigationRoutes } from '@amad-web-admin/modules/core';
-import { RouterLink } from '@angular/router';
+import {
+  AuthenticationInformationService,
+  CommonsStrings,
+  NavigationRoutes,
+} from '@amad-web-admin/modules/core';
+import { Router, RouterLink } from '@angular/router';
+import * as coreModule from '@amad-web-admin/modules/core';
+import { AuthenticationService } from '@amad-web-admin/modules/network';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
@@ -62,14 +68,22 @@ export class NavMenuComponent {
   ];
   isOpenMenu = true;
 
-  constructor(private dialogService: DialogService) {}
+  constructor(
+    private dialogService: DialogService,
+    private authenticationInformationService: AuthenticationInformationService
+  ) {}
 
   closeSession() {
-    this.dialogService.showWarning(
-      '¿Deseas cerrar sesión?',
-      '',
-      CommonsStrings.ACCEPT,
-      CommonsStrings.CANCEL
-    );
+    this.dialogService
+      .showWarning(
+        '¿Deseas cerrar sesión?',
+        '',
+        CommonsStrings.ACCEPT,
+        CommonsStrings.CANCEL
+      )
+      .subscribe((value) => {
+        this.authenticationInformationService.deleteSession();
+        window.location.reload();
+      });
   }
 }

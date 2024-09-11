@@ -1,1 +1,46 @@
-<p>company-add works!</p>
+<div class="flex flex-col gap-5">
+  <ui-elements-breadcrumb
+    [breadcrumbItems]="breadcrumbItems"
+  ></ui-elements-breadcrumb>
+  <mat-card appearance="outlined">
+    <mat-card-header>
+      <mat-card-title><p class="text-xl">
+        Crear nuevo Usuario
+      </p></mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form class="" [formGroup]="addCompanyForm">
+        <div class="flex flex-row gap-4 w-full">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Nombre</mat-label>
+            <input matInput placeholder="Compañia" formControlName="nombre_comercial">
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Nombre contacto</mat-label>
+            <input matInput placeholder="Descripción" formControlName="contacto">
+          </mat-form-field>
+        </div>
+
+        <div class="flex flex-row gap-4 w-full">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Nombre Comercial</mat-label>
+            <input matInput placeholder="Nombre" formControlName="nombre">
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Telefono</mat-label>
+            <input matInput type="number" placeholder="Descripción" formControlName="telefono">
+          </mat-form-field>
+        </div>
+
+        <mat-slide-toggle #status formControlName="status">{{ status.checked ? 'Activo' : 'Desactivado' }}
+        </mat-slide-toggle>
+      </form>
+    </mat-card-content>
+    <mat-card-actions class="flex gap-5">
+
+      <ui-elements-button-loader text="Agregar" [disabled]="addCompanyForm.invalid" (click)="add()"
+                                 [showLoader]="loading$()"></ui-elements-button-loader>
+      <button mat-button (click)="navigate.navigateToList()">Cancelar</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

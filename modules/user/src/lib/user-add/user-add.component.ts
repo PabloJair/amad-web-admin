@@ -35,7 +35,7 @@ import {
 } from '@amad-web-admin/modules/core';
 import { UserNavigationService } from '../commons/user-navigation.service';
 import { UsersFacade } from '../+state/user.facade';
-import { UserStatus } from '@amad-web-admin/modules/network';
+import { StatusRol, UserStatus } from '@amad-web-admin/modules/network';
 import { MatSelectModule } from '@angular/material/select';
 import { Subscription } from 'rxjs';
 
@@ -97,7 +97,7 @@ export class UserAddComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.userFacade.getListRol({ status: UserStatus.ENABLE });
+    this.userFacade.getListRol({ status: StatusRol.ENABLED });
     this.userFacade.loaded$.subscribe((value) => this.loading$.set(value));
   }
 

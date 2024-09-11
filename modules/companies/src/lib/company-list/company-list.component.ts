@@ -6,6 +6,7 @@ import {
   BreadcrumbComponent,
   BreadcrumbItem,
   DialogService,
+  ResultType,
 } from '@amad-web-admin/modules/ui-elements';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
@@ -31,7 +32,7 @@ import {
 import { MatChipListbox, MatChipOption } from '@angular/material/chips';
 import { MatFormField } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
-import { MatIconButton } from '@angular/material/button';
+import { MatAnchor, MatIconButton } from '@angular/material/button';
 import { MatInput } from '@angular/material/input';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -41,10 +42,12 @@ import {
   NavigationRoutes,
 } from '@amad-web-admin/modules/core';
 import { CompanyItem } from '@amad-web-admin/modules/network';
-import { ProjectsFacade } from '../../../../projects/src/lib/+state/projects.facade';
 import { Subscription } from 'rxjs';
 import { CompanyStatus } from '../../../../network/src/lib/companies/entities/company-status';
 import { CompanyFacade } from '../+state/company.facade';
+import { RouterLink } from '@angular/router';
+import { CompaniesNavigationService } from '../commons/companies-navigation.service';
+import { companyResponseAction } from '../+state/company.actions';
 
 @Component({
   selector: 'lib-company-list',
@@ -79,6 +82,8 @@ import { CompanyFacade } from '../+state/company.facade';
     MatTooltip,
     ReactiveFormsModule,
     MatHeaderCellDef,
+    MatAnchor,
+    RouterLink,
   ],
   templateUrl: './company-list.component.html',
   styleUrl: './company-list.component.scss',
@@ -107,9 +112,7 @@ export class CompanyListComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.dataSource.paginator = <MatPaginator>this.paginator;
 
-    this.companyFacade.getListCompanies({
-      nombre_comercial: '',
-    });
+    this.changeTypeCompany(CompanyStatus.ACTIVE);
   }
 
   displayedColumns: string[] = [
@@ -128,17 +131,25 @@ export class CompanyListComponent implements AfterViewInit {
   }
 
   changeStatus(item: CompanyItem) {
-    this.dialog.showWarning(
-      'Atención',
-      `¿Deseas cambiar el estatus de ${item.nombre_comercial}?`,
-      CommonsStrings.ACCEPT,
-      CommonsStrings.CANCEL
-    );
+    console.log(item.id_cia);
+    this.dialog
+      .showWarning(
+        'Atención',
+        `¿Deseas cambiar el estatus de ${item.nombre_comercial}?`,
+        CommonsStrings.ACCEPT,
+        CommonsStrings.CANCEL
+      )
+      .subscribe((value) => {
+        if (value.resultType == ResultType.BUTTON_TWO) {
+          this.companyFacade.delete(item.id_cia);
+        }
+      });
   }
 
   constructor(
     public companyFacade: CompanyFacade,
-    private dialog: DialogService
+    private dialog: DialogService,
+    protected navigation: CompaniesNavigationService
   ) {
     this.companyFacade.reset();
     this.listCompany$$ = this.companyFacade.listCompanies$.subscribe(
@@ -146,8 +157,33 @@ export class CompanyListComponent implements AfterViewInit {
         this.dataSource.data = value;
       }
     );
+    this.companyFacade.error$.subscribe((value) => {
+      if (value) {
+        this.dialog.showError(
+          'Atención',
+          `Error al desactivar la compañia`,
+          CommonsStrings.ACCEPT
+        );
+      }
+    });
+
+    this.companyFacade.success$.subscribe((value) => {
+      if (value == companyResponseAction.successDelete) {
+        this.changeTypeCompany(CompanyStatus.ACTIVE);
+      }
+    });
+  }
+
+  protected changeTypeCompany(status: CompanyStatus) {
+    this.companyFacade.getListCompanies({
+      status,
+    });
   }
 
   protected readonly defaultEmptyOrNull = defaultEmptyOrNull;
   protected readonly CompanyStatus = CompanyStatus;
+
+  edit(element: CompanyItem) {
+    this.navigation.navigateToEdit(element);
+  }
 }

@@ -48,6 +48,7 @@ import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { ProjectViewComponent } from '../project-view/project-view.component';
 import { BadgeGreenComponent } from '@amad-web-admin/modules/ui-elements';
 import { BadgeRedComponent } from '@amad-web-admin/modules/ui-elements';
+import { CompanyStatus } from '../../../../network/src/lib/companies/entities/company-status';
 
 @AutoUnsubscribe
 @Component({
@@ -135,6 +136,7 @@ export class ProjectsListComponent implements AfterViewInit {
 
     this.projectFacade.getListCompanies({
       nombre_comercial: '',
+      status: CompanyStatus.ACTIVE,
     });
   }
 

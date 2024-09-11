@@ -26,3 +26,8 @@ export * from './lib/projects/entities/projects.entities';
 export * from './lib/projects/projects.service';
 
 export * from './lib/upload/upload.service';
+
+export * from './lib/companies/companies.service';
+export * from './lib/companies/entities/add-company';
+export * from './lib/companies/entities/edit-company';
+export * from './lib/companies/entities/filter-company';

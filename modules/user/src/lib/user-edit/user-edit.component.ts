@@ -36,6 +36,7 @@ import { UserNavigationService } from '../commons/user-navigation.service';
 import { UsersFacade } from '../+state/user.facade';
 import { Subscription } from 'rxjs';
 import {
+  StatusRol,
   UserEdit,
   UserRolItem,
   UserStatus,
@@ -120,7 +121,7 @@ export class UserEditComponent implements AfterViewInit {
       nonNullable: true,
       validators: [Validators.required],
     }),
-    estatus: new FormControl<number>(1, {
+    estatus: new FormControl<boolean>(true, {
       nonNullable: true,
       validators: [Validators.required],
     }),
@@ -158,13 +159,15 @@ export class UserEditComponent implements AfterViewInit {
     this.editUserForm.controls.email.setValue(this.userItem.email);
     this.editUserForm.controls.a_materno.setValue(this.userItem.a_materno);
     this.editUserForm.controls.a_paterno.setValue(this.userItem.a_paterno);
-    this.editUserForm.controls.estatus.setValue(this.userItem.estatus);
+    this.editUserForm.controls.estatus.setValue(
+      this.userItem.status == UserStatus.ENABLE
+    );
     this.editUserForm.controls.proyectos.setValue(this.userItem.proyectos);
     this.editUserForm.controls.rol.setValue(this.userItem.rol);
   }
 
   ngAfterViewInit(): void {
-    this.userFacade.getListRol({ status: UserStatus.ENABLE });
+    this.userFacade.getListRol({ status: StatusRol.ENABLED });
     this.successListRol$$ = this.userFacade.listRol$.subscribe((value) => {
       this.listRol$.set(value);
       this.setupUser();
@@ -196,13 +199,15 @@ export class UserEditComponent implements AfterViewInit {
       email: this.editUserForm.controls.email.value,
       a_materno: this.editUserForm.controls.a_materno.value,
       a_paterno: this.editUserForm.controls.a_paterno.value,
-      estatus: this.editUserForm.controls.estatus.value
+      status: this.editUserForm.controls.estatus.value
         ? UserStatus.ENABLE
-        : UserStatus.ENABLE,
+        : UserStatus.DISABLE,
       rol: this.editUserForm.controls.rol.value,
       proyectos: [],
       id_usuario: this.userItem.id_usuario,
     };
+
+    console.log(user);
 
     this.userFacade.editUser(user, this.userItem.id_usuario);
   }
