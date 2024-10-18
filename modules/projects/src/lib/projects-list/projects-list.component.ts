@@ -1,6 +1,8 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
+  BadgeGreenComponent,
+  BadgeRedComponent,
   BreadcrumbComponent,
   BreadcrumbItem,
   DialogService,
@@ -36,6 +38,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTooltip } from '@angular/material/tooltip';
 import { RouterLink } from '@angular/router';
 import {
+  AutoUnsubscribe,
   CommonsStrings,
   defaultEmptyOrNull,
   NavigationRoutes,
@@ -43,11 +46,8 @@ import {
 import { CompanyItem, ProjectStatus } from '@amad-web-admin/modules/network';
 import { Subscription } from 'rxjs';
 import { ProjectsFacade } from '../+state/projects.facade';
-import { AutoUnsubscribe } from '@amad-web-admin/modules/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { ProjectViewComponent } from '../project-view/project-view.component';
-import { BadgeGreenComponent } from '@amad-web-admin/modules/ui-elements';
-import { BadgeRedComponent } from '@amad-web-admin/modules/ui-elements';
 import { CompanyStatus } from '../../../../network/src/lib/companies/entities/company-status';
 
 @AutoUnsubscribe
@@ -133,10 +133,13 @@ export class ProjectsListComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.dataSource.paginator = <MatPaginator>this.paginator;
+    this.changeStatusProject(CompanyStatus.ACTIVE);
+  }
 
+  changeStatusProject(companyStatus: CompanyStatus) {
     this.projectFacade.getListCompanies({
       nombre_comercial: '',
-      status: CompanyStatus.ACTIVE,
+      status: companyStatus,
     });
   }
 
@@ -162,4 +165,6 @@ export class ProjectsListComponent implements AfterViewInit {
       CommonsStrings.CANCEL
     );
   }
+
+  protected readonly CompanyStatus = CompanyStatus;
 }

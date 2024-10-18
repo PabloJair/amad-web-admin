@@ -60,11 +60,6 @@ export class NavMenuComponent {
       icon: 'inventory_2',
       link: `${NavigationRoutes.projects.PROJECT}`,
     },
-    {
-      title: 'Maquetador',
-      icon: 'palette',
-      link: `${NavigationRoutes.layout.HOME}`,
-    },
   ];
   isOpenMenu = true;
 

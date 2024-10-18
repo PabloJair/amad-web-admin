@@ -122,6 +122,7 @@ export class RolListComponent implements AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this.loaded$$.unsubscribe();
     this.listRolUser$$.unsubscribe();
+    this.rolesAndPermissionsFacade.reset();
   }
 
   ngAfterViewInit(): void {

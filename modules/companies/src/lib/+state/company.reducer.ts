@@ -72,6 +72,7 @@ export const companyAppReducer = createReducer(
   on(companyAppAction.reset, (state) => ({
     ...state,
     companyInitialState,
+    anySuccess: undefined,
   }))
 );
 

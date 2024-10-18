@@ -5,6 +5,7 @@ import {
   BreadcrumbItem,
   ButtonLoaderComponent,
   DialogService,
+  ResultType,
 } from '@amad-web-admin/modules/ui-elements';
 import {
   FormControl,
@@ -155,8 +156,14 @@ export class CompanyEditComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.successEditRol$$ = this.facade.success$.subscribe((value) => {
-      this.loading$.set(false);
-      this.navigate.navigateToList();
+      console.log(value);
+      if (value) {
+        this.dialogService.showSuccess(
+          'Atención',
+          'Compañia actualizada correctamente '
+        );
+        this.loading$.set(false);
+      }
     });
 
     this.loading$$ = this.facade.loaded$.subscribe((value) =>

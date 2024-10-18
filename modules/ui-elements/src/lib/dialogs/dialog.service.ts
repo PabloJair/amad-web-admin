@@ -7,6 +7,7 @@ import { DialogsEntity } from './dialogs.entity';
 import { ResultType } from './dialog-result';
 import { CommonsStrings } from '@amad-web-admin/modules/core';
 import { WarningDialogComponent } from './warning-dialog/warning-dialog.component';
+import { SuccessDialogComponent } from './success-dialog/success-dialog.component';
 
 @Injectable({
   providedIn: 'root',
@@ -81,6 +82,18 @@ export class DialogService {
       description: message,
       textFirstButton: textButton,
       textSecondButton: textButton2,
+    });
+  }
+
+  showSuccess<R = ResultType>(
+    title: string,
+    message: string,
+    textButton: string = CommonsStrings.ACCEPT
+  ) {
+    return this.openDialog(SuccessDialogComponent, {
+      title,
+      description: message,
+      textFirstButton: textButton,
     });
   }
 }

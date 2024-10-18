@@ -8,9 +8,10 @@ export enum CommonsStrings {
   ACCEPT = 'Aceptar',
   SLASH = '/',
   MIME_TYPE_PNG = 'image/png',
+  MIME_TYPE_MP3 = 'audio/mpeg',
   MIME_TYPE_JPG = 'image/jpeg',
   REGEX_VERSION = '^[1-9]\\d*(\\.[1-9]\\d*)*$',
-  EMPTY_STRING = ''
+  EMPTY_STRING = '',
 }
 
 export enum CommonsUI {

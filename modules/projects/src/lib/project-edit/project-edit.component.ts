@@ -1,9 +1,11 @@
-import { Component, signal } from '@angular/core';
+import { Component, OnDestroy, signal } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import {
   BreadcrumbComponent,
   BreadcrumbItem,
   ButtonLoaderComponent,
+  DialogService,
+  ResultType,
 } from '@amad-web-admin/modules/ui-elements';
 import {
   FileUploadComponent,
@@ -20,7 +22,6 @@ import {
   MatCardHeader,
   MatCardModule,
   MatCardTitle,
-  MatCardTitleGroup,
 } from '@angular/material/card';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
@@ -34,13 +35,19 @@ import {
 import { CommonsStrings, NavigationRoutes } from '@amad-web-admin/modules/core';
 import { ProjectNavigationService } from '../commons/project-navigation.service';
 import {
+  AddOrEditProjectRequest,
   CompanyItem,
+  ProjectInformation,
   ProjectItem,
   ProjectStatus,
+  Status,
   UploadService,
 } from '@amad-web-admin/modules/network';
 import { ProjectsFacade } from '../+state/projects.facade';
 import { MatIcon } from '@angular/material/icon';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { SelectLanguagesProjectComponent } from '../select-languages-project/select-languages-project.component';
+import { File } from '@ngx-dropzone/cdk';
 
 @Component({
   standalone: true,
@@ -69,9 +76,10 @@ import { MatIcon } from '@angular/material/icon';
   templateUrl: './project-edit.component.html',
   styleUrl: './project-edit.component.scss',
 })
-export class ProjectEditComponent {
+export class ProjectEditComponent implements OnDestroy {
   projectItem?: ProjectItem;
   company?: CompanyItem;
+  projectInformation?: ProjectInformation;
   protected loading$ = signal(false);
   protected breadcrumbItems: BreadcrumbItem[] = [
     {
@@ -93,7 +101,7 @@ export class ProjectEditComponent {
   public readonly fileUploadControl = new FileUploadControl(
     {
       listVisible: true,
-      accept: [CommonsStrings.MIME_TYPE_JPG],
+      accept: [CommonsStrings.MIME_TYPE_JPG, CommonsStrings.MIME_TYPE_PNG],
       discardInvalid: true,
       multiple: false,
     },
@@ -135,7 +143,6 @@ export class ProjectEditComponent {
           CommonsStrings.MIME_TYPE_JPG,
           CommonsStrings.MIME_TYPE_PNG,
         ]),
-        Validators.required,
       ],
     }),
   });
@@ -143,7 +150,9 @@ export class ProjectEditComponent {
   constructor(
     public navigation: ProjectNavigationService,
     private uploadImage: UploadService,
-    private projectFacade: ProjectsFacade
+    private projectFacade: ProjectsFacade,
+    private _bottomSheet: MatBottomSheet,
+    private dialogService: DialogService
   ) {
     this.projectItem = history.state.projectItem;
     this.company = history.state.companyItem;
@@ -152,8 +161,32 @@ export class ProjectEditComponent {
       name: this.projectItem?.application_name ?? '',
     });
 
+    this.projectFacade.getLanguages();
+    if (this.projectItem) {
+      this.projectFacade.userInformation(this.projectItem);
+      this.projectFacade.successUserInformation$.subscribe((value) => {
+        this.projectInformation = value;
+      });
+    }
+    this.projectFacade.loaded$.subscribe((value) => this.loading$.set(value));
+
+    this.projectFacade.anySuccess.subscribe((value) => {
+      if (value) {
+        this.dialogService
+          .showSuccess('Atención', 'Proyecto actualizado correctamente ')
+          .subscribe((value1) => {
+            if (value1.resultType == ResultType.BUTTON_ONE) {
+              this.navigation.navigateToList();
+            }
+          });
+      }
+      this.loading$.set(false);
+    });
     this.setupData();
-    debugger;
+  }
+
+  ngOnDestroy(): void {
+    this.projectFacade.reset();
   }
 
   private setupData() {
@@ -172,9 +205,70 @@ export class ProjectEditComponent {
     );
   }
 
-  edit() {}
+  edit() {
+    const value = {
+      application_name:
+        this.editProjectForm.controls.application_name.value ?? '',
+      application_description:
+        this.editProjectForm.controls.application_description.value ?? '',
+      status: this.editProjectForm.controls.status.value
+        ? ProjectStatus.ACTIVE
+        : ProjectStatus.DISABLE,
+      version: this.editProjectForm.controls.version.value ?? '',
+      url_qr: this.editProjectForm.controls.url.value ?? '',
+      id_cia: this.projectItem?.id_cia,
+      icon: '',
+      icon_qr: '',
+      id_app_google: '',
+    } as AddOrEditProjectRequest;
+
+    const image =
+      this.fileUploadControl.value.length > 0
+        ? this.fileUploadControl.value[0]
+        : null;
+    if (image) {
+      this.loadImage(this.fileUploadControl.value[0], (url) => {
+        value.icon = url;
+        this.projectFacade.editProject(
+          this.projectItem?.id_application ?? -1,
+          value
+        );
+      });
+    } else {
+      value.icon = this.projectItem?.icon ?? '';
+
+      this.projectFacade.editProject(
+        this.projectItem?.id_application ?? -1,
+        value
+      );
+    }
+  }
+
+  goToConfiguration() {
+    this._bottomSheet.open(SelectLanguagesProjectComponent, {
+      data: {
+        isConfiguration: true,
+        projectItem: this.projectItem,
+        projectInformation: this.projectInformation,
+      },
+    });
+  }
+
+  protected loadImage(file: File, onComplete: (url: string) => void) {
+    this.uploadImage.uploadFile(file).subscribe((response) => {
+      if (response.status == Status.OK) {
+        onComplete(response.data);
+      }
+    });
+  }
 
   goToLayout() {
-    this.navigation.navigateToLayout(this.projectItem!);
+    this._bottomSheet.open(SelectLanguagesProjectComponent, {
+      data: {
+        isConfiguration: false,
+        projectItem: this.projectItem,
+        projectInformation: this.projectInformation,
+      },
+    });
   }
 }

@@ -24,7 +24,7 @@ export class ModulesHomeComponent {
     },
     {
       icon: 'category',
-      title: 'Catalogos',
+      title: 'Compañias',
       description: 'Gestion la información de compañias.',
       tag: 'CATALOGS',
     },
@@ -34,12 +34,6 @@ export class ModulesHomeComponent {
       description:
         'Gestiona o administra la información de los proyectos agregados a una compañia',
       tag: 'PROYECTS',
-    },
-    {
-      icon: 'palette',
-      title: 'Maquetador',
-      description: 'Editor  de interfas grafica para generar ',
-      tag: 'LAYOUT',
     },
   ];
 
@@ -51,7 +45,7 @@ export class ModulesHomeComponent {
       case 'CATALOGS':
         this.router.navigate([
           NavigationRoutes.dashboard.DASHBOARD,
-          NavigationRoutes.projects.PROJECT,
+          NavigationRoutes.company.COMPANY,
         ]);
         break;
       case 'PROYECTS':

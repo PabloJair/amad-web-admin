@@ -67,7 +67,7 @@ export class CompanyEffects {
         this.company$.edit(request.value, request.id).pipe(
           map((response) =>
             companyResponseAction.successEdit({
-              value: response.data,
+              value: 'OK',
             })
           ),
           catchError((error) => of(companyAppAction.fail(error.error)))

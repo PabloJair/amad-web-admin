@@ -6,29 +6,33 @@
   @if (componentEntity().type === TypeComponent.BUTTON || componentEntity().type === TypeComponent.IMAGE_BUTTON) {
     <section>
       <div class="flex flex-row justify-center content-center">
-        <mat-checkbox #url>
+        <mat-checkbox #url (change)="checkedOpenUrl($event)">
         </mat-checkbox>
         <mat-form-field appearance="outline" class="w-full">
           <mat-label>Abrir url</mat-label>
-          <input type="url" matInput [disabled]="!url.checked">
+          <input type="url" #inputUrl matInput [disabled]="!url.checked" (keyup)="changeUrlText($event)">
         </mat-form-field>
       </div>
 
       <div class="flex flex-row justify-center content-center">
-        <mat-checkbox #section>
+        <mat-checkbox #section (change)="checkedSection($event)">
         </mat-checkbox>
         <mat-form-field appearance="outline" class="w-full">
-          <mat-label>Abrir Sección</mat-label>
-          <input type="text" matInput [disabled]="!section.checked">
+          <mat-label>Selecciona seccion</mat-label>
+          <mat-select [value]="componentEntity().actions.openSections" [disabled]=!section.checked>
+            @for (section of sections(); track section) {
+              <mat-option [value]="section.id" (click)="selectedSection(section.id)">{{ section.name }}</mat-option>
+            }
+          </mat-select>
         </mat-form-field>
       </div>
 
       <div class="flex flex-row justify-center content-center">
-        <mat-checkbox #call>
+        <mat-checkbox #call (change)="checkedOpenCall($event)">
         </mat-checkbox>
         <mat-form-field appearance="outline" class="w-full">
           <mat-label>LLamar a</mat-label>
-          <input type="number" matInput [disabled]="!call.checked">
+          <input type="number" #inputCall matInput [disabled]="!call.checked" (keyup)="changeCall($event)">
         </mat-form-field>
       </div>
     </section>

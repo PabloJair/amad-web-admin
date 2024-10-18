@@ -2,10 +2,10 @@ import { Actions } from './actions';
 import { Properties } from './properties';
 
 export interface ComponentEntity {
-  UUID: string,
+  UUID: string;
   type: TypeComponent;
-  properties: Properties
-  actions?: Actions
+  properties: Properties;
+  actions: Actions;
 }
 
 export enum TypeComponent {
@@ -15,6 +15,5 @@ export enum TypeComponent {
   TEXT,
   CARROUSEL,
   DIALOG,
-  UNKNOWN
-
+  UNKNOWN,
 }

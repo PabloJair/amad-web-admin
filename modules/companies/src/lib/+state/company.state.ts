@@ -1,6 +1,6 @@
 import {
   CompanyItem,
-  ProjectInformationResponse,
+  ProjectInformation,
   ProjectItem,
 } from '@amad-web-admin/modules/network';
 import { EntityState } from '@ngrx/entity';

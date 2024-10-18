@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "start": "nx serve",
-    "build": "nx build",
+    "build": "VERSION=1.5 nx build --outputPath=dist/amad-web-admin-$VERSION",
     "start:qa": "nx serve --host=0.0.0.0 --configuration=qa",
     "start:development": "nx serve --host=0.0.0.0 --configuration=development",
     "start:production": "nx serve --host=0.0.0.0 --configuration=production",

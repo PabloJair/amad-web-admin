@@ -3,22 +3,26 @@ import { CommonsUI } from '@amad-web-admin/modules/core';
 import { v4 as uuidv4 } from 'uuid';
 import { computed, InputSignal } from '@angular/core';
 
-
 export const buttonComponent: ComponentEntity = {
   type: TypeComponent.BUTTON,
   properties: {
     position: {
       x: 0,
-      y: 0
+      y: 0,
     },
     size: {
       width: CommonsUI.BUTTON_MIN_W,
-      height: CommonsUI.BUTTON_MIN_H
+      height: CommonsUI.BUTTON_MIN_H,
     },
-    cornerRadius: 0
-
+    cornerRadius: 0,
   },
-  UUID: ''
+  actions: {
+    call: '',
+    openWebView: '',
+    openSections: '',
+    showBySchedule: [],
+  },
+  UUID: '',
 };
 export const imageButtonComponent: ComponentEntity = {
   UUID: '',
@@ -27,45 +31,48 @@ export const imageButtonComponent: ComponentEntity = {
     text: 'Botón-Imagen',
     position: {
       x: 0,
-      y: 0
+      y: 0,
     },
     base64Image: 'img.png',
     size: {
       width: CommonsUI.BUTTON_IMAGE_MIN_W,
-      height: CommonsUI.BUTTON_IMAGE_MIN_H
+      height: CommonsUI.BUTTON_IMAGE_MIN_H,
     },
     margin: {
       top: 0,
       bottom: 0,
       left: 0,
-      right: 0
+      right: 0,
     },
-    cornerRadius: 0
-
+    cornerRadius: 0,
   },
   actions: {
     call: '',
     openWebView: '',
     openSections: '',
-    showBySchedule: []
-
-  }
+    showBySchedule: [],
+  },
 };
 export const textComponent: ComponentEntity = {
   type: TypeComponent.TEXT,
   properties: {
     position: {
       x: 0,
-      y: 0
+      y: 0,
     },
     size: {
       width: 60,
-      height: 20
+      height: 20,
     },
-    cornerRadius: 0
-
+    cornerRadius: 0,
   },
-  UUID: ''
+  actions: {
+    call: '',
+    openWebView: '',
+    openSections: '',
+    showBySchedule: [],
+  },
+  UUID: '',
 };
 
 export const imageComponent: ComponentEntity = {
@@ -73,15 +80,21 @@ export const imageComponent: ComponentEntity = {
   properties: {
     position: {
       x: 0,
-      y: 0
+      y: 0,
     },
     size: {
       width: CommonsUI.IMAGE_MIN_W,
-      height: CommonsUI.IMAGE_MIN_H
+      height: CommonsUI.IMAGE_MIN_H,
     },
-    cornerRadius: 0
+    cornerRadius: 0,
   },
-  UUID: ''
+  actions: {
+    call: '',
+    openWebView: '',
+    openSections: '',
+    showBySchedule: [],
+  },
+  UUID: '',
 };
 
 export const carouselComponent: ComponentEntity = {
@@ -89,23 +102,29 @@ export const carouselComponent: ComponentEntity = {
   properties: {
     position: {
       x: 0,
-      y: 0
+      y: 0,
     },
     size: {
       width: CommonsUI.CAROUSEL_MIN_W,
-      height: CommonsUI.CAROUSEL_MIN_H
+      height: CommonsUI.CAROUSEL_MIN_H,
     },
     cornerRadius: 0,
-    itemCarousel: []
+    itemCarousel: [],
   },
-  UUID: ''
+  actions: {
+    call: '',
+    openWebView: '',
+    openSections: '',
+    showBySchedule: [],
+  },
+  UUID: '',
 };
 export const componentsToolBox: ComponentEntity[] = [
   buttonComponent,
   textComponent,
   imageComponent,
   carouselComponent,
-  imageButtonComponent
+  imageButtonComponent,
 ];
 export const defaultComponentEntity: ComponentEntity = {
   UUID: '',
@@ -114,30 +133,27 @@ export const defaultComponentEntity: ComponentEntity = {
     text: '',
     position: {
       x: 0,
-      y: 0
+      y: 0,
     },
     size: {
       width: CommonsUI.BUTTON_MIN_W,
-      height: CommonsUI.BUTTON_MIN_H
+      height: CommonsUI.BUTTON_MIN_H,
     },
     margin: {
       top: 0,
       bottom: 0,
       left: 0,
-      right: 0
+      right: 0,
     },
-    cornerRadius: 0
-
+    cornerRadius: 0,
   },
   actions: {
     call: '',
     openWebView: '',
     openSections: '',
-    showBySchedule: []
-
-  }
+    showBySchedule: [],
+  },
 };
-
 
 export function createComponent(typeComponent: TypeComponent): ComponentEntity {
   let componentEntity: ComponentEntity;
@@ -167,44 +183,57 @@ export function createComponent(typeComponent: TypeComponent): ComponentEntity {
     default:
       componentEntity = defaultComponentEntity;
       break;
-
-
   }
   componentEntity.UUID = uuidv4();
   return componentEntity;
-
 }
 
-
-export function getViewNameTypeComponent(componentEntity: ComponentEntity): string {
+export function getViewNameTypeComponent(
+  componentEntity: ComponentEntity
+): string {
   const viewNameMap: { [key in TypeComponent]?: string } = {
     [TypeComponent.IMAGE]: 'Imagen',
     [TypeComponent.BUTTON]: 'Boton',
     [TypeComponent.IMAGE_BUTTON]: 'Boton/imagen',
     [TypeComponent.TEXT]: 'Texto',
     [TypeComponent.CARROUSEL]: 'Carrusel',
-    [TypeComponent.DIALOG]: 'Dialog'
+    [TypeComponent.DIALOG]: 'Dialog',
   };
 
   return viewNameMap[componentEntity.type] ?? 'Unknown Component Type';
 }
 
-export function getViewIconTypeComponent(componentEntity: ComponentEntity): string {
+export function getViewIconTypeComponent(
+  componentEntity: ComponentEntity
+): string {
   const viewNameMap: { [key in TypeComponent]?: string } = {
     [TypeComponent.IMAGE]: 'image',
     [TypeComponent.BUTTON]: 'gamepad',
     [TypeComponent.IMAGE_BUTTON]: 'compare',
     [TypeComponent.TEXT]: 'title',
     [TypeComponent.CARROUSEL]: 'web_stories',
-    [TypeComponent.DIALOG]: 'dialogs'
+    [TypeComponent.DIALOG]: 'dialogs',
   };
 
   return viewNameMap[componentEntity.type] ?? 'Unknown Component Type';
 }
 
-export function getAlignmentText(typeAlignment?: 'TS' | 'TC' | 'TE' | 'MS' | 'MC' | 'ME' | 'ES' | 'EC' | 'EE'): string {
+export function getAlignmentText(
+  typeAlignment?: 'TS' | 'TC' | 'TE' | 'MS' | 'MC' | 'ME' | 'ES' | 'EC' | 'EE'
+): string {
   const alignmentText = typeAlignment ? typeAlignment : 'TS';
-  const viewNameMap: { [key in 'TS' | 'TC' | 'TE' | 'MS' | 'MC' | 'ME' | 'ES' | 'EC' | 'EE']?: string } = {
+  const viewNameMap: {
+    [key in
+      | 'TS'
+      | 'TC'
+      | 'TE'
+      | 'MS'
+      | 'MC'
+      | 'ME'
+      | 'ES'
+      | 'EC'
+      | 'EE']?: string;
+  } = {
     ['TS']: 'justify-start',
     ['TC']: 'justify-center',
     ['TE']: 'justify-end',
@@ -213,19 +242,21 @@ export function getAlignmentText(typeAlignment?: 'TS' | 'TC' | 'TE' | 'MS' | 'MC
     ['ME']: 'justify-end items-center',
     ['ES']: 'justify-start items-end',
     ['EC']: 'justify-center items-end',
-    ['EE']: 'justify-end items-end'
+    ['EE']: 'justify-end items-end',
   };
 
   return viewNameMap[alignmentText] ?? 'Unknown Component Type';
 }
 
-
-export function updateProperty(name: string, value: any, componentEntity: InputSignal<ComponentEntity>) {
-
+export function updateProperty(
+  name: string,
+  value: any,
+  componentEntity: InputSignal<ComponentEntity>
+) {
   const newComponent = computed(() => componentEntity());
-  newComponent().properties = ({
+  newComponent().properties = {
     ...newComponent().properties,
-    [name]: value
-  });
+    [name]: value,
+  };
   return newComponent;
 }

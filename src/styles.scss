@@ -109,6 +109,11 @@ $amad-web-admin-theme: mat.define-theme(
   @include mat.button-color($amad-web-admin-theme, $color-variant: error);
 }
 
+
+.success-button-color {
+  @include mat.button-color($amad-web-admin-theme, $color-variant: secondary);
+}
+
 html,
 body {
   height: 100%;

@@ -12,3 +12,6 @@ export * from './lib/badges/badge-basic/badge-basic.component';
 export * from './lib/badges/badge-red/badge-red.component';
 export * from './lib/badges/badge-green/badge-green.component';
 export * from './lib/badges/badge-warning/badge-warning.component';
+export * from './lib/audio/audio.component';
+export * from './lib/loader/loader-snackbar/loader-snackbar.component';
+export * from './lib/dialogs/message-snackbar/message-snackbar.component';

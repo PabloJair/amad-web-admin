@@ -5,7 +5,7 @@
   <mat-card appearance="outlined">
     <mat-card-header>
       <mat-card-title><p class="text-xl">
-        Crear nuevo Usuario
+        Editar Compañia
       </p></mat-card-title>
     </mat-card-header>
     <mat-card-content>
@@ -38,7 +38,7 @@
     </mat-card-content>
     <mat-card-actions class="flex gap-5">
 
-      <ui-elements-button-loader text="Editar" [disabled]="editCompanyForm.invalid" (click)="edit()"
+      <ui-elements-button-loader text="Guardar" [disabled]="editCompanyForm.invalid" (click)="edit()"
                                  [showLoader]="loading$()"></ui-elements-button-loader>
       <button mat-button (click)="navigate.navigateToList()">Cancelar</button>
     </mat-card-actions>

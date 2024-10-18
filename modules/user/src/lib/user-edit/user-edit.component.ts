@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, signal } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   BreadcrumbComponent,
@@ -68,7 +68,7 @@ import {
   templateUrl: './user-edit.component.html',
   styleUrl: './user-edit.component.scss',
 })
-export class UserEditComponent implements AfterViewInit {
+export class UserEditComponent implements AfterViewInit, OnDestroy {
   protected breadcrumbItems: BreadcrumbItem[] = [
     {
       color: 'text-blue-600',
@@ -142,6 +142,10 @@ export class UserEditComponent implements AfterViewInit {
     this.userItem = this.navigation.getEditState();
   }
 
+  ngOnDestroy(): void {
+    this.userFacade.reset();
+  }
+
   private setupUser() {
     if (this.userItem == undefined) {
       this.dialogService
@@ -175,19 +179,13 @@ export class UserEditComponent implements AfterViewInit {
     this.userFacade.loaded$.subscribe((value) => this.loading$.set(value));
     this.successEditUser$$ = this.userFacade.successAddUser$.subscribe(
       (value) => {
-        this.dialogService
-          .showWarning(
+        if (value) {
+          this.dialogService.showSuccess(
             'Atención',
-            'Usuario guardado correctamente ',
-            'Regresar',
-            'Continuar'
-          )
-          .subscribe((value1) => {
-            if (value1.resultType == ResultType.BUTTON_ONE) {
-              this.navigation.navigateToList();
-            }
-          });
-        this.loading$.set(false);
+            'Usuario actualizado correctamente '
+          );
+          this.loading$.set(false);
+        }
       }
     );
   }

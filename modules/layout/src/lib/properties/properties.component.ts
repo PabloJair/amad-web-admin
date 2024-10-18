@@ -8,27 +8,17 @@ import { MatDivider } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckbox } from '@angular/material/checkbox';
-import { DialogService } from '@amad-web-admin/modules/ui-elements';
-import { DialogScheduleComponent } from '../dialog-schedule/dialog-schedule.component';
-import { getDayForNumber, ShowBySchedule } from '../entities/actions';
 import {
   defaultComponentEntity,
   getViewNameTypeComponent,
 } from '../entities/compontents-utils';
-import {
-  MatRadioButton,
-  MatRadioChange,
-  MatRadioGroup,
-} from '@angular/material/radio';
+import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 import {
   FileUploadComponent,
-  FileUploadControl,
   FileUploadDropZoneComponent,
   FileUploadListItemComponent,
-  FileUploadValidators,
 } from '@iplab/ngx-file-upload';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CommonsStrings } from '@amad-web-admin/modules/core';
 import { MatSlider, MatSliderThumb } from '@angular/material/slider';
 import { CarouselPropertiesComponent } from '../components/properties-components/carousel-properties/carousel-properties.component';
 import { GeneralPropertiesComponent } from '../components/properties-components/general-properties/general-properties.component';
@@ -72,8 +62,7 @@ export class PropertiesComponent {
   updateComponentEntity = output<ComponentEntity>();
   showProperties = input(false);
   delete = output<string>();
-
-  constructor() {}
+  sections = input<{ name: string; id: string }[]>();
 
   protected readonly getViewNameTypeComponent = getViewNameTypeComponent;
 

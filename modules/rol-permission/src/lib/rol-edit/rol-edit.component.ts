@@ -95,12 +95,7 @@ export class RolEditComponent implements AfterViewInit {
     this.successAddRol$$ = this.rolesAndPermissionFacade.successRol$.subscribe(
       (value) => {
         this.dialogService
-          .showWarning(
-            'Atención',
-            'El rol guardado correctamente ',
-            'Regresar',
-            'Continuar'
-          )
+          .showSuccess('Atención', 'Rol actualizado correctamente ')
           .subscribe((value1) => {
             if (value1.resultType == ResultType.BUTTON_ONE) {
               this.navigation.navigateToList();

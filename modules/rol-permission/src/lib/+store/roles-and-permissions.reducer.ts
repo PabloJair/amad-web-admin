@@ -31,12 +31,12 @@ export const userRolReducer = createReducer(
     error: null,
     loader: false,
   })),
-  on(rolAndPermissionsRequestAction.list, state => ({
+  on(rolAndPermissionsRequestAction.list, (state) => ({
     ...state,
     rolesState: userRolItemEntityAdapter.setAll([], state.rolesState),
     loader: true,
   })),
-  on(rolAndPermissionsRequestAction.delete, state => ({
+  on(rolAndPermissionsRequestAction.delete, (state) => ({
     ...state,
     loader: true,
   })),
@@ -45,11 +45,11 @@ export const userRolReducer = createReducer(
     loader: false,
     rolesState: userRolItemEntityAdapter.removeOne(
       item.value,
-      state.rolesState,
+      state.rolesState
     ),
   })),
 
-  on(rolAndPermissionsRequestAction.add, state => ({
+  on(rolAndPermissionsRequestAction.add, (state) => ({
     ...state,
     loader: true,
     anySuccess: undefined,
@@ -58,7 +58,7 @@ export const userRolReducer = createReducer(
     ...state,
     anySuccess: item.value,
   })),
-  on(rolAndPermissionsRequestAction.edit, state => ({
+  on(rolAndPermissionsRequestAction.edit, (state) => ({
     ...state,
     loader: true,
     anySuccess: undefined,
@@ -73,10 +73,11 @@ export const userRolReducer = createReducer(
     selectedUserItem: null,
     error: action.error,
   })),
-  on(rolAndPermissionsAppAction.reset, state => ({
+  on(rolAndPermissionsAppAction.reset, (state) => ({
     ...state,
     userRolInitialState,
-  })),
+    anySuccess: undefined,
+  }))
 );
 
 export const rolesAndPermissionsFeature = createFeature({

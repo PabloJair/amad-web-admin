@@ -1,6 +1,6 @@
-import { Component, input } from '@angular/core';
+import { Component, input, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ComponentEntity } from '../../../entities/component-entity';
+import { ComponentEntity } from '@amad-web-admin/modules/layout';
 import { defaultComponentEntity } from '../../../entities/compontents-utils';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
@@ -13,9 +13,10 @@ import {
   FileUploadValidators,
 } from '@iplab/ngx-file-upload';
 import { CommonsStrings } from '@amad-web-admin/modules/core';
-import { getBase64 } from '@amad-web-admin/modules/core';
 import { v4 as uuidv4 } from 'uuid';
 import { MatButtonModule } from '@angular/material/button';
+import { UploadService } from '@amad-web-admin/modules/network';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'lib-carousel-properties',
@@ -28,19 +29,25 @@ import { MatButtonModule } from '@angular/material/button';
     FileUploadDropZoneComponent,
     FileUploadListItemComponent,
     MatButtonModule,
+    MatProgressSpinner,
   ],
   templateUrl: './carousel-properties.component.html',
   styleUrl: './carousel-properties.component.scss',
 })
 export class CarouselPropertiesComponent {
-  constructor() {
+  loader = signal<boolean>(false);
+
+  constructor(protected uploadImage: UploadService) {
     this.fileImageCarrousel.valueChanges.subscribe((files) => {
+      this.loader.set(true);
       if (files.length > 0) {
-        getBase64(files[0], (value) => {
+        this.uploadImage.uploadFile(files[0]).subscribe((value) => {
+          this.loader.set(false);
+
           this.add({
             id: uuidv4(),
             title: files[0].name,
-            src: value,
+            src: value.data,
           });
           this.fileImageCarrousel.removeFile(files[0]);
         });

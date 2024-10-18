@@ -1,37 +1,40 @@
-<mat-expansion-panel>
-  <mat-expansion-panel-header>
-    <mat-panel-title>Elementos</mat-panel-title>
-  </mat-expansion-panel-header>
-  <mat-panel-description class="flex flex-col h-60 justify-start overflow-y-scroll">
+@if (!loader()) {
+  <mat-progress-spinner></mat-progress-spinner>
+} @else {
+  <mat-expansion-panel class="mt-5">
+    <mat-expansion-panel-header>
+      <mat-panel-title>Elementos</mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-panel-description class="flex flex-col h-60 justify-start overflow-y-scroll">
+      <span>Agrega elementos</span>
+      @for (item of componentEntity().properties.itemCarousel; track item) {
 
-    <span>Agrega elementos</span>
-    @for (item of componentEntity().properties.itemCarousel; track item) {
+        <div class="flex flex-row justify-start items-center">
+          <p class="text-sm">{{ item.title }}
+          </p>
+          <button mat-icon-button (click)="delete(item)">
+            <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="delete"></mat-icon>
 
-      <div class="flex flex-row justify-start items-center">
-        <p class="text-sm">{{ item.title }}
-        </p>
-        <button mat-icon-button (click)="delete(item)">
-          <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="delete"></mat-icon>
+          </button>
 
-        </button>
+        </div>
+      }
 
-      </div>
-    }
+      <file-upload
+        [multiple]="false" [animation]="true"
+        [control]="fileImageCarrousel"
+        class="w-full file-uploader">
 
-    <file-upload
-      [multiple]="false" [animation]="true"
-      [control]="fileImageCarrousel"
-      class="w-full file-uploader">
-
-      <ng-template let-isFileDragDropAvailable="isFileDragDropAvailable" #placeholder>
-        <file-upload-drop-zone>
-          @if (isFileDragDropAvailable) {
-            <b>Drag & Drop</b><br> para subir un archivo
-          } @else {
-            <b>clickea aqui</b><br> para subir un archivo
-          }
-        </file-upload-drop-zone>
-      </ng-template>
-    </file-upload>
-  </mat-panel-description>
-</mat-expansion-panel>
+        <ng-template let-isFileDragDropAvailable="isFileDragDropAvailable" #placeholder>
+          <file-upload-drop-zone>
+            @if (isFileDragDropAvailable) {
+              <b>Drag & Drop</b><br> para subir un archivo
+            } @else {
+              <b>clickea aqui</b><br> para subir un archivo
+            }
+          </file-upload-drop-zone>
+        </ng-template>
+      </file-upload>
+    </mat-panel-description>
+  </mat-expansion-panel>
+}

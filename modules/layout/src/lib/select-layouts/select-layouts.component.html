@@ -1,0 +1,16 @@
+<div class="overscroll-y-auto">
+  <mat-nav-list class="overscroll-y-auto">
+    @for (item of list()?.views; track item) {
+      <a mat-list-item (click)="load(item)">
+        <span matListItemTitle class="font-bold text-xl">{{ item.nameView }}</span>
+        <span matLine class="text-base text-gray-500">
+              @if (item.mainView) {
+                <span>Principal</span>
+              }
+        </span>
+      </a>
+    }
+  </mat-nav-list>
+  <button mat-button class="w-full" (click)="newLayout()">Nueva vista</button>
+
+</div>

@@ -1,9 +1,6 @@
 import { Component, output } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import {
-  CdkDrag,
-  CdkDropList
-} from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 import { ComponentEntity, TypeComponent } from '../entities/component-entity';
 import { MatButton } from '@angular/material/button';
 import { ButtonComponent } from '../components/button/button.component';
@@ -16,9 +13,20 @@ import { CarouselComponent } from '../components/carousel/carousel.component';
 @Component({
   selector: 'lib-preview-mobile',
   standalone: true,
-  imports: [CommonModule, CdkDrag, NgOptimizedImage, CdkDropList, MatButton, ButtonComponent, TextComponent, ImageComponent, ButtonImageComponent, CarouselComponent],
+  imports: [
+    CommonModule,
+    CdkDrag,
+    NgOptimizedImage,
+    CdkDropList,
+    MatButton,
+    ButtonComponent,
+    TextComponent,
+    ImageComponent,
+    ButtonImageComponent,
+    CarouselComponent,
+  ],
   templateUrl: './preview-mobile.component.html',
-  styleUrl: './preview-mobile.component.scss'
+  styleUrl: './preview-mobile.component.scss',
 })
 export class PreviewMobileComponent {
   componentEntitiesAdd: ComponentEntity[] = [];
@@ -28,21 +36,25 @@ export class PreviewMobileComponent {
     const newComponent = createComponent(typeComponent);
     const clonedComponent = { ...newComponent };
 
+    if (this.componentEntitiesAdd === undefined) {
+      this.componentEntitiesAdd = [];
+    }
     this.componentEntitiesAdd.push(clonedComponent);
-    console.log(clonedComponent);
-    console.log(this.componentEntitiesAdd);
+  }
 
+  public reloadComponent(componentEntity: ComponentEntity[]) {
+    this.componentEntitiesAdd = componentEntity;
   }
 
   public deleteComponent(uuid: string): void {
-    this.componentEntitiesAdd = this.componentEntitiesAdd.filter(value => value.UUID !== uuid);
-
+    this.componentEntitiesAdd = this.componentEntitiesAdd.filter(
+      (value) => value.UUID !== uuid
+    );
   }
 
   protected readonly TypeComponent = TypeComponent;
 
   showProperties(item: ComponentEntity) {
-
     this.onSelectedComponent.emit(item);
   }
 }

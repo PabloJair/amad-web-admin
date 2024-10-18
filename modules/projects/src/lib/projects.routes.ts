@@ -10,6 +10,7 @@ import * as fromProjectRedux from './+state/projects.reducer';
 import { ProjectAddComponent } from './project-add/project-add.component';
 import { ProjectNavigationService } from './commons/project-navigation.service';
 import { ProjectEditComponent } from './project-edit/project-edit.component';
+import { ProjectPreconfigurationComponent } from './project-preconfiguration/project-preconfiguration.component';
 
 export const modulesProjectsRoutes: Route[] = [
   {
@@ -27,6 +28,10 @@ export const modulesProjectsRoutes: Route[] = [
       {
         path: `${NavigationRoutes.projects.PROJECT_ADD}`,
         component: ProjectAddComponent,
+      },
+      {
+        path: `${NavigationRoutes.projects.PROJECT_CONFIGURATIONS}`,
+        component: ProjectPreconfigurationComponent,
       },
       {
         path: `${NavigationRoutes.projects.PROJECT_EDIT}`,

@@ -1,4 +1,4 @@
-<div class="h-full w-full border stroke-gray-600 p-5 overflow-y-scroll">
+<div class="h-full w-full border stroke-gray-600 p-5 overscroll-y-auto">
   @if (showProperties()) {
     <div class="flex mb-5">
        <span class="text-gray-400 text-xs"> ID:  {{ componentEntity().UUID }}
@@ -8,7 +8,7 @@
       </button>
     </div>
 
-    <mat-accordion>
+    <mat-accordion class="flex flex-col gap-4">
       @if (componentEntity().type !== TypeComponent.CARROUSEL) {
         @if (componentEntity().type !== TypeComponent.IMAGE) {
           <lib-general-properties [componentEntity]="componentEntity()">
@@ -21,12 +21,11 @@
           <lib-colors-properties [componentEntity]="componentEntity()"></lib-colors-properties>
         }
         <lib-margin-size-properties [componentEntity]="componentEntity()"></lib-margin-size-properties>
-        <lib-actions-properties [componentEntity]="componentEntity()"></lib-actions-properties>
+        <lib-actions-properties [componentEntity]="componentEntity()" [sections]="sections()"></lib-actions-properties>
       }
 
       @if (componentEntity().type === TypeComponent.CARROUSEL) {
         <lib-carousel-properties [componentEntity]="componentEntity()"></lib-carousel-properties>
-
       }
     </mat-accordion>
 

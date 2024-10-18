@@ -109,6 +109,7 @@ export const userReducer = createReducer(
   on(userAppAction.reset, (state) => ({
     ...state,
     userInitialState,
+    anySuccess: undefined,
   }))
 );
 

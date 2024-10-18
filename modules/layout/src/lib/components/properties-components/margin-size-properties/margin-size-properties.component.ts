@@ -10,7 +10,7 @@ import {
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
-import { ComponentEntity } from '../../../entities/component-entity';
+import { ComponentEntity } from '@amad-web-admin/modules/layout';
 import { defaultComponentEntity } from '../../../entities/compontents-utils';
 
 @Component({

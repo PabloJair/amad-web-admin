@@ -18,8 +18,9 @@
 
 
     </mat-card-header>
-    <div mat-card-avatar>
+    <div class="flex mb-20">
       <button mat-button (click)="goToLayout()">Maquetador</button>
+      <button mat-button (click)="goToConfiguration()">Configuraciones</button>
     </div>
     <mat-card-content>
       <form class="grid grid-cols-2 gap-4" [formGroup]="editProjectForm">
@@ -76,7 +77,7 @@
     </mat-card-content>
     <mat-card-actions class="flex gap-5">
 
-      <ui-elements-button-loader text="Agregar" [disabled]="editProjectForm.invalid" (click)="edit()"
+      <ui-elements-button-loader text="Guardar" [disabled]="editProjectForm.invalid" (click)="edit()"
                                  [showLoader]="loading$()"></ui-elements-button-loader>
       <button mat-button (click)="navigation.navigateToList()">Cancelar</button>
     </mat-card-actions>
