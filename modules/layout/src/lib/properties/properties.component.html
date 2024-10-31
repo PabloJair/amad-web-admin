@@ -17,6 +17,10 @@
           <lib-image-properties [componentEntity]="componentEntity()"></lib-image-properties>
         }
 
+        @if (componentEntity().type === TypeComponent.IMAGE_BUTTON) {
+          <lib-image-properties [componentEntity]="componentEntity()"></lib-image-properties>
+
+        }
         @if (componentEntity().type !== TypeComponent.IMAGE) {
           <lib-colors-properties [componentEntity]="componentEntity()"></lib-colors-properties>
         }
