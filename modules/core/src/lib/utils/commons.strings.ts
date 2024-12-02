@@ -23,4 +23,6 @@ export enum CommonsUI {
   BUTTON_IMAGE_MIN_H = 50,
   CAROUSEL_MIN_W = 300,
   CAROUSEL_MIN_H = 250,
+  DEFAULT_DY = 0,
+  DEFAULT_DX = 0,
 }

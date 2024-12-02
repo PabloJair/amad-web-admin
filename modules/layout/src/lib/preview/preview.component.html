@@ -34,12 +34,12 @@
       </mat-card-subtitle>
     </mat-card-header>
     <mat-card-content class=" max-h-max ">
-      <div class="flex  gap-4 w-full  h-full" cdkDropListGroup>
+      <div class="flex justify-center    gap-4 w-full  h-full">
         <lib-toolbox class="flex-initial w-1/6"
                      (onAddComponent)="onAddComponent($event)"
         ></lib-toolbox>
         <lib-preview-mobile
-          class="flex-initial w-1/2 h-[54rem] scroll-auto"
+          class="flex-initial w-[393px] h-[54rem] scroll-auto"
           (onSelectedComponent)="onSelectedComponent($event)"
         ></lib-preview-mobile>
         <div class="flex-initial w-1/3">

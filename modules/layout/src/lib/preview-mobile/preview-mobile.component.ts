@@ -1,6 +1,6 @@
 import { Component, output } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDropList, CdkDropListGroup } from '@angular/cdk/drag-drop';
 import { ComponentEntity, TypeComponent } from '../entities/component-entity';
 import { MatButton } from '@angular/material/button';
 import { ButtonComponent } from '../components/button/button.component';
@@ -24,6 +24,7 @@ import { CarouselComponent } from '../components/carousel/carousel.component';
     ImageComponent,
     ButtonImageComponent,
     CarouselComponent,
+    CdkDropListGroup,
   ],
   templateUrl: './preview-mobile.component.html',
   styleUrl: './preview-mobile.component.scss',

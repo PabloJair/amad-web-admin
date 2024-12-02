@@ -167,7 +167,7 @@ export class PreviewComponent implements AfterViewInit {
     this.showProperties = true;
     this.selectedComponent.set($event);
     this.sectionsProperties.set(this.getListSections());
-    console.log(this.sectionsProperties());
+    console.log(`Selected component:${this.selectedComponent()}`);
   }
 
   onDelete($event: string) {

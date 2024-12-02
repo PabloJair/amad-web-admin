@@ -2,6 +2,8 @@
   [cdkDragBoundaryName]="cdkDragBoundaryName()"
   [isDragging]="isDragging"
   (changePosition)="changePosition($event)"
+  [dx]="component().properties.position.x"
+  [dy]="component().properties.position.y"
 >
 
   <div
@@ -16,7 +18,7 @@
         'color': component().properties.colorText,
         'width.px':component().properties.size.width ,
         'height.px':component().properties.size.height ,
-        'border-radius.px':component().properties.cornerRadius
+        'border-radius.px':component().properties.cornerRadius,
         }"
     class="flex w-full h-full"
     [ngClass]="getAlignmentText(component().properties.textAlignment)"

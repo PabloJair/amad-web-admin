@@ -1,11 +1,13 @@
 <div
   class=" w-fit h-fit cursor-move"
-
   cdkDrag
-  [cdkDragDisabled]="isDragging()"
-  (cdkDragEnded)="onDragMoved($event)"
+  (cdkDragEnded)="onDragEnd($event)"
+  (cdkDragStarted)="onDragStart($event)"
+  [cdkDragFreeDragPosition]="{x:dx(),y:dy()}"
   [cdkDragBoundary]="cdkDragBoundaryName()"
+
 >
+
   <ng-content>
 
   </ng-content>

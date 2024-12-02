@@ -1,8 +1,15 @@
-import { Directive, ElementRef, HostListener, Renderer2 } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  HostListener,
+  input,
+  Renderer2,
+} from '@angular/core';
+import { CommonsUI } from '../utils/commons.strings';
 
 @Directive({
   standalone: true,
-  selector: '[coreDraggable]'
+  selector: '[coreDraggable]',
 })
 export class DraggableDirective {
   private isDragging = false;
@@ -10,10 +17,14 @@ export class DraggableDirective {
   private startY = 0;
   private initialX = 0;
   private initialY = 0;
+  dx = input<number>(CommonsUI.DEFAULT_DX);
+  dy = input<number>(CommonsUI.DEFAULT_DY);
 
   constructor(private el: ElementRef, private renderer: Renderer2) {
     this.renderer.setStyle(this.el.nativeElement, 'position', 'absolute');
     this.renderer.setStyle(this.el.nativeElement, 'cursor', 'move');
+    this.renderer.setStyle(this.el.nativeElement, 'top', `${this.dy}px`);
+    this.renderer.setStyle(this.el.nativeElement, 'left', `${this.dx}px`);
   }
 
   @HostListener('mousedown', ['$event']) onMouseDown(event: MouseEvent) {
@@ -27,13 +38,23 @@ export class DraggableDirective {
     event.preventDefault();
   }
 
-  @HostListener('document:mousemove', ['$event']) onMouseMove(event: MouseEvent) {
+  @HostListener('document:mousemove', ['$event']) onMouseMove(
+    event: MouseEvent
+  ) {
     if (this.isDragging) {
       const offsetX = event.clientX - this.startX;
       const offsetY = event.clientY - this.startY;
 
-      this.renderer.setStyle(this.el.nativeElement, 'left', `${this.initialX + offsetX}px`);
-      this.renderer.setStyle(this.el.nativeElement, 'top', `${this.initialY + offsetY}px`);
+      this.renderer.setStyle(
+        this.el.nativeElement,
+        'left',
+        `${this.initialX + offsetX}px`
+      );
+      this.renderer.setStyle(
+        this.el.nativeElement,
+        'top',
+        `${this.initialY + offsetY}px`
+      );
     }
   }
 

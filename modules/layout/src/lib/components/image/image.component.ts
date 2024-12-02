@@ -2,25 +2,25 @@ import { Component, computed, input } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { LayoutDragComponent } from '../layout-drag/layout-drag.component';
 import { CommonsUI, ResizableDirective } from '@amad-web-admin/modules/core';
-import { ComponentEntity } from '../../entities/component-entity';
+import { ComponentEntity } from '@amad-web-admin/modules/layout';
 import { defaultComponentEntity } from '../../entities/compontents-utils';
 
 @Component({
   selector: 'lib-image',
   standalone: true,
-  imports: [CommonModule, LayoutDragComponent, ResizableDirective, NgOptimizedImage],
+  imports: [
+    CommonModule,
+    LayoutDragComponent,
+    ResizableDirective,
+    NgOptimizedImage,
+  ],
   templateUrl: './image.component.html',
-  styleUrl: './image.component.scss'
+  styleUrl: './image.component.scss',
 })
 export class ImageComponent {
-
-
   cdkDragBoundaryName = input<string>('');
 
   component = input<ComponentEntity>(defaultComponentEntity);
-  fontSize = computed(() => {
-    return;
-  });
 
   isDragging = false;
 
@@ -36,7 +36,6 @@ export class ImageComponent {
   protected readonly CommonsUI = CommonsUI;
 
   changePosition($event: { x: number; y: number }) {
-
     this.component().properties.position = $event;
   }
 }

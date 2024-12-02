@@ -2,6 +2,8 @@
   [cdkDragBoundaryName]="cdkDragBoundaryName()"
   [isDragging]="isDragging"
   (changePosition)="changePosition($event)"
+  [dx]="component().properties.position.x"
+  [dy]="component().properties.position.y"
 >
 
   <div
