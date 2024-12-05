@@ -15,28 +15,28 @@
       }
       @case (TypeComponent.TEXT) {
         <lib-text
-          cdkDragBoundaryName=".boundary"
+          cdkDragBoundaryName="#boundary"
           (click)="showProperties(item)"
           [component]="item"
         ></lib-text>
       }
       @case (TypeComponent.IMAGE) {
         <lib-image
-          cdkDragBoundaryName=".boundary"
+          cdkDragBoundaryName="#boundary"
           (click)="showProperties(item)"
           [component]="item"
         ></lib-image>
       }
       @case (TypeComponent.IMAGE_BUTTON) {
         <lib-button-image
-          cdkDragBoundaryName=".boundary"
+          cdkDragBoundaryName="#boundary"
           (click)="showProperties(item)"
           [component]="item"
         ></lib-button-image>
       }
       @case (TypeComponent.CARROUSEL) {
         <lib-carousel
-          cdkDragBoundaryName=".boundary"
+          cdkDragBoundaryName="#boundary"
           (click)="showProperties(item)"
           [component]="item"
         ></lib-carousel>
