@@ -50,20 +50,10 @@ export class LayoutDragComponent implements AfterViewInit {
     }
 
     // Calcula la nueva posición dentro del límite
-    let newY = dragRect.top - boundaryRect.top;
-    newY = Math.max(0, Math.min(newY, boundaryRect.height - dragRect.height));
+    const newY = dragRect.top - boundaryRect.top;
 
     position.x = Math.max(0, position.x);
-    position.y = Math.max(
-      0,
-      Math.min(newY, boundaryRect.height - dragRect.height)
-    );
-
-    position.y = Math.max(
-      0,
-      Math.min(position.y, dragRect.height - boundaryRect.height)
-    );
-
+    position.y = Math.max(0, position.y);
     console.log(position);
 
     this.changePosition.emit(position);
