@@ -3,7 +3,8 @@
     <mat-panel-title> Acciones</mat-panel-title>
   </mat-expansion-panel-header>
 
-  @if (componentEntity().type === TypeComponent.BUTTON || componentEntity().type === TypeComponent.IMAGE_BUTTON) {
+  @if (componentEntity().type === TypeComponent.BUTTON
+  || componentEntity().type === TypeComponent.IMAGE_BUTTON || componentEntity().type === TypeComponent.IMAGE) {
     <section>
       <div class="flex flex-row justify-center content-center">
         <mat-checkbox #url (change)="checkedOpenUrl($event)">
