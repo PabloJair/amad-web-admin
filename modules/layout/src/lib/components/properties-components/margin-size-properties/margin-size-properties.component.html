@@ -11,14 +11,12 @@
     <mat-form-field appearance="outline">
       <mat-label>Ancho</mat-label>
       <input type="number" matInput
-             (keyup)="changeWidth($event)"
-             [value]="componentEntity().properties.size.width">
+             [(ngModel)]="componentEntity().properties.size.width">
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Largo</mat-label>
       <input type="number" matInput
-             [value]="componentEntity().properties.size.height"
-             (keyup)="changeHeight($event)">
+             [(ngModel)]="componentEntity().properties.size.height">
     </mat-form-field>
 
   </div>

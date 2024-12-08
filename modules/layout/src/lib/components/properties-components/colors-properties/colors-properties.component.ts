@@ -15,7 +15,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDivider } from '@angular/material/divider';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'lib-colors-properties',
@@ -35,22 +35,11 @@ import { ReactiveFormsModule } from '@angular/forms';
     FileUploadDropZoneComponent,
     FileUploadListItemComponent,
     ReactiveFormsModule,
+    FormsModule,
   ],
   templateUrl: './colors-properties.component.html',
   styleUrl: './colors-properties.component.scss',
 })
 export class ColorsPropertiesComponent {
   componentEntity = input<ComponentEntity>(defaultComponentEntity);
-
-  changeBackground(event: Event) {
-    this.componentEntity().properties.background = (
-      event.target as HTMLInputElement
-    ).value;
-  }
-
-  changeColor(event: Event) {
-    this.componentEntity().properties.colorText = (
-      event.target as HTMLInputElement
-    ).value;
-  }
 }

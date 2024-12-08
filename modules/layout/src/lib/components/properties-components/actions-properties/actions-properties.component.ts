@@ -17,6 +17,7 @@ import { DialogScheduleComponent } from '../../../dialog-schedule/dialog-schedul
 import { DialogService } from '@amad-web-admin/modules/ui-elements';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { CommonsStrings } from '@amad-web-admin/modules/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'lib-actions-properties',
@@ -33,6 +34,7 @@ import { CommonsStrings } from '@amad-web-admin/modules/core';
     MatInput,
     MatLabel,
     MatSelectModule,
+    FormsModule,
   ],
   templateUrl: './actions-properties.component.html',
   styleUrl: './actions-properties.component.scss',

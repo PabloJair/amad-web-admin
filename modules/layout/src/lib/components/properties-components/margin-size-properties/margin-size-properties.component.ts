@@ -12,6 +12,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { ComponentEntity } from '@amad-web-admin/modules/layout';
 import { defaultComponentEntity } from '../../../entities/compontents-utils';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'lib-margin-size-properties',
@@ -27,6 +28,7 @@ import { defaultComponentEntity } from '../../../entities/compontents-utils';
     MatIcon,
     MatInput,
     MatLabel,
+    FormsModule,
   ],
   templateUrl: './margin-size-properties.component.html',
   styleUrl: './margin-size-properties.component.scss',

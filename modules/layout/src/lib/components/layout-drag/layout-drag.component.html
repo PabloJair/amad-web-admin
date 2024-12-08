@@ -1,10 +1,12 @@
 <div
-  class=" w-fit h-fit cursor-move"
+  class=" w-fit h-fit cursor-move bg-blue-700"
   cdkDrag
+
   (cdkDragEnded)="onDragEnd($event)"
   (cdkDragStarted)="onDragStart($event)"
+  (cdkDragMoved)="onDragMoved($event)"
   [cdkDragFreeDragPosition]="{x:dx(),y:dy()}"
-  [cdkDragBoundary]="cdkDragBoundaryName()"
+  [cdkDragBoundary]="'#boundary'"
 
 >
 

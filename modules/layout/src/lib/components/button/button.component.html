@@ -2,16 +2,18 @@
   [cdkDragBoundaryName]="cdkDragBoundaryName()"
   [isDragging]="isDragging"
   (changePosition)="changePosition($event)"
-  [dx]="component().properties.position.x"
-  [dy]="component().properties.position.y"
+  [dx]="defaultX"
+  [dy]="defaultY"
+  (click)="onSelectedComponent.emit(component())"
 >
 
   <div
     coreResizable
-    [minHeight]="CommonsUI.BUTTON_MIN_H"
-    [minWidth]="CommonsUI.BUTTON_MIN_W"
     (onFinishResize)="onFinishResized($event)"
     (onResize)="onResize($event)"
+    [minHeight]="CommonsUI.BUTTON_MIN_H"
+    [minWidth]="CommonsUI.BUTTON_MIN_W"
+
     [ngStyle]="{
         'fontSize.px': component().properties.fontSize,
         'background-color':component().properties.background ?? 'gray',
@@ -20,7 +22,7 @@
         'height.px':component().properties.size.height ,
         'border-radius.px':component().properties.cornerRadius,
         }"
-    class="flex w-full h-full"
+    class="flex w-full h-full bg-blue-700"
     [ngClass]="getAlignmentText(component().properties.textAlignment)"
 
   ><span class="w-fit h-fit">{{ component().properties.text ?? 'Botón' }}</span>

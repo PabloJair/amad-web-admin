@@ -161,11 +161,13 @@ export class PreviewComponent implements AfterViewInit {
 
   onAddComponent($event: TypeComponent) {
     this.previewMobileComponent?.addNewComponent($event);
+    this.selectedComponent = signal(defaultComponentEntity);
+    this.sectionsProperties = signal<{ name: string; id: string }[]>([]);
   }
 
   onSelectedComponent($event: ComponentEntity) {
     this.showProperties = true;
-    this.selectedComponent.set($event);
+    this.selectedComponent = signal($event);
     this.sectionsProperties.set(this.getListSections());
     console.log(`Selected component:${this.selectedComponent()}`);
   }
@@ -233,7 +235,7 @@ export class PreviewComponent implements AfterViewInit {
 
   save() {
     this.selectedApplicantProjectLayout().component =
-      this.previewMobileComponent?.componentEntitiesAdd ?? [];
+      this.previewMobileComponent?.componentEntitiesAdd() ?? [];
     this.saveJson();
 
     const snackBar = this.snackBar.openFromComponent(LoaderSnackbarComponent);
@@ -274,12 +276,10 @@ export class PreviewComponent implements AfterViewInit {
   }
 
   getListSections() {
-    return this.applicantProject.views.map((value) => {
-      return {
-        id: value.id,
-        name: value.nameView,
-      };
-    });
+    return this.applicantProject.views.map(({ id, nameView }) => ({
+      id,
+      name: nameView,
+    }));
   }
 
   changeNameView($event: Event) {

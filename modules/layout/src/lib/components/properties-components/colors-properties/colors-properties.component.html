@@ -9,12 +9,12 @@
   <div class="flex flex-row gap-4">
     <mat-form-field appearance="outline">
       <mat-label>Color de fondo</mat-label>
-      <input type="color" matInput (input)="changeBackground($event)">
+      <input type="color" matInput [(ngModel)]="componentEntity().properties.background">
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Color de texto</mat-label>
-      <input type="color" matInput (input)="changeColor($event)">
+      <input type="color" matInput [(ngModel)]="componentEntity().properties.colorText">
     </mat-form-field>
 
   </div>

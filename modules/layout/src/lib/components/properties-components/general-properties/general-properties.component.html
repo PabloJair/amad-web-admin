@@ -14,17 +14,18 @@
         <mat-label>Texto</mat-label>
         @if (componentEntity().type === TypeComponent.TEXT) {
           <textarea matInput
-                    (keyup)="changeText($event)"
+                    [(ngModel)]="componentEntity().properties.text"
                     cdkTextareaAutosize
                     cdkAutosizeMinRows="1"
                     cdkAutosizeMaxRows="5"></textarea>
         } @else {
-          <input type="text" matInput (keyup)="changeText($event)">
+          <input type="text" matInput [(ngModel)]="componentEntity().properties.text">
         }
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Tamaño de texto</mat-label>
-        <input type="number" matInput (keyup)="changeFonSize($event)">
+        <input type="number" matInput [(ngModel)]="componentEntity().properties.fontSize"
+        >
 
       </mat-form-field>
     </div>
@@ -34,13 +35,13 @@
 
 
       <mat-slider min="0" max="20" showTickMarks discrete>
-        <input matSliderThumb (valueChange)="changeCornerRadius($event)">
+        <input matSliderThumb [(ngModel)]="this.componentEntity().properties.cornerRadius">
       </mat-slider>
     }
     <section>
       <span>Alineación del texto</span>
       <mat-radio-group class=" grid grid-cols-5 grid-rows-5  justify-items-center"
-                       (change)="changeTextAlignment($event)">
+                       [(ngModel)]="componentEntity().properties.textAlignment">
         <mat-radio-button value="TS">
         </mat-radio-button>
         <mat-radio-button value="TC">

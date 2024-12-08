@@ -1,29 +1,9 @@
 import { ComponentEntity, TypeComponent } from './component-entity';
 import { CommonsUI } from '@amad-web-admin/modules/core';
-import { v4 as uuidv4 } from 'uuid';
 import { computed, InputSignal } from '@angular/core';
+import { buttonComponent } from './defaults-components';
+import { TextAlignment } from '@amad-web-admin/modules/layout';
 
-export const buttonComponent: ComponentEntity = {
-  type: TypeComponent.BUTTON,
-  properties: {
-    position: {
-      x: 0,
-      y: 0,
-    },
-    size: {
-      width: CommonsUI.BUTTON_MIN_W,
-      height: CommonsUI.BUTTON_MIN_H,
-    },
-    cornerRadius: 0,
-  },
-  actions: {
-    call: '',
-    openWebView: '',
-    openSections: '',
-    showBySchedule: [],
-  },
-  UUID: '',
-};
 export const imageButtonComponent: ComponentEntity = {
   UUID: '',
   type: TypeComponent.IMAGE_BUTTON,
@@ -45,6 +25,7 @@ export const imageButtonComponent: ComponentEntity = {
       right: 0,
     },
     cornerRadius: 0,
+    textAlignment: TextAlignment.MiddleCenter,
   },
   actions: {
     call: '',
@@ -65,6 +46,7 @@ export const textComponent: ComponentEntity = {
       height: 20,
     },
     cornerRadius: 0,
+    textAlignment: TextAlignment.MiddleCenter,
   },
   actions: {
     call: '',
@@ -87,6 +69,7 @@ export const imageComponent: ComponentEntity = {
       height: CommonsUI.IMAGE_MIN_H,
     },
     cornerRadius: 0,
+    textAlignment: TextAlignment.MiddleCenter,
   },
   actions: {
     call: '',
@@ -110,6 +93,7 @@ export const carouselComponent: ComponentEntity = {
     },
     cornerRadius: 0,
     itemCarousel: [],
+    textAlignment: TextAlignment.MiddleCenter,
   },
   actions: {
     call: '',
@@ -146,6 +130,7 @@ export const defaultComponentEntity: ComponentEntity = {
       right: 0,
     },
     cornerRadius: 0,
+    textAlignment: TextAlignment.MiddleCenter,
   },
   actions: {
     call: '',
@@ -184,7 +169,7 @@ export function createComponent(typeComponent: TypeComponent): ComponentEntity {
       componentEntity = defaultComponentEntity;
       break;
   }
-  componentEntity.UUID = uuidv4();
+  componentEntity.UUID = crypto.randomUUID();
   return componentEntity;
 }
 
