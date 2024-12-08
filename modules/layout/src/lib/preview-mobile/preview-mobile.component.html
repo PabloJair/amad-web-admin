@@ -1,9 +1,65 @@
 <div
   id="boundary"
+  #contenedor
+  class="bg-white h-full min-h-[800px] min-w-[400px]"
+>
+
+  @for (item of componentEntitiesAdd(); track item.UUID) {
+    <div
+      class="absolute"
+    >
+      @switch (item.type) {
+        @case (TypeComponent.BUTTON) {
+          <lib-app-button
+            cdkDragBoundaryName="#boundary"
+            (click)="showProperties(item)"
+            [totalSize]="totalSize()"
+            [component]="item"
+            (onSelectedComponent)="showProperties($event)"
+          ></lib-app-button>
+        }
+        @case (TypeComponent.TEXT) {
+          <lib-text
+            cdkDragBoundaryName="#boundary"
+            (click)="showProperties(item)"
+            [component]="item"
+          ></lib-text>
+        }
+        @case (TypeComponent.IMAGE) {
+          <lib-image
+            cdkDragBoundaryName="#boundary"
+            (click)="showProperties(item)"
+            [component]="item"
+          ></lib-image>
+        }
+        @case (TypeComponent.IMAGE_BUTTON) {
+          <lib-button-image
+            cdkDragBoundaryName="#boundary"
+            (click)="showProperties(item)"
+            [component]="item"
+          ></lib-button-image>
+        }
+        @case (TypeComponent.CARROUSEL) {
+          <lib-carousel
+            cdkDragBoundaryName="#boundary"
+            (click)="showProperties(item)"
+            [component]="item"
+          ></lib-carousel>
+        }
+      }
+
+    </div>
+
+  }
+
+</div>
+
+<!--<div
+  id="boundary"
   class="bg-white h-full min-h-[800px] min-w-[400px] "
 >
 
   <div #contenedor class="min-h-[800px] min-w-[400px]  absolute"
   ></div>
 
-</div>
+</div>-->

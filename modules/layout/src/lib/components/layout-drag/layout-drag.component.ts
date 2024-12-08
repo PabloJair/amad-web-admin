@@ -39,7 +39,7 @@ export class LayoutDragComponent {
       event.source.element.nativeElement.parentElement as HTMLElement
     ).getBoundingClientRect();
 
-    console.log(event);
+    console.log('onDragEnd', event);
     const dragRect = event.source.element.nativeElement.getBoundingClientRect();
 
     // Calcular la posición de forma correcta considerando el contenedor y el desplazamiento
