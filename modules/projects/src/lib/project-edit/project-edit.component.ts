@@ -48,6 +48,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { SelectLanguagesProjectComponent } from '../select-languages-project/select-languages-project.component';
 import { File } from '@ngx-dropzone/cdk';
+import { TypeView } from '../select-languages-project/TypeView';
 
 @Component({
   standalone: true,
@@ -247,7 +248,7 @@ export class ProjectEditComponent implements OnDestroy {
   goToConfiguration() {
     this._bottomSheet.open(SelectLanguagesProjectComponent, {
       data: {
-        isConfiguration: true,
+        type: TypeView.CONFIGURATION,
         projectItem: this.projectItem,
         projectInformation: this.projectInformation,
       },
@@ -265,7 +266,17 @@ export class ProjectEditComponent implements OnDestroy {
   goToLayout() {
     this._bottomSheet.open(SelectLanguagesProjectComponent, {
       data: {
-        isConfiguration: false,
+        type: TypeView.LAYOUT,
+        projectItem: this.projectItem,
+        projectInformation: this.projectInformation,
+      },
+    });
+  }
+
+  goToPersonInformation() {
+    this._bottomSheet.open(SelectLanguagesProjectComponent, {
+      data: {
+        type: TypeView.INFORMATION_PERSONAL,
         projectItem: this.projectItem,
         projectInformation: this.projectInformation,
       },

@@ -5,6 +5,7 @@
   [dx]="defaultX"
   [dy]="defaultY"
   (click)="onSelectedComponent.emit(component())"
+  class="bg-purple-900"
 >
 
   <div
@@ -22,7 +23,7 @@
         'height.px':component().properties.size.height ,
         'border-radius.px':component().properties.cornerRadius,
         }"
-    class="flex w-full h-full bg-blue-700"
+    class="flex w-full h-full"
     [ngClass]="getAlignmentText(component().properties.textAlignment)"
 
   ><span class="w-fit h-fit">{{ component().properties.text ?? 'Botón' }}</span>

@@ -76,7 +76,6 @@ export class ActionsPropertiesComponent {
     }
     console.log(addShowBySchedule);
     this.componentEntity().actions?.showBySchedule.push(addShowBySchedule);
-    console.log(this.componentEntity().actions?.showBySchedule);
   }
 
   checkedSection($event: MatCheckboxChange) {

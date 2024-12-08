@@ -10,7 +10,11 @@ import {
 import { CommonModule } from '@angular/common';
 import { MatButton } from '@angular/material/button';
 import { ComponentEntity } from '../../entities/component-entity';
-import { CommonsUI, ResizableDirective } from '@amad-web-admin/modules/core';
+import {
+  CommonsUI,
+  DraggableDirective,
+  ResizableDirective,
+} from '@amad-web-admin/modules/core';
 import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 import { LayoutDragComponent } from '../layout-drag/layout-drag.component';
 import {
@@ -28,6 +32,7 @@ import {
     CdkDrag,
     LayoutDragComponent,
     CdkDragHandle,
+    DraggableDirective,
   ],
   templateUrl: './button.component.html',
   styleUrl: './button.component.scss',
@@ -67,7 +72,6 @@ export class ButtonComponent implements AfterViewInit {
   protected readonly CommonsUI = CommonsUI;
 
   changePosition($event: { x: number; y: number }) {
-    console.log(this.totalSize());
     this.component().properties.position.y = this.totalSize().height + $event.y;
     this.component().properties.position.x = this.totalSize().width + $event.x;
   }

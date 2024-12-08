@@ -74,7 +74,7 @@ import { ProjectsFacade } from '../+state/projects.facade';
   templateUrl: './project-preconfiguration.component.html',
   styleUrl: './project-preconfiguration.component.scss',
 })
-export class ProjectPreconfigurationComponent implements AfterViewInit {
+export class ProjectPreconfigurationComponent {
   projectItem!: {
     jsonProject: JsonProject;
     codeLanguage: string;
@@ -149,8 +149,6 @@ export class ProjectPreconfigurationComponent implements AfterViewInit {
 
     this.setup();
   }
-
-  ngAfterViewInit(): void {}
 
   private setup() {
     this.addConfigurationForm.controls.activeGeoLocalization.setValue(

@@ -11,6 +11,7 @@ import { ProjectAddComponent } from './project-add/project-add.component';
 import { ProjectNavigationService } from './commons/project-navigation.service';
 import { ProjectEditComponent } from './project-edit/project-edit.component';
 import { ProjectPreconfigurationComponent } from './project-preconfiguration/project-preconfiguration.component';
+import { ProjectInformationDataComponent } from './project-information-data/project-information-data.component';
 
 export const modulesProjectsRoutes: Route[] = [
   {
@@ -36,6 +37,10 @@ export const modulesProjectsRoutes: Route[] = [
       {
         path: `${NavigationRoutes.projects.PROJECT_EDIT}`,
         component: ProjectEditComponent,
+      },
+      {
+        path: `${NavigationRoutes.projects.PROJECT_PERSONAL_INFORMATION}`,
+        component: ProjectInformationDataComponent,
       },
     ],
     providers: [

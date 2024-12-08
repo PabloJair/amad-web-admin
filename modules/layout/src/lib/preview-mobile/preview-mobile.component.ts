@@ -62,12 +62,13 @@ export class PreviewMobileComponent {
 
   public addNewComponent(typeComponent: TypeComponent): void {
     const component = { ...createComponent(typeComponent) };
-    const data = this.contenedor.createComponent(ButtonComponent);
-    data.setInput('cdkDragBoundaryName', 'boundary');
-    data.setInput('component', component);
-    data.instance.onSelectedComponent.subscribe((value) => {
-      this.showProperties(value);
-    });
+    //
+    // const data = this.contenedor.createComponent(ButtonComponent);
+    // data.setInput('cdkDragBoundaryName', 'boundary');
+    // data.setInput('component', component);
+    // data.instance.onSelectedComponent.subscribe((value) => {
+    //   this.showProperties(value);
+    // });
     this.componentEntitiesAdd().push(component);
   }
 

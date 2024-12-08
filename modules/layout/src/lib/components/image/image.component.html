@@ -6,7 +6,7 @@
   [dy]="component().properties.position.y"
 >
 
-  <div
+  <img
     coreResizable
     [minHeight]="CommonsUI.IMAGE_MIN_H"
     [minWidth]="CommonsUI.IMAGE_MIN_W"
@@ -22,8 +22,5 @@
         }"
     class="flex w-full h-full"
 
-  >
-    <img [src]="component().properties.base64Image??'img.png'"
-         class="h-full w-full" alt="image">
-  </div>
+    [src]="component().properties.base64Image??'img.png'" alt="image">
 </lib-layout-drag>

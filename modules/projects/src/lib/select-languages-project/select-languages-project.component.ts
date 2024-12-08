@@ -23,6 +23,7 @@ import {
   MatBottomSheetRef,
 } from '@angular/material/bottom-sheet';
 import { ProjectNavigationService } from '../commons/project-navigation.service';
+import { TypeView } from './TypeView';
 
 @Component({
   selector: 'lib-select-languages-project',
@@ -54,7 +55,7 @@ export class SelectLanguagesProjectComponent implements AfterViewInit {
     public navigation: ProjectNavigationService,
     @Inject(MAT_BOTTOM_SHEET_DATA)
     public data: {
-      isConfiguration: boolean;
+      type: TypeView;
       projectItem: ProjectItem;
       projectInformation: ProjectInformation;
     }
@@ -75,18 +76,28 @@ export class SelectLanguagesProjectComponent implements AfterViewInit {
   }
 
   private navigateTo(item: LanguagesProject, jsonProject: JsonProject) {
-    if (this.data.isConfiguration) {
-      this.navigation.navigateToConfiguration(
-        jsonProject,
-        this.data.projectItem,
-        item.code
-      );
-    } else {
-      this.navigation.navigateToLayout(
-        jsonProject,
-        this.data.projectItem,
-        item.code
-      );
+    switch (this.data.type) {
+      case TypeView.LAYOUT:
+        this.navigation.navigateToLayout(
+          jsonProject,
+          this.data.projectItem,
+          item.code
+        );
+        break;
+      case TypeView.CONFIGURATION:
+        this.navigation.navigateToConfiguration(
+          jsonProject,
+          this.data.projectItem,
+          item.code
+        );
+        break;
+      case TypeView.INFORMATION_PERSONAL:
+        this.navigation.navigateToInformationData(
+          jsonProject,
+          this.data.projectItem,
+          item.code
+        );
+        break;
     }
   }
 

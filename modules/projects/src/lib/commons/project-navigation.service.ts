@@ -4,17 +4,18 @@ import { NavigationRoutes } from '@amad-web-admin/modules/core';
 import {
   CompanyItem,
   JsonProject,
-  ProjectInformation,
   ProjectItem,
 } from '@amad-web-admin/modules/network';
 import { LocalStorageService } from 'angular-web-storage';
+import { Location } from '@angular/common';
 
 @Injectable()
 export class ProjectNavigationService {
   constructor(
     private readonly activeRoute: ActivatedRoute,
     private readonly router: Router,
-    private readonly localStorage: LocalStorageService
+    private readonly localStorage: LocalStorageService,
+    private readonly location: Location
   ) {}
 
   private KEY_PROJECT = 'projectItem';
@@ -129,6 +130,34 @@ export class ProjectNavigationService {
         NavigationRoutes.dashboard.DASHBOARD,
         NavigationRoutes.projects.PROJECT,
       ])
+      .then(() => true);
+  }
+
+  back() {
+    this.location.back();
+  }
+
+  navigateToInformationData(
+    jsonProject: JsonProject,
+    project: ProjectItem,
+    codeLanguage: string
+  ) {
+    const state = {
+      jsonProject,
+      codeLanguage,
+      project,
+    };
+    this.router
+      .navigate(
+        [
+          NavigationRoutes.dashboard.DASHBOARD,
+          NavigationRoutes.projects.PROJECT,
+          NavigationRoutes.projects.PROJECT_PERSONAL_INFORMATION,
+        ],
+        {
+          state: state,
+        }
+      )
       .then(() => true);
   }
 }

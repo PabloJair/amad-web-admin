@@ -30,7 +30,7 @@ export class LayoutDragComponent {
   changePosition = output<{ x: number; y: number }>();
   dx = input<number>(CommonsUI.DEFAULT_DX);
   dy = input<number>(CommonsUI.DEFAULT_DY);
-  @ViewChild('boundary', { static: false }) dragBoundary!: ElementRef;
+  @ViewChild('dragContainer', { static: false }) dragContainer!: ElementRef;
 
   constructor(public el: ElementRef) {}
 
@@ -39,7 +39,7 @@ export class LayoutDragComponent {
       event.source.element.nativeElement.parentElement as HTMLElement
     ).getBoundingClientRect();
 
-    console.log(event);
+    console.log('onDragEnd', event);
     const dragRect = event.source.element.nativeElement.getBoundingClientRect();
 
     // Calcular la posición de forma correcta considerando el contenedor y el desplazamiento
@@ -50,6 +50,8 @@ export class LayoutDragComponent {
 
     // Emitir la nueva posición
     this.changePosition.emit(position);
+    this.dragContainer.nativeElement.style.left = `${position.x}px`;
+    this.dragContainer.nativeElement.style.left = `${position.y}px`;
   }
 
   onDragStart($event: CdkDragStart) {

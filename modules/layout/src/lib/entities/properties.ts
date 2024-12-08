@@ -1,5 +1,6 @@
 export interface Properties {
   idAnalytics?: string;
+  actionAnalytics?: string;
   size: {
     width: number;
     height: number;

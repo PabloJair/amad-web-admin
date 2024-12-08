@@ -3,6 +3,18 @@
     <mat-panel-title> Acciones</mat-panel-title>
   </mat-expansion-panel-header>
 
+  <div class="flex flex-row justify-center content-center">
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Id de Analiticos</mat-label>
+      <input matInput [(ngModel)]="componentEntity().properties.idAnalytics">
+    </mat-form-field>
+  </div>
+  <div class="flex flex-row justify-center content-center">
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Acción</mat-label>
+      <input matInput [(ngModel)]="componentEntity().properties.actionAnalytics">
+    </mat-form-field>
+  </div>
   @if (componentEntity().type === TypeComponent.BUTTON
   || componentEntity().type === TypeComponent.IMAGE_BUTTON || componentEntity().type === TypeComponent.IMAGE) {
     <section>

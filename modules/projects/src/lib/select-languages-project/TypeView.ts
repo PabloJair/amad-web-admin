@@ -1,0 +1,5 @@
+export enum TypeView {
+  LAYOUT,
+  CONFIGURATION,
+  INFORMATION_PERSONAL,
+}

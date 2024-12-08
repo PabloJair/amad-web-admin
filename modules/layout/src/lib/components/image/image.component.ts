@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, input, output } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { LayoutDragComponent } from '../layout-drag/layout-drag.component';
 import { CommonsUI, ResizableDirective } from '@amad-web-admin/modules/core';
@@ -21,6 +21,7 @@ export class ImageComponent {
   cdkDragBoundaryName = input<string>('');
 
   component = input<ComponentEntity>(defaultComponentEntity);
+  onSelectedComponent = output<ComponentEntity>();
 
   isDragging = false;
 

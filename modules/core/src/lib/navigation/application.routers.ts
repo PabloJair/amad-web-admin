@@ -39,6 +39,7 @@ export const NavigationRoutes = {
     PROJECT_CLIENT_ADD: 'project-client-add',
     PROJECT: 'project',
     PROJECT_EDIT: 'project-edit',
+    PROJECT_PERSONAL_INFORMATION: 'personal-information',
     PROJECT_CONFIGURATIONS: 'projects-configuration',
     COMPANY_ARGS: 'id_company',
   },
