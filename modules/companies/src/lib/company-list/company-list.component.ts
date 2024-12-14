@@ -24,6 +24,7 @@ import {
   MatHeaderCellDef,
   MatHeaderRow,
   MatHeaderRowDef,
+  MatNoDataRow,
   MatRow,
   MatRowDef,
   MatTable,
@@ -37,17 +38,19 @@ import { MatInput } from '@angular/material/input';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTooltip } from '@angular/material/tooltip';
 import {
+  AutoUnsubscribe,
   CommonsStrings,
   defaultEmptyOrNull,
   NavigationRoutes,
 } from '@amad-web-admin/modules/core';
 import { CompanyItem } from '@amad-web-admin/modules/network';
 import { Subscription } from 'rxjs';
-import { CompanyStatus } from '../../../../network/src/lib/companies/entities/company-status';
+import { CompanyStatus } from '@amad-web-admin/modules/network';
 import { CompanyFacade } from '../+state/company.facade';
 import { RouterLink } from '@angular/router';
 import { CompaniesNavigationService } from '../commons/companies-navigation.service';
 import { companyResponseAction } from '../+state/company.actions';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'lib-company-list',
@@ -84,10 +87,13 @@ import { companyResponseAction } from '../+state/company.actions';
     MatHeaderCellDef,
     MatAnchor,
     RouterLink,
+    MatNoDataRow,
+    MatProgressSpinner,
   ],
   templateUrl: './company-list.component.html',
   styleUrl: './company-list.component.scss',
 })
+@AutoUnsubscribe
 export class CompanyListComponent implements AfterViewInit {
   private listCompany$$?: Subscription;
   private loaded$$?: Subscription;
@@ -152,6 +158,7 @@ export class CompanyListComponent implements AfterViewInit {
     protected navigation: CompaniesNavigationService
   ) {
     this.companyFacade.reset();
+
     this.listCompany$$ = this.companyFacade.listCompanies$.subscribe(
       (value) => {
         this.dataSource.data = value;
