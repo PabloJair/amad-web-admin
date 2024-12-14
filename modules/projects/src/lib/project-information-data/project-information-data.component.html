@@ -1,0 +1,60 @@
+<div class="flex flex-col gap-5">
+  <ui-elements-breadcrumb
+    [breadcrumbItems]="breadcrumbItems"
+  ></ui-elements-breadcrumb>
+
+  <p class="text-xl">
+    {{ projectItem.project.application_name }}
+  </p>
+  <mat-card appearance="outlined">
+    <mat-card-header>
+      <mat-card-title>
+        <p class="text-xl">
+          Información personal
+        </p>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+
+      <div class="flex  gap-4 max-sm:flex-col min-md:max-2xl:flex-row">
+        <section class="w-64">
+          <h2>Dato</h2>
+
+          <div
+            cdkDropList
+            #todoList="cdkDropList"
+            [cdkDropListData]="todo"
+            [cdkDropListConnectedTo]="[doneList]"
+            class="container-list"
+            (cdkDropListDropped)="drop($event)">
+            @for (item of todo; track item) {
+              <div class="example-box" cdkDrag>{{ item }}</div>
+            }
+          </div>
+        </section>
+
+        <section class="w-64">
+          <h2>Formulario</h2>
+
+          <div
+            cdkDropList
+            #doneList="cdkDropList"
+            [cdkDropListData]="done"
+            [cdkDropListConnectedTo]="[todoList]"
+            class="container-list"
+            (cdkDropListDropped)="drop($event)">
+            @for (item of done; track item) {
+              <div class="example-box" cdkDrag>{{ item }}</div>
+            }
+
+          </div>
+        </section>
+      </div>
+
+    </mat-card-content>
+    <mat-card-actions class="flex gap-5">
+      <ui-elements-button-loader text="Actualizar" (click)="edit()"></ui-elements-button-loader>
+      <button mat-button (click)="navigation.back()">Cancelar</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
