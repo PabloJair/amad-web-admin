@@ -51,6 +51,7 @@ import { RouterLink } from '@angular/router';
 import { CompaniesNavigationService } from '../commons/companies-navigation.service';
 import { companyResponseAction } from '../+state/company.actions';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'lib-company-list',
@@ -89,6 +90,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
     RouterLink,
     MatNoDataRow,
     MatProgressSpinner,
+    NgxSpinnerComponent,
   ],
   templateUrl: './company-list.component.html',
   styleUrl: './company-list.component.scss',
@@ -155,7 +157,8 @@ export class CompanyListComponent implements AfterViewInit {
   constructor(
     public companyFacade: CompanyFacade,
     private dialog: DialogService,
-    protected navigation: CompaniesNavigationService
+    protected navigation: CompaniesNavigationService,
+    private spinner: NgxSpinnerService
   ) {
     this.companyFacade.reset();
 
@@ -164,6 +167,13 @@ export class CompanyListComponent implements AfterViewInit {
         this.dataSource.data = value;
       }
     );
+    this.loaded$$ = this.companyFacade.loaded$.subscribe((value) => {
+      if (value) {
+        this.spinner.show().then();
+      } else {
+        this.spinner.hide().then();
+      }
+    });
     this.companyFacade.error$.subscribe((value) => {
       if (value) {
         this.dialog.showError(

@@ -158,6 +158,6 @@ export class ProjectNavigationService {
           state: state,
         }
       )
-      .then(() => true);
+      .then(() => this.localStorage.set(this.KEY_JSON_PROJECT, state));
   }
 }

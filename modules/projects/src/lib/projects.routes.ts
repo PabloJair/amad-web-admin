@@ -7,11 +7,15 @@ import { ProjectsListComponent } from './projects-list/projects-list.component';
 import { ProjectsFacade } from './+state/projects.facade';
 import { ProjectsEffects } from './+state/projects.effects';
 import * as fromProjectRedux from './+state/projects.reducer';
+import * as fromSepomexRedux from './+state/sepomex/sepomex.reducer';
+
 import { ProjectAddComponent } from './project-add/project-add.component';
 import { ProjectNavigationService } from './commons/project-navigation.service';
 import { ProjectEditComponent } from './project-edit/project-edit.component';
 import { ProjectPreconfigurationComponent } from './project-preconfiguration/project-preconfiguration.component';
 import { ProjectInformationDataComponent } from './project-information-data/project-information-data.component';
+import { SepomexEffect } from './+state/sepomex/sepomex.effect';
+import { SepomexFacade } from './+state/sepomex/sepomex.facade';
 
 export const modulesProjectsRoutes: Route[] = [
   {
@@ -46,8 +50,10 @@ export const modulesProjectsRoutes: Route[] = [
     providers: [
       ProjectsFacade,
       ProjectNavigationService,
-      provideEffects([ProjectsEffects]),
+      SepomexFacade,
+      provideEffects([ProjectsEffects, SepomexEffect]),
       provideState(fromProjectRedux.projectFeature),
+      provideState(fromSepomexRedux.sepomexFeature),
     ],
   },
 ];

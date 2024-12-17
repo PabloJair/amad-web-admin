@@ -1,5 +1,10 @@
 import { ComponentEntity } from '@amad-web-admin/modules/layout';
 import * as UUID from 'uuid';
+import {
+  MunicipalityResponse,
+  NeighborhoodsResponse,
+  StatesResponse,
+} from '../../sepomex/sepomex.response';
 
 export interface CompanyItem {
   contacto: string;
@@ -78,6 +83,27 @@ export interface ApplicantProject {
   appId: string;
   preconfiguration: Preconfiguration;
   views: ApplicantProjectLayout[];
+  personalInformation?: PersonalInformation;
+}
+
+export interface PersonalInformation {
+  showTypesData: TypeInputPersonalInformation[];
+  locationInformation?: LocationConfiguration;
+  urlImage: string;
+  title: string;
+}
+
+export enum TypeInputPersonalInformation {
+  NAME = 'Nombre',
+  PHONE = 'Telefono',
+  EMAIL = 'Correo',
+  LOCALIZATION_CONFIGURATION = 'Localizacion',
+}
+
+export interface LocationConfiguration {
+  state?: StatesResponse;
+  municipality?: MunicipalityResponse;
+  neighborhoods?: NeighborhoodsResponse;
 }
 
 export interface Preconfiguration {
@@ -103,6 +129,12 @@ export enum ApplicantProjectStatus {
 
 export function createDefaultApplicantProject(): ApplicantProject {
   return {
+    personalInformation: {
+      showTypesData: [],
+      locationInformation: undefined,
+      urlImage: '',
+      title: '',
+    },
     appId: '',
     views: [],
     status: ApplicantProjectStatus.ACTIVE,
@@ -131,4 +163,13 @@ export interface UpdateJsonProjectLayout {
   json: string;
   language: string;
   status: ApplicantProjectStatus;
+}
+
+export function getJsonData(jsonProject: JsonProject): ApplicantProject {
+  try {
+    return JSON.parse(jsonProject.json);
+  } catch (error) {
+    console.error('Error al parsear el JSON:', error);
+    return createDefaultApplicantProject();
+  }
 }

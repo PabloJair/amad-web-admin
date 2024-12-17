@@ -12,6 +12,8 @@ export enum CommonsStrings {
   MIME_TYPE_JPG = 'image/jpeg',
   REGEX_VERSION = '^[1-9]\\d*(\\.[1-9]\\d*)*$',
   EMPTY_STRING = '',
+  HEADER_SEPOMEX_API = 'header_sepomex_api',
+  HEADER_SEPOMEX_URL = 'sepomex_url',
 }
 
 export enum CommonsUI {

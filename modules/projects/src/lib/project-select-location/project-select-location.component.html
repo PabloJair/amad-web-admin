@@ -1,0 +1,66 @@
+<h2 mat-dialog-title>Selecciona el tipo de localización</h2>
+<mat-dialog-content class="mat-typography">
+  
+  <form class="flex flex-col">
+
+    <mat-form-field appearance="outline">
+      <mat-label>Codigo Postal</mat-label>
+      <input (keyup)="onChangeText($event)"
+             [matAutocomplete]="auto"
+             matInput
+             required
+             type="text"
+             [value]="cp.value"
+             #cp
+             [(ngModel)]="viewInformationData().neighborhoods"
+             [ngModelOptions]="{standalone:true }"
+      >
+      <mat-autocomplete #auto="matAutocomplete"
+                        [displayWith]="displayColonia"
+
+
+      >
+        @for (item of neighborhoods; track item) {
+          <mat-option [value]="item">{{ item.colonia }}</mat-option>
+        }
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Estado</mat-label>
+      <mat-select (selectionChange)="onSelectedState()" [(ngModel)]="viewInformationData().state"
+                  [ngModelOptions]="{standalone:true }">
+        @for (state of states; track state) {
+          <mat-option [value]="state">{{ state.estado }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    @if (viewInformationData().state !== undefined) {
+      <mat-form-field appearance="outline">
+        <mat-label>Municipio</mat-label>
+        <mat-select [(ngModel)]="viewInformationData().municipality" [ngModelOptions]="{standalone:true }"
+                    (selectionChange)="onSelectedMunicipality()">
+          @for (state of municipalities; track state) {
+            <mat-option [value]="state">{{ state.municipio }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    }
+    @if (viewInformationData().municipality !== undefined) {
+      <mat-form-field appearance="outline">
+        <mat-label>Colonia</mat-label>
+        <mat-select [(ngModel)]="viewInformationData().neighborhoods" [ngModelOptions]="{standalone:true }">
+          @for (state of neighborhoods; track state) {
+            <mat-option [value]="state">{{ state.colonia }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    }
+
+
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button (click)="save()" [mat-dialog-close]="true" cdkFocusInitial mat-button>Agregar</button>
+</mat-dialog-actions>

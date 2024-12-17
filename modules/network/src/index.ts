@@ -33,3 +33,6 @@ export * from './lib/companies/entities/edit-company';
 export * from './lib/companies/entities/filter-company';
 
 export * from './lib/companies/entities/company-status';
+
+export * from './lib/sepomex/sepomex.service';
+export * from './lib/sepomex/sepomex.response';

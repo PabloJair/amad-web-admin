@@ -1,7 +1,7 @@
 <div class="flex gap-2">
-  @for (item of breadcrumbItems;track item;let idx = $index){
-    <ui-elements-badge-basic [text]="item.name" [routerLink]="item.link">  {{ item.name }}</ui-elements-badge-basic>
-    @if (idx+1 < breadcrumbItems.length) {
+  @for (item of breadcrumbItems; track item.name; let idx = $index) {
+    <ui-elements-badge-basic [text]="item.name" [routerLink]="item.link"> {{ item.name }}</ui-elements-badge-basic>
+    @if (idx + 1 < breadcrumbItems.length) {
       <span>/</span>
     }
   }

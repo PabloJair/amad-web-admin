@@ -1,6 +1,6 @@
 <div class="flex flex-col gap-5">
   <ui-elements-breadcrumb
-    [breadcrumbItems]="breadcrumbItems"
+    [breadcrumbItems]="getBreadcrumbInformationPersonal()"
   ></ui-elements-breadcrumb>
 
   <p class="text-xl">
@@ -15,20 +15,51 @@
       </mat-card-title>
     </mat-card-header>
     <mat-card-content>
+      <div class=" flex flex-col  gap-4 w-96">
+        @if (personalInformation().urlImage.length > 0) {
+          <img [src]="personalInformation().urlImage" alt="image">
+        }
+        <file-upload
+          [multiple]="false" [animation]="true"
+          class=" h-20 file-uploader"
+          [control]="fileUploadControl"
+        >
+
+          <ng-template let-isFileDragDropAvailable="isFileDragDropAvailable" #placeholder>
+            <file-upload-drop-zone>
+              @if (isFileDragDropAvailable) {
+                <b>Drag & Drop</b><br> para subir un archivo
+              } @else {
+                <b>clickea aqui</b><br> para subir un archivo
+              }
+            </file-upload-drop-zone>
+          </ng-template>
+          <ng-template let-i="index" let-file="file" let-control="control" #item>
+            <file-upload-list-item [index]="i" [file]="file" [control]="control">Eliminar</file-upload-list-item>
+          </ng-template>
+        </file-upload>
+        <mat-form-field appearance="outline">
+          <mat-label>Mensaje</mat-label>
+          <textarea matInput placeholder="Este es un ejemplo de texto"
+                    [(ngModel)]="personalInformation().title"
+                    [ngModelOptions]="{standalone:true }"
+          ></textarea>
+        </mat-form-field>
+      </div>
+
 
       <div class="flex  gap-4 max-sm:flex-col min-md:max-2xl:flex-row">
         <section class="w-64">
           <h2>Dato</h2>
-
           <div
             cdkDropList
             #todoList="cdkDropList"
-            [cdkDropListData]="todo"
+            [cdkDropListData]="fields"
             [cdkDropListConnectedTo]="[doneList]"
             class="container-list"
             (cdkDropListDropped)="drop($event)">
-            @for (item of todo; track item) {
-              <div class="example-box" cdkDrag>{{ item }}</div>
+            @for (item of fields; track item) {
+              <div class="container-box" cdkDrag>{{ item }}</div>
             }
           </div>
         </section>
@@ -39,17 +70,48 @@
           <div
             cdkDropList
             #doneList="cdkDropList"
-            [cdkDropListData]="done"
+            [cdkDropListData]="selectedFields"
             [cdkDropListConnectedTo]="[todoList]"
             class="container-list"
             (cdkDropListDropped)="drop($event)">
-            @for (item of done; track item) {
-              <div class="example-box" cdkDrag>{{ item }}</div>
+            @for (item of selectedFields; track item) {
+              <div class="container-box  " cdkDrag (click)="onClick(item)">
+                <p>{{ item.toString() }}</p>
+                <section class="flex flex-col gap-2">
+                  @if (item === TypeInputPersonalInformation.LOCALIZATION_CONFIGURATION && this.locationConfiguration !== undefined) {
+                    @if (locationConfiguration!.state) {
+                      <mat-chip (removed)="this.clearLocationData(['state', 'municipality', 'neighborhoods']);">
+                        <span class="text-xs truncate">{{ locationConfiguration!.state!.estado }}</span>
+                        <button matChipRemove>
+                          <mat-icon>cancel</mat-icon>
+                        </button>
+                      </mat-chip>
+                    }
+                    @if (locationConfiguration!.municipality) {
+                      <mat-chip (removed)="clearLocationData(['municipality', 'neighborhoods']);">
+                        <span class="text-xs truncate">  {{ locationConfiguration!.municipality!.municipio }}</span>
+                        <button matChipRemove>
+                          <mat-icon>cancel</mat-icon>
+                        </button>
+                      </mat-chip>
+                    }
+                    @if (locationConfiguration!.neighborhoods) {
+                      <mat-chip (removed)="clearLocationData(['neighborhoods']);
+">
+                        <span class="text-xs truncate"> {{ locationConfiguration!.neighborhoods!.colonia }}</span>
+                        <button matChipRemove>
+                          <mat-icon>cancel</mat-icon>
+                        </button>
+                      </mat-chip>
+                    }
+                  }
+                </section>
+              </div>
             }
-
           </div>
         </section>
       </div>
+
 
     </mat-card-content>
     <mat-card-actions class="flex gap-5">
@@ -58,3 +120,4 @@
     </mat-card-actions>
   </mat-card>
 </div>
+<ngx-spinner></ngx-spinner>
