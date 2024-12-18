@@ -17,6 +17,8 @@
       }
       @case (TypeComponent.TEXT) {
         <lib-text
+          class="absolute"
+
           cdkDragBoundaryName="#boundary"
           (click)="showProperties(item)"
           [component]="item"
@@ -25,6 +27,7 @@
       }
       @case (TypeComponent.IMAGE) {
         <lib-image
+          class="absolute"
           cdkDragBoundaryName="#boundary"
           (click)="showProperties(item)"
           [component]="item"
@@ -33,6 +36,8 @@
       }
       @case (TypeComponent.IMAGE_BUTTON) {
         <lib-button-image
+          class="absolute"
+
           cdkDragBoundaryName="#boundary"
           (click)="showProperties(item)"
           [component]="item"
@@ -40,6 +45,8 @@
       }
       @case (TypeComponent.CARROUSEL) {
         <lib-carousel
+          class="absolute"
+
           cdkDragBoundaryName="#boundary"
           (click)="showProperties(item)"
           [component]="item"

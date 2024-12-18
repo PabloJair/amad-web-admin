@@ -1,15 +1,13 @@
 import {
   AfterViewInit,
-  ChangeDetectorRef,
   Component,
   computed,
   input,
   output,
-  signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButton } from '@angular/material/button';
-import { ComponentEntity } from '../../entities/component-entity';
+import { ComponentEntity } from '@amad-web-admin/modules/layout';
 import {
   CommonsUI,
   DraggableDirective,

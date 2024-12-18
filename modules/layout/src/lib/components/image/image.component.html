@@ -6,13 +6,16 @@
   [dy]="component().properties.position.y"
 >
 
-  <img
+  <div
     coreResizable
     [minHeight]="CommonsUI.IMAGE_MIN_H"
     [minWidth]="CommonsUI.IMAGE_MIN_W"
     (onFinishResize)="onFinishResized($event)"
     (onResize)="onResize($event)"
-    [ngStyle]="{
+  >
+    <img
+
+      [ngStyle]="{
         'fontSize.px': component().properties.fontSize,
         'background-color':component().properties.background ?? 'gray',
         'color': component().properties.colorText,
@@ -20,7 +23,9 @@
         'height.px':component().properties.size.height,
         'border-radius.px':component().properties.cornerRadius
         }"
-    class="flex w-full h-full"
+      class="flex w-full h-full"
 
-    [src]="component().properties.base64Image??'img.png'" alt="image">
+      [src]="component().properties.base64Image??'img.png'" alt="image">
+  </div>
+
 </lib-layout-drag>
