@@ -26,24 +26,21 @@ import { ImageComponent } from '../components/image/image.component';
 import { ButtonImageComponent } from '../components/buttom-image/button-image.component';
 import { CarouselComponent } from '../components/carousel/carousel.component';
 import { LayoutDragComponent } from '../components/layout-drag/layout-drag.component';
+import { CdkOverlayOrigin } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'lib-preview-mobile',
   standalone: true,
   imports: [
     CommonModule,
-    CdkDrag,
-    NgOptimizedImage,
-    CdkDropList,
-    MatButton,
     ButtonComponent,
     TextComponent,
     ImageComponent,
     ButtonImageComponent,
     CarouselComponent,
-    CdkDropListGroup,
+    CdkDrag,
+    CdkOverlayOrigin,
     CdkDragHandle,
-    LayoutDragComponent,
   ],
   templateUrl: './preview-mobile.component.html',
   styleUrl: './preview-mobile.component.scss',
@@ -55,40 +52,13 @@ export class PreviewMobileComponent {
     width: 0,
   });
   onSelectedComponent = output<ComponentEntity>();
-  @ViewChild('contenedor', { read: ViewContainerRef, static: true })
-  contenedor!: ViewContainerRef;
+  clean = output();
 
   constructor(private cdr: ChangeDetectorRef) {}
 
   public addNewComponent(typeComponent: TypeComponent): void {
     const component = { ...createComponent(typeComponent) };
-    //
-    // const data = this.contenedor.createComponent(ButtonComponent);
-    // data.setInput('cdkDragBoundaryName', 'boundary');
-    // data.setInput('component', component);
-    // data.instance.onSelectedComponent.subscribe((value) => {
-    //   this.showProperties(value);
-    // });
     this.componentEntitiesAdd().push(component);
-  }
-
-  public updateTotalSize() {
-    const arrayLasComponent = this.componentEntitiesAdd().slice(0, -1);
-
-    const totalHeight = arrayLasComponent.reduce(
-      (accumulator, currentValue) =>
-        accumulator + currentValue.properties.size.height,
-      0
-    );
-    const totalWidth = arrayLasComponent.reduce(
-      (accumulator, currentValue) =>
-        accumulator + currentValue.properties.size.width,
-      0
-    );
-    this.totalSize = signal({
-      height: totalHeight,
-      width: totalWidth,
-    });
   }
 
   public reloadComponent(componentEntity: ComponentEntity[]) {

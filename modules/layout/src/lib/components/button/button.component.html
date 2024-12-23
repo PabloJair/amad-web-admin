@@ -1,15 +1,16 @@
 <lib-layout-drag
+  
   [cdkDragBoundaryName]="cdkDragBoundaryName()"
   [isDragging]="isDragging"
   (changePosition)="changePosition($event)"
   [dx]="defaultX"
   [dy]="defaultY"
   (click)="onSelectedComponent.emit(component())"
-  class="bg-purple-900"
 >
 
   <div
     coreResizable
+
     (onFinishResize)="onFinishResized($event)"
     (onResize)="onResize($event)"
     [minHeight]="CommonsUI.BUTTON_MIN_H"

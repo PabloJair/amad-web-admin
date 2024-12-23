@@ -1,5 +1,5 @@
 import { Component, computed, input } from '@angular/core';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import {
   animate,
   state,
@@ -7,11 +7,12 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { ComponentEntity } from '../../entities/component-entity';
+import { ComponentEntity } from '@amad-web-admin/modules/layout';
 import { carouselComponent } from '../../entities/compontents-utils';
 import { LayoutDragComponent } from '../layout-drag/layout-drag.component';
 import { CommonsUI, ResizableDirective } from '@amad-web-admin/modules/core';
 import { SliderComponent } from '../slider/slider.component';
+import { CdkDrag } from '@angular/cdk/drag-drop';
 
 interface Image {
   src: string;
@@ -24,10 +25,10 @@ interface Image {
   standalone: true,
   imports: [
     CommonModule,
-    NgOptimizedImage,
     LayoutDragComponent,
     ResizableDirective,
     SliderComponent,
+    CdkDrag,
   ],
   templateUrl: './carousel.component.html',
   styleUrl: './carousel.component.scss',

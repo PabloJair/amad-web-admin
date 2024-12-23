@@ -287,4 +287,6 @@ export class PreviewComponent implements AfterViewInit {
       $event.target as HTMLInputElement
     ).value;
   }
+
+  onClean() {}
 }

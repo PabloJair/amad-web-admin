@@ -1,14 +1,11 @@
 <div class="carousel">
   @for (item of slides(); track item; let i = $index) {
-    <ng-container>
-      @if (i === currentSlide) {
-        <img
-          [src]="item.src"
-          class="slide"
-          [alt]="item.title" />
-      }
-
-    </ng-container>
+    @if (i === currentSlide) {
+      <img
+        [src]="item.src"
+        class="slide"
+        [alt]="item.title" />
+    }
   }
 
 

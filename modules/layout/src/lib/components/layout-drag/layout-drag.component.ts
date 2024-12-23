@@ -1,16 +1,17 @@
 import {
-  ChangeDetectorRef,
+  AfterViewInit,
   Component,
+  effect,
   ElementRef,
   input,
   output,
-  Renderer2,
   ViewChild,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   CdkDrag,
   CdkDragEnd,
+  CdkDragHandle,
   CdkDragMove,
   CdkDragStart,
   CdkDropList,
@@ -20,11 +21,11 @@ import { CommonsUI } from '@amad-web-admin/modules/core';
 @Component({
   selector: 'lib-layout-drag',
   standalone: true,
-  imports: [CommonModule, CdkDrag, CdkDropList],
+  imports: [CommonModule, CdkDrag, CdkDropList, CdkDragHandle],
   templateUrl: './layout-drag.component.html',
   styleUrl: './layout-drag.component.scss',
 })
-export class LayoutDragComponent {
+export class LayoutDragComponent implements AfterViewInit {
   cdkDragBoundaryName = input<string>('');
   isDragging = input(false);
   changePosition = output<{ x: number; y: number }>();
@@ -33,6 +34,8 @@ export class LayoutDragComponent {
   @ViewChild('dragContainer', { static: false }) dragContainer!: ElementRef;
 
   constructor(public el: ElementRef) {}
+
+  ngAfterViewInit(): void {}
 
   onDragEnd(event: CdkDragEnd): void {
     const boundaryRect = (
@@ -50,8 +53,6 @@ export class LayoutDragComponent {
 
     // Emitir la nueva posición
     this.changePosition.emit(position);
-    this.dragContainer.nativeElement.style.left = `${position.x}px`;
-    this.dragContainer.nativeElement.style.left = `${position.y}px`;
   }
 
   onDragStart($event: CdkDragStart) {

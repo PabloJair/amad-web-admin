@@ -1,61 +1,63 @@
 <div
   id="boundary"
-  #contenedor
+  cdkDragHandle
+
   class="bg-white h-full min-h-[800px] min-w-[400px]"
+  (click)="clean.emit()"
 >
 
-  @for (item of componentEntitiesAdd(); track item.UUID) {
-    @switch (item.type) {
-      @case (TypeComponent.BUTTON) {
-        <lib-app-button
-          class="absolute"
-          cdkDragBoundaryName="#boundary"
-          (click)="showProperties(item)"
-          [component]="item"
-          (onSelectedComponent)="showProperties($event)"
-        ></lib-app-button>
-      }
-      @case (TypeComponent.TEXT) {
-        <lib-text
-          class="absolute"
+  <div>
+    @for (item of componentEntitiesAdd(); track item.UUID) {
+      @switch (item.type) {
+        @case (TypeComponent.BUTTON) {
+          <lib-app-button
+            class="absolute"
+            cdkDragBoundaryName="#boundary"
+            (click)="showProperties(item)"
+            [component]="item"
+            (onSelectedComponent)="showProperties($event)"
+          ></lib-app-button>
+        }
+        @case (TypeComponent.TEXT) {
+          <lib-text
+            class="absolute"
 
-          cdkDragBoundaryName="#boundary"
-          (click)="showProperties(item)"
-          [component]="item"
+            cdkDragBoundaryName="#boundary"
+            (click)="showProperties(item)"
+            [component]="item"
 
-        ></lib-text>
+          ></lib-text>
+        }
+        @case (TypeComponent.IMAGE) {
+          <lib-image
+            class="absolute"
+            cdkDragBoundaryName="#boundary"
+            (click)="showProperties(item)"
+            [component]="item"
+          ></lib-image>
+        }
+        @case (TypeComponent.IMAGE_BUTTON) {
+          <lib-button-image
+            class="absolute"
+            cdkDragBoundaryName="#boundary"
+            (click)="showProperties(item)"
+            [component]="item"
+          ></lib-button-image>
+        }
+        @case (TypeComponent.CARROUSEL) {
+          <lib-carousel
+            class="absolute"
+            cdkDragBoundaryName="#boundary"
+            (click)="showProperties(item)"
+            [component]="item"
+          ></lib-carousel>
+        }
       }
-      @case (TypeComponent.IMAGE) {
-        <lib-image
-          class="absolute"
-          cdkDragBoundaryName="#boundary"
-          (click)="showProperties(item)"
-          [component]="item"
 
-        ></lib-image>
-      }
-      @case (TypeComponent.IMAGE_BUTTON) {
-        <lib-button-image
-          class="absolute"
 
-          cdkDragBoundaryName="#boundary"
-          (click)="showProperties(item)"
-          [component]="item"
-        ></lib-button-image>
-      }
-      @case (TypeComponent.CARROUSEL) {
-        <lib-carousel
-          class="absolute"
-
-          cdkDragBoundaryName="#boundary"
-          (click)="showProperties(item)"
-          [component]="item"
-        ></lib-carousel>
-      }
     }
 
-
-  }
+  </div>
 
 </div>
 
