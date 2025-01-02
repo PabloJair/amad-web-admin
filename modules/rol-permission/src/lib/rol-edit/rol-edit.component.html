@@ -20,7 +20,8 @@
             <input matInput placeholder="Descripción" formControlName="desc_larga">
           </mat-form-field>
 
-          <mat-slide-toggle #status formControlName="status">{{ status.checked ? 'Activo' : 'Desactivado' }}
+          <mat-slide-toggle formControlName="status">
+            {{ editRolForm.status ? 'Activo' : 'Desactivado' }}
           </mat-slide-toggle>
         </div>
 

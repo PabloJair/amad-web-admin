@@ -9,11 +9,13 @@ export enum CommonsStrings {
   SLASH = '/',
   MIME_TYPE_PNG = 'image/png',
   MIME_TYPE_MP3 = 'audio/mpeg',
-  MIME_TYPE_JPG = 'image/jpeg',
+  MIME_TYPE_JPEG = 'image/jpeg',
+  MIME_TYPE_JPG = 'image/jpg',
   REGEX_VERSION = '^[1-9]\\d*(\\.[1-9]\\d*)*$',
   EMPTY_STRING = '',
   HEADER_SEPOMEX_API = 'header_sepomex_api',
   HEADER_SEPOMEX_URL = 'sepomex_url',
+  MONKEY_API = 'x-rapidapi-key',
 }
 
 export enum CommonsUI {

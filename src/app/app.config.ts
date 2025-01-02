@@ -31,6 +31,7 @@ import {
   provideAnimations,
 } from '@angular/platform-browser/animations';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
+import { provideEnvironmentNgxMask } from 'ngx-mask';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -46,6 +47,15 @@ export const appConfig: ApplicationConfig = {
       provide: 'BASE_API_KEY_SEPOMEX',
       useValue: environment.apiKeySepomex,
     },
+    {
+      provide: 'BASE_API_KEY_MONKEY',
+      useValue: environment.apiKeyMonkey,
+    },
+    {
+      provide: 'BASE_API_URL_MONKEY',
+      useValue: environment.apiURLMonkey,
+    },
+    provideEnvironmentNgxMask(),
     BrowserAnimationsModule,
     provideAnimations(),
     { provide: HTTP_INTERCEPTORS, useClass: UrlInterceptor, multi: true },

@@ -87,7 +87,7 @@
                     <ui-elements-badge-red text="Desactivado"></ui-elements-badge-red>
 
                   }
-          
+
                 </td>
               </ng-container>
 
@@ -98,7 +98,7 @@
                   <div class="action-info">
                     <button
                       type="button"
-                      mat-button
+                      mat-icon-button
                       matTooltip="editar"
                       (click)="edit(element)"
                       matTooltipPosition="above"
@@ -110,7 +110,7 @@
                     @if (element.status === UserRolStatus.ACTIVE) {
                       <button
                         type="button"
-                        mat-button
+                        mat-icon-button
                         matTooltip="eliminar"
                         (click)="delete(element)"
                         matTooltipPosition="above"
@@ -141,4 +141,6 @@
       </mat-card-content>
     </mat-card>
   </div>
+  <ngx-spinner></ngx-spinner>
+
 </div>

@@ -39,6 +39,7 @@ import {
   ProjectStatus,
 } from '@amad-web-admin/modules/network';
 import { CompanyStatus } from '../../../../network/src/lib/companies/entities/company-status';
+import { NgxMaskDirective } from 'ngx-mask';
 
 @AutoUnsubscribe
 @Component({
@@ -60,6 +61,7 @@ import { CompanyStatus } from '../../../../network/src/lib/companies/entities/co
     MatLabel,
     MatSlideToggle,
     ReactiveFormsModule,
+    NgxMaskDirective,
   ],
   templateUrl: './company-edit.component.html',
   styleUrl: './company-edit.component.scss',

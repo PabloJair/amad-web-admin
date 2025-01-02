@@ -5,6 +5,8 @@ import {
   BadgeRedComponent,
   BreadcrumbComponent,
   BreadcrumbItem,
+  DialogService,
+  ResultType,
 } from '@amad-web-admin/modules/ui-elements';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -24,11 +26,12 @@ import {
   UserRolItem,
   UserRolStatus,
 } from '@amad-web-admin/modules/network';
-import { NavigationRoutes } from '@amad-web-admin/modules/core';
 import { RolesAndPermissionFacade } from '../+store/roles-and-permission.facade';
 import { Subscription } from 'rxjs';
 import { RolPermissionNavigationService } from '../commons/rol-permission-navigation.service';
-import { CompanyStatus } from '../../../../network/src/lib/companies/entities/company-status';
+import { CompanyStatus } from '@amad-web-admin/modules/network';
+import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
+import { listBreadcrumb } from '../commons/breadcrumb-rol';
 
 @Component({
   selector: 'lib-rol-list',
@@ -42,7 +45,6 @@ import { CompanyStatus } from '../../../../network/src/lib/companies/entities/co
     RouterLink,
     MatTableModule,
     MatPaginatorModule,
-    NgIf,
     MatCheckboxModule,
     MatTooltipModule,
     MatChipListbox,
@@ -53,6 +55,7 @@ import { CompanyStatus } from '../../../../network/src/lib/companies/entities/co
     MatIcon,
     BadgeGreenComponent,
     BadgeRedComponent,
+    NgxSpinnerComponent,
   ],
   templateUrl: './rol-list.component.html',
   styleUrl: './rol-list.component.scss',
@@ -66,28 +69,16 @@ export class RolListComponent implements AfterViewInit, OnDestroy {
     'status',
     'action',
   ];
-  protected breadcrumbItems: BreadcrumbItem[] = [
-    {
-      color: 'text-blue-600',
-      name: 'Dashboard',
-      link: `/${NavigationRoutes.dashboard.DASHBOARD}`,
-    },
-    {
-      color: 'text-blue-600',
-      name: 'Roles y permisos',
-    },
-    {
-      color: 'text-red-600',
-      name: 'Lista de roles y permisos',
-    },
-  ];
+  protected breadcrumbItems: BreadcrumbItem[] = listBreadcrumb();
   private listRolUser$$: Subscription;
   private loaded$$: Subscription;
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
 
   constructor(
     private rolesAndPermissionsFacade: RolesAndPermissionFacade,
-    protected navigation: RolPermissionNavigationService
+    protected navigation: RolPermissionNavigationService,
+    protected dialog: DialogService,
+    private spinner: NgxSpinnerService
   ) {
     this.listRolUser$$ = this.rolesAndPermissionsFacade.listRol$.subscribe(
       (value) => {
@@ -95,12 +86,8 @@ export class RolListComponent implements AfterViewInit, OnDestroy {
       }
     );
 
-    this.loaded$$ = this.rolesAndPermissionsFacade.loaded$.subscribe(
-      (value) => {
-        if (value) {
-        } else {
-        }
-      }
+    this.loaded$$ = this.rolesAndPermissionsFacade.loaded$.subscribe((value) =>
+      value ? spinner.show() : spinner.hide()
     );
   }
 
@@ -113,7 +100,20 @@ export class RolListComponent implements AfterViewInit, OnDestroy {
     this.navigation.navigateToEdit(element);
   }
 
-  delete(element: UserRolItem) {}
+  delete(element: UserRolItem) {
+    this.dialog
+      .showWarning(
+        'Deseasea eliminar el Rol?',
+        'Advertencia',
+        'Aceptar',
+        'Cancelar'
+      )
+      .subscribe((value) => {
+        value.resultType == ResultType.BUTTON_TWO
+          ? this.rolesAndPermissionsFacade.deleteRol(element.id_rol)
+          : null;
+      });
+  }
 
   showStatus(number: number) {
     this.rolesAndPermissionsFacade.getListRolesUsers({ status: number });

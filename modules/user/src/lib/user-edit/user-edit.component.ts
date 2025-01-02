@@ -41,6 +41,7 @@ import {
   UserRolItem,
   UserStatus,
 } from '@amad-web-admin/modules/network';
+import { editBreadcrumb } from '../commons/brandcrumb-user';
 
 @AutoUnsubscribe
 @Component({
@@ -69,22 +70,7 @@ import {
   styleUrl: './user-edit.component.scss',
 })
 export class UserEditComponent implements AfterViewInit, OnDestroy {
-  protected breadcrumbItems: BreadcrumbItem[] = [
-    {
-      color: 'text-blue-600',
-      name: 'Dashboard',
-      link: `/${NavigationRoutes.dashboard.DASHBOARD}`,
-    },
-    {
-      color: 'text-blue-600',
-      name: 'Usuarios',
-      link: `/${NavigationRoutes.dashboard.DASHBOARD}/${NavigationRoutes.userRoutes.USER}`,
-    },
-    {
-      color: 'text-yellow-600',
-      name: 'Editar Usuario',
-    },
-  ];
+  protected breadcrumbItems = editBreadcrumb;
 
   protected loading$ = signal(false);
   protected listRol$ = signal<UserRolItem[]>([]);
@@ -139,7 +125,7 @@ export class UserEditComponent implements AfterViewInit, OnDestroy {
     protected userFacade: UsersFacade,
     protected dialogService: DialogService
   ) {
-    this.userItem = this.navigation.getEditState();
+    this.userItem = this.navigation.getUserCache();
   }
 
   ngOnDestroy(): void {
@@ -147,17 +133,6 @@ export class UserEditComponent implements AfterViewInit, OnDestroy {
   }
 
   private setupUser() {
-    if (this.userItem == undefined) {
-      this.dialogService
-        .showError(
-          CommonsStrings.ERROR_GENERIC_TITLE,
-          'Error al cargar el usuario'
-        )
-        .subscribe((value) => {
-          this.navigation.navigateToList();
-        });
-      return;
-    }
     this.editUserForm.controls.user.setValue(this.userItem.user);
     this.editUserForm.controls.nombre.setValue(this.userItem.nombre);
     this.editUserForm.controls.email.setValue(this.userItem.email);
@@ -204,9 +179,6 @@ export class UserEditComponent implements AfterViewInit, OnDestroy {
       proyectos: [],
       id_usuario: this.userItem.id_usuario,
     };
-
-    console.log(user);
-
     this.userFacade.editUser(user, this.userItem.id_usuario);
   }
 }

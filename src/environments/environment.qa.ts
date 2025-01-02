@@ -15,4 +15,7 @@ export const environment = {
 
   apiURLSepomex: process.env['AMAD_BASE_API_URL_SEPOMEX_QA'],
   apiKeySepomex: process.env['AMAD_BASE_API_KEY_SEPOMEX_QA'],
+
+  apiURLMonkey: process.env['AMAD_BASE_API_URL_MONKEY_QA'],
+  apiKeyMonkey: process.env['AMAD_BASE_API_KEY_MONKEY_QA'],
 };

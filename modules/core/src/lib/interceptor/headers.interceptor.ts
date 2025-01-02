@@ -13,7 +13,8 @@ import { CommonsStrings } from '../utils/commons.strings';
 export class HeadersInterceptor implements HttpInterceptor {
   constructor(
     private auth: AuthenticationInformationService,
-    @Inject('BASE_API_KEY_SEPOMEX') private apiKeySepomex: string
+    @Inject('BASE_API_KEY_SEPOMEX') private apiKeySepomex: string,
+    @Inject('BASE_API_KEY_MONKEY') private apiKeyMonkey: string
   ) {}
 
   intercept(
@@ -22,6 +23,22 @@ export class HeadersInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<unknown>> {
     let newApiRequest = request;
     if (this.auth.isAuthenticate()) {
+      if (request.headers.has(CommonsStrings.MONKEY_API)) {
+        let modifiedHeaders = request.headers.delete(CommonsStrings.MONKEY_API);
+        modifiedHeaders = modifiedHeaders.append(
+          CommonsStrings.MONKEY_API,
+          this.apiKeyMonkey
+        );
+        modifiedHeaders = modifiedHeaders.append(
+          'x-rapidapi-host',
+          'qrcode-monkey.p.rapidapi.com'
+        );
+        newApiRequest = request.clone({
+          headers: modifiedHeaders,
+        });
+        return next.handle(newApiRequest);
+      }
+
       if (request.headers.has(CommonsStrings.HEADER_SEPOMEX_API)) {
         let modifiedHeaders = request.headers.delete(
           CommonsStrings.HEADER_SEPOMEX_API

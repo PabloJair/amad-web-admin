@@ -12,7 +12,6 @@ import { Location } from '@angular/common';
 @Injectable()
 export class ProjectNavigationService {
   constructor(
-    private readonly activeRoute: ActivatedRoute,
     private readonly router: Router,
     private readonly localStorage: LocalStorageService,
     private readonly location: Location

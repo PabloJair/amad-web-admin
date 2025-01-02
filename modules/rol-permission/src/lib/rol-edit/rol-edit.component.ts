@@ -25,11 +25,7 @@ import {
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
-import {
-  AutoUnsubscribe,
-  CommonsStrings,
-  NavigationRoutes,
-} from '@amad-web-admin/modules/core';
+import { AutoUnsubscribe, CommonsStrings } from '@amad-web-admin/modules/core';
 import { Subscription } from 'rxjs';
 import { RolesAndPermissionFacade } from '../+store/roles-and-permission.facade';
 import { RolPermissionNavigationService } from '../commons/rol-permission-navigation.service';
@@ -38,8 +34,8 @@ import {
   StatusRol,
   UserRolItem,
   UserRolStatus,
-  UserStatus,
 } from '@amad-web-admin/modules/network';
+import { editBreadcrumb } from '../commons/breadcrumb-rol';
 
 @AutoUnsubscribe
 @Component({
@@ -77,7 +73,7 @@ export class RolEditComponent implements AfterViewInit {
     protected rolesAndPermissionFacade: RolesAndPermissionFacade,
     protected navigation: RolPermissionNavigationService
   ) {
-    this.userRolItem = this.navigation.getEditRolPermission();
+    this.userRolItem = this.navigation.getEditRolPermissionFromLocalStorage();
   }
 
   ngAfterViewInit(): void {
@@ -107,22 +103,7 @@ export class RolEditComponent implements AfterViewInit {
     this.setup();
   }
 
-  protected breadcrumbItems: BreadcrumbItem[] = [
-    {
-      color: 'text-blue-600',
-      name: 'Dashboard',
-      link: `/${NavigationRoutes.dashboard.DASHBOARD}`,
-    },
-    {
-      color: 'text-blue-600',
-      name: 'Rol',
-      link: `/${NavigationRoutes.dashboard.DASHBOARD}/${NavigationRoutes.rolesAndPermission.ROLES_LIST}`,
-    },
-    {
-      color: 'text-yellow-600',
-      name: 'Editar Rol',
-    },
-  ];
+  protected breadcrumbItems: BreadcrumbItem[] = editBreadcrumb();
 
   editRolForm = new FormGroup({
     desc_rol: new FormControl<string>(CommonsStrings.EMPTY_STRING, {
@@ -140,14 +121,6 @@ export class RolEditComponent implements AfterViewInit {
   });
 
   private setup() {
-    if (this.userRolItem == undefined) {
-      this.dialogService
-        .showError(CommonsStrings.ERROR_GENERIC_TITLE, 'Error al cargar el Rol')
-        .subscribe((value) => {
-          this.navigation.navigateToList();
-        });
-      return;
-    }
     this.editRolForm.controls.status.setValue(
       this.userRolItem.status == UserRolStatus.ACTIVE
     );
@@ -163,6 +136,14 @@ export class RolEditComponent implements AfterViewInit {
         ? StatusRol.ENABLED
         : StatusRol.DISABLED,
     };
+    this.navigation.setEditRolPermission({
+      id_rol: this.userRolItem.id_rol,
+      status: this.editRolForm.controls.status.value
+        ? UserRolStatus.ACTIVE
+        : UserRolStatus.DISABLE,
+      desc_rol: item.desc_larga,
+      desc_larga: item.desc_larga,
+    });
     this.rolesAndPermissionFacade.editUser(item, this.userRolItem.id_rol);
   }
 }

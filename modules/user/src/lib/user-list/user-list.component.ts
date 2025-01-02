@@ -1,8 +1,8 @@
 import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
-import { SelectionModel } from '@angular/cdk/collections';
 import {
+  StatusRol,
   UserItem,
-  UserRolStatus,
+  UserRolItem,
   UserStatus,
 } from '@amad-web-admin/modules/network';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -10,25 +10,28 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { UsersFacade } from '../+state/user.facade';
 import { Subscription } from 'rxjs';
 import { RouterLink } from '@angular/router';
-import { NavigationRoutes } from '@amad-web-admin/modules/core';
+import { AutoUnsubscribe } from '@amad-web-admin/modules/core';
 import {
   BadgeGreenComponent,
   BadgeRedComponent,
   BreadcrumbComponent,
   BreadcrumbItem,
+  DialogService,
+  ResultType,
 } from '@amad-web-admin/modules/ui-elements';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipListbox, MatChipOption } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
-import { NgIf } from '@angular/common';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatIcon } from '@angular/material/icon';
 import { UserNavigationService } from '../commons/user-navigation.service';
+import { listBreadcrumbItems } from '../commons/brandcrumb-user';
+import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'lib-user-list',
@@ -42,7 +45,6 @@ import { UserNavigationService } from '../commons/user-navigation.service';
     RouterLink,
     MatTableModule,
     MatPaginatorModule,
-    NgIf,
     MatCheckboxModule,
     MatTooltipModule,
     MatChipListbox,
@@ -53,10 +55,12 @@ import { UserNavigationService } from '../commons/user-navigation.service';
     MatIcon,
     BadgeGreenComponent,
     BadgeRedComponent,
+    NgxSpinnerComponent,
   ],
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.scss',
 })
+@AutoUnsubscribe
 export class UserListComponent implements AfterViewInit, OnDestroy {
   displayedColumns: string[] = [
     'userID',
@@ -67,36 +71,40 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
     'status',
     'action',
   ];
-  selection = new SelectionModel<UserItem>(true, []);
   dataSource = new MatTableDataSource<UserItem>([]);
+  protected readonly UserStatus = UserStatus;
 
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
   private listUser$$?: Subscription;
   private loaded$$?: Subscription;
-  protected breadcrumbItems: BreadcrumbItem[] = [
-    {
-      color: 'text-blue-600',
-      name: 'Dashboard',
-      link: `/${NavigationRoutes.dashboard.DASHBOARD}`,
-    },
-    {
-      color: 'text-blue-600',
-      name: 'Usuarios',
-    },
-    {
-      color: 'text-red-600',
-      name: 'Lista de usuarios',
-    },
-  ];
+  private listRol$$?: Subscription;
+  protected userRolItem: UserRolItem[] = [];
+  protected breadcrumbItems: BreadcrumbItem[] = listBreadcrumbItems;
 
   constructor(
     public userFacade: UsersFacade,
-    public navigation: UserNavigationService
+    public navigation: UserNavigationService,
+    private dialogService: DialogService,
+    private spinner: NgxSpinnerService
   ) {
     this.userFacade.reset();
     this.listUser$$ = this.userFacade.listUser$.subscribe((value) => {
       this.dataSource.data = value;
+      this.userFacade.getListRol({
+        status: StatusRol.ENABLED,
+      });
     });
+    this.listRol$$ = this.userFacade.listRol$.subscribe((value) => {
+      this.userRolItem = value;
+    });
+    this.loaded$$ = this.userFacade.loaded$.subscribe((value) => {
+      value ? spinner.show() : spinner.hide();
+    });
+  }
+
+  getNameRol(idRol: number): string {
+    const foundItem = this.userRolItem.find((item) => item.id_rol === idRol);
+    return foundItem ? foundItem.desc_rol : 'Desconocido';
   }
 
   changeUserRol(userStatus: UserStatus) {
@@ -118,11 +126,18 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  protected readonly UserStatus = UserStatus;
-
-  edit(element: UserItem) {
-    this.navigation.navigateToEdit(element);
+  delete(element: UserItem) {
+    this.dialogService
+      .showWarning(
+        `¿Desea eliminar al usuario ${element.nombre}?`,
+        'Advertencia',
+        'Aceptar',
+        'Cancelar'
+      )
+      .subscribe((value) => {
+        value.resultType == ResultType.BUTTON_TWO
+          ? this.userFacade.deleteUser(element)
+          : null;
+      });
   }
-
-  protected readonly UserRolStatus = UserRolStatus;
 }

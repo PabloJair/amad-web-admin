@@ -11,6 +11,7 @@ import {
   LanguagesProject,
   ProjectInformation,
   ProjectItem,
+  QRCode,
   StatusProject,
   UpdateJsonProjectLayout,
 } from './entities/projects.entities';

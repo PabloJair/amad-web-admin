@@ -89,7 +89,6 @@ import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
     MatAnchor,
     RouterLink,
     MatNoDataRow,
-    MatProgressSpinner,
     NgxSpinnerComponent,
   ],
   templateUrl: './company-list.component.html',

@@ -173,3 +173,18 @@ export function getJsonData(jsonProject: JsonProject): ApplicantProject {
     return createDefaultApplicantProject();
   }
 }
+
+export interface QRConfig {
+  body: string;
+  eye: string;
+  eyeBall: string;
+  logo: string;
+}
+
+export interface QRCode {
+  data: string;
+  config: QRConfig;
+  size: number;
+  download: boolean;
+  file: string;
+}

@@ -16,3 +16,20 @@ export function getBreadcrumbInformationPersonal(): BreadcrumbItem[] {
     { color: 'text-yellow-600', name: 'Información personal' },
   ];
 }
+
+export const breadcrumbsEditProject: BreadcrumbItem[] = [
+  {
+    color: 'text-blue-600',
+    name: 'Dashboard',
+    link: `/${NavigationRoutes.dashboard.DASHBOARD}`,
+  },
+  {
+    color: 'text-blue-600',
+    name: 'Proyectos',
+    link: `/${NavigationRoutes.dashboard.DASHBOARD}/${NavigationRoutes.projects.PROJECT}`,
+  },
+  {
+    color: 'text-yellow-600',
+    name: 'Editar',
+  },
+];

@@ -4,17 +4,21 @@
   ></ui-elements-breadcrumb>
 
   <p class="text-xl">
-    {{ company?.nombre }}
+    {{ company?.nombre }} / {{ projectItem?.id_application }}
   </p>
   <mat-card appearance="outlined">
     <mat-card-header>
-      <div mat-card-avatar>
-        <img [src]=projectItem?.icon>
+      <div class="flex flex-row gap-3">
+
+        <ui-elements-image-upload class="h-32 w-32" (fileSelected)="onFileSelected($event)"
+                                  [urlFile]="iconUrl" [loader]=loading$()></ui-elements-image-upload>
+        <div class="flex flex-col">
+          <h6 class="text-gray-500">Editar Projecto</h6>
+          <p class="text-lg">Información</p>
+        </div>
+
 
       </div>
-
-      <mat-card-title>Editar Projecto</mat-card-title>
-      <mat-card-subtitle>Información</mat-card-subtitle>
 
 
     </mat-card-header>
@@ -37,11 +41,11 @@
             </p>
             <mat-form-field appearance="outline">
               <mat-label>Versión</mat-label>
-              <input matInput placeholder="Versión" type="number" formControlName="version">
+              <input matInput placeholder="Versión" type="text" mask="0.0.0" formControlName="version">
             </mat-form-field>
           </div>
           <mat-form-field appearance="outline">
-            <mat-label>Página de la empresa</mat-label>
+            <mat-label>Información de QR</mat-label>
             <input matInput placeholder="Pagina web" type="url" formControlName="url">
           </mat-form-field>
           <mat-form-field appearance="outline">
@@ -49,35 +53,18 @@
             <textarea matInput formControlName="application_description"></textarea>
           </mat-form-field>
         </div>
-        <div class="flex-col">
-          <div class=" justify-between gap-4">
-            <h5 class="text-center">Cambio de icono</h5>
-            <file-upload
-              [multiple]="false" [animation]="true"
-              [control]="fileUploadControl"
-              class="w-full file-uploader" formControlName="icon">
+        <div class="flex items-center justify-center gap-4 bg-zinc-100 h-full">
+          <div class="text-center">
+            <button mat-button (click)="generateQR()">Generar QR</button>
+            @if (iconUrl) {
+              <img [src]="iconQR" alt="QR Code" class="mx-auto mt-4" />
+            }
 
-              <ng-template let-isFileDragDropAvailable="isFileDragDropAvailable" #placeholder>
-                <file-upload-drop-zone>
-                  @if (isFileDragDropAvailable) {
-                    <b>Drag & Drop</b><br> para subir un archivo
-                  } @else {
-                    <b>clickea aqui</b><br> para subir un archivo
-                  }
-                </file-upload-drop-zone>
-              </ng-template>
-
-              <ng-template let-i="index" let-file="file" let-control="control" #item>
-                <file-upload-list-item [index]="i" [file]="file" [control]="control">Eliminar</file-upload-list-item>
-              </ng-template>
-            </file-upload>
           </div>
-
         </div>
       </form>
     </mat-card-content>
     <mat-card-actions class="flex gap-5">
-
       <ui-elements-button-loader text="Guardar" [disabled]="editProjectForm.invalid" (click)="edit()"
                                  [showLoader]="loading$()"></ui-elements-button-loader>
       <button mat-button (click)="navigation.navigateToList()">Cancelar</button>

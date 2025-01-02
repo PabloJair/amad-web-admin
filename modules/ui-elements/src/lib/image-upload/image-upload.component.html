@@ -1,0 +1,22 @@
+<file-upload
+  [control]="fileUploadControl"
+  class="w-full file-uploader">
+  <ng-template let-isFileDragDropAvailable="isFileDragDropAvailable" #placeholder>
+
+    <div>
+      @if (loader()) {
+        <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+
+      } @else {
+        @if (urlFile()) {
+          <img [src]="urlFile()">
+        } @else {
+          <mat-icon>upload</mat-icon>
+        }
+      }
+
+
+    </div>
+
+  </ng-template>
+</file-upload>

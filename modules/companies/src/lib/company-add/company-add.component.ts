@@ -32,6 +32,7 @@ import {
 import { CompanyFacade } from '../+state/company.facade';
 import { CompaniesNavigationService } from '../commons/companies-navigation.service';
 import { Subscription } from 'rxjs';
+import { NgxMaskDirective } from 'ngx-mask';
 
 @AutoUnsubscribe
 @Component({
@@ -53,6 +54,7 @@ import { Subscription } from 'rxjs';
     MatLabel,
     MatSlideToggle,
     ReactiveFormsModule,
+    NgxMaskDirective,
   ],
   templateUrl: './company-add.component.html',
   styleUrl: './company-add.component.scss',

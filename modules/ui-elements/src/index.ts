@@ -15,3 +15,5 @@ export * from './lib/badges/badge-warning/badge-warning.component';
 export * from './lib/audio/audio.component';
 export * from './lib/loader/loader-snackbar/loader-snackbar.component';
 export * from './lib/dialogs/message-snackbar/message-snackbar.component';
+
+export * from './lib/image-upload/image-upload.component';

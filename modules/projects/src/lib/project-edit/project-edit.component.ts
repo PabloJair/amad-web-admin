@@ -1,10 +1,11 @@
 import { Component, OnDestroy, signal } from '@angular/core';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import {
   BreadcrumbComponent,
   BreadcrumbItem,
   ButtonLoaderComponent,
   DialogService,
+  ImageUploadComponent,
   ResultType,
 } from '@amad-web-admin/modules/ui-elements';
 import {
@@ -32,7 +33,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { CommonsStrings, NavigationRoutes } from '@amad-web-admin/modules/core';
+import { CommonsStrings } from '@amad-web-admin/modules/core';
 import { ProjectNavigationService } from '../commons/project-navigation.service';
 import {
   AddOrEditProjectRequest,
@@ -44,11 +45,13 @@ import {
   UploadService,
 } from '@amad-web-admin/modules/network';
 import { ProjectsFacade } from '../+state/projects.facade';
-import { MatIcon } from '@angular/material/icon';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { SelectLanguagesProjectComponent } from '../select-languages-project/select-languages-project.component';
 import { File } from '@ngx-dropzone/cdk';
 import { TypeView } from '../select-languages-project/TypeView';
+import { NgxMaskDirective } from 'ngx-mask';
+import { breadcrumbsEditProject } from '../commons/BreadcrumbsCommons';
+import { QrGeneratorService } from '../../../../network/src/lib/qr-generator/qr-generator.service';
 
 @Component({
   standalone: true,
@@ -56,23 +59,19 @@ import { TypeView } from '../select-languages-project/TypeView';
     CommonModule,
     BreadcrumbComponent,
     ButtonLoaderComponent,
-    FileUploadComponent,
-    FileUploadDropZoneComponent,
-    FileUploadListItemComponent,
     MatButton,
     MatCard,
     MatCardActions,
     MatCardContent,
     MatCardHeader,
-    MatCardTitle,
     MatFormField,
     MatInput,
     MatLabel,
     MatSlideToggle,
     ReactiveFormsModule,
-    NgOptimizedImage,
     MatCardModule,
-    MatIcon,
+    NgxMaskDirective,
+    ImageUploadComponent,
   ],
   templateUrl: './project-edit.component.html',
   styleUrl: './project-edit.component.scss',
@@ -82,35 +81,9 @@ export class ProjectEditComponent implements OnDestroy {
   company?: CompanyItem;
   projectInformation?: ProjectInformation;
   protected loading$ = signal(false);
-  protected breadcrumbItems: BreadcrumbItem[] = [
-    {
-      color: 'text-blue-600',
-      name: 'Dashboard',
-      link: `/${NavigationRoutes.dashboard.DASHBOARD}`,
-    },
-    {
-      color: 'text-blue-600',
-      name: 'Proyectos',
-      link: `/${NavigationRoutes.dashboard.DASHBOARD}/${NavigationRoutes.projects.PROJECT}`,
-    },
-    {
-      color: 'text-yellow-600',
-      name: 'Editar',
-    },
-  ];
-
-  public readonly fileUploadControl = new FileUploadControl(
-    {
-      listVisible: true,
-      accept: [CommonsStrings.MIME_TYPE_JPG, CommonsStrings.MIME_TYPE_PNG],
-      discardInvalid: true,
-      multiple: false,
-    },
-    [
-      FileUploadValidators.accept([CommonsStrings.MIME_TYPE_PNG]),
-      FileUploadValidators.filesLimit(1),
-    ]
-  );
+  protected iconUrl: string = CommonsStrings.EMPTY_STRING;
+  protected breadcrumbItems: BreadcrumbItem[] = breadcrumbsEditProject;
+  protected iconQR?: string;
 
   editProjectForm = new FormGroup({
     application_name: new FormControl<string>(CommonsStrings.EMPTY_STRING, {
@@ -136,21 +109,12 @@ export class ProjectEditComponent implements OnDestroy {
         Validators.pattern(CommonsStrings.REGEX_VERSION),
       ],
     }),
-    icon: new FormControl(null, {
-      nonNullable: true,
-      validators: [
-        FileUploadValidators.filesLimit(1),
-        FileUploadValidators.accept([
-          CommonsStrings.MIME_TYPE_JPG,
-          CommonsStrings.MIME_TYPE_PNG,
-        ]),
-      ],
-    }),
   });
 
   constructor(
     public navigation: ProjectNavigationService,
     private uploadImage: UploadService,
+    private qrGenerator: QrGeneratorService,
     private projectFacade: ProjectsFacade,
     private _bottomSheet: MatBottomSheet,
     private dialogService: DialogService
@@ -174,12 +138,8 @@ export class ProjectEditComponent implements OnDestroy {
     this.projectFacade.anySuccess.subscribe((value) => {
       if (value) {
         this.dialogService
-          .showSuccess('Atención', 'Proyecto actualizado correctamente ')
-          .subscribe((value1) => {
-            if (value1.resultType == ResultType.BUTTON_ONE) {
-              this.navigation.navigateToList();
-            }
-          });
+          .showSuccess('Atención', 'Proyecto actualizado correctamente')
+          .subscribe((value1) => {});
       }
       this.loading$.set(false);
     });
@@ -200,49 +160,39 @@ export class ProjectEditComponent implements OnDestroy {
     this.editProjectForm.controls.version.setValue(
       this.projectItem?.version ?? ''
     );
-    this.editProjectForm.controls.url.setValue(this.projectItem?.url_qr ?? '');
     this.editProjectForm.controls.status.setValue(
       this.projectItem?.status == ProjectStatus.ACTIVE
     );
+    this.editProjectForm.controls.url.setValue(this.projectItem?.url_qr ?? '');
+    this.iconUrl = this.projectItem?.icon ?? '';
+    this.iconQR = this.projectItem?.icon_qr ?? '';
   }
 
   edit() {
     const value = {
       application_name:
-        this.editProjectForm.controls.application_name.value ?? '',
+        this.editProjectForm.controls.application_name.value ??
+        CommonsStrings.EMPTY_STRING,
       application_description:
-        this.editProjectForm.controls.application_description.value ?? '',
+        this.editProjectForm.controls.application_description.value ??
+        CommonsStrings.EMPTY_STRING,
       status: this.editProjectForm.controls.status.value
         ? ProjectStatus.ACTIVE
         : ProjectStatus.DISABLE,
-      version: this.editProjectForm.controls.version.value ?? '',
+      version:
+        this.editProjectForm.controls.version.value ??
+        CommonsStrings.EMPTY_STRING,
       url_qr: this.editProjectForm.controls.url.value ?? '',
       id_cia: this.projectItem?.id_cia,
-      icon: '',
-      icon_qr: '',
-      id_app_google: '',
+      icon: this.iconUrl,
+      icon_qr: this.iconQR,
+      id_app_google: CommonsStrings.EMPTY_STRING,
     } as AddOrEditProjectRequest;
 
-    const image =
-      this.fileUploadControl.value.length > 0
-        ? this.fileUploadControl.value[0]
-        : null;
-    if (image) {
-      this.loadImage(this.fileUploadControl.value[0], (url) => {
-        value.icon = url;
-        this.projectFacade.editProject(
-          this.projectItem?.id_application ?? -1,
-          value
-        );
-      });
-    } else {
-      value.icon = this.projectItem?.icon ?? '';
-
-      this.projectFacade.editProject(
-        this.projectItem?.id_application ?? -1,
-        value
-      );
-    }
+    this.projectFacade.editProject(
+      this.projectItem?.id_application ?? -1,
+      value
+    );
   }
 
   goToConfiguration() {
@@ -281,5 +231,35 @@ export class ProjectEditComponent implements OnDestroy {
         projectInformation: this.projectInformation,
       },
     });
+  }
+
+  onFileSelected($event: File[]) {
+    this.loadImage($event[0], (value) => {
+      this.iconUrl = value;
+      this.edit();
+    });
+  }
+
+  generateQR() {
+    if (this.editProjectForm.controls.url.value) {
+      this.qrGenerator
+        .generateQR(
+          this.editProjectForm.controls.url.value ?? '',
+          this.projectItem?.icon ?? ''
+        )
+        .subscribe((result) => {
+          const file = new File(
+            [result],
+            `${this.projectItem?.id_application}.png`,
+            { type: 'image/png' }
+          );
+
+          this.loadImage(file, (urlServer) => {
+            this.iconQR = urlServer;
+            this.edit();
+          });
+          console.log(URL.createObjectURL(result));
+        });
+    }
   }
 }
