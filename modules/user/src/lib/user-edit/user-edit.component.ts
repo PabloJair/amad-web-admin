@@ -177,6 +177,10 @@ export class UserEditComponent implements AfterViewInit, OnDestroy {
         : UserStatus.DISABLE,
       rol: this.editUserForm.controls.rol.value,
       proyectos: [],
+      password:
+        this.editUserForm.controls.password.value.length > 0
+          ? this.editUserForm.controls.password.value
+          : null,
       id_usuario: this.userItem.id_usuario,
     };
     this.userFacade.editUser(user, this.userItem.id_usuario);

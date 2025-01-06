@@ -9,5 +9,6 @@ export interface UserEdit {
   rol: number;
   status: UserStatus;
   id_usuario: number;
+  password: string | null;
   proyectos: number[];
 }
