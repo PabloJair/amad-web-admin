@@ -25,7 +25,6 @@ import {
   FileUploadListItemComponent,
   FileUploadValidators,
 } from '@iplab/ngx-file-upload';
-import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { ProjectNavigationService } from '../commons/project-navigation.service';
 import {
@@ -49,11 +48,8 @@ import { Subscription } from 'rxjs';
     MatButtonModule,
     BreadcrumbComponent,
     FileUploadComponent,
-    MatRadioGroup,
-    MatRadioButton,
     MatSlideToggle,
     ReactiveFormsModule,
-    JsonPipe,
     FilesAcceptValidator,
     FileUploadDropZoneComponent,
     FileUploadListItemComponent,

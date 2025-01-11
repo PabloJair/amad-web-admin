@@ -1,7 +1,7 @@
 import { Component, computed, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LayoutDragComponent } from '../layout-drag/layout-drag.component';
-import { ComponentEntity } from '../../entities/component-entity';
+import { ComponentEntity } from '@amad-web-admin/modules/layout';
 import {
   defaultComponentEntity,
   getAlignmentText,

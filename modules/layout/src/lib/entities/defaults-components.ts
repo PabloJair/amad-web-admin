@@ -1,7 +1,6 @@
 import { ComponentEntity, TypeComponent } from './component-entity';
 import { PositionAlignment, Properties, TextAlignment } from './properties';
 import { Actions } from './actions';
-import { v4 as uuidv4 } from 'uuid';
 import { CommonsUI } from '@amad-web-admin/modules/core';
 
 export const defaultActions: Actions = new (class implements Actions {
