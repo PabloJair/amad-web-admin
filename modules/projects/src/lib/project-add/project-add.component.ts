@@ -71,7 +71,11 @@ export class ProjectAddComponent {
   public readonly fileUploadControl = new FileUploadControl(
     {
       listVisible: true,
-      accept: [CommonsStrings.MIME_TYPE_PNG, CommonsStrings.MIME_TYPE_JPG],
+      accept: [
+        CommonsStrings.MIME_TYPE_PNG,
+        CommonsStrings.MIME_TYPE_JPG,
+        CommonsStrings.MIME_TYPE_JPEG,
+      ],
       discardInvalid: true,
       multiple: false,
     },
@@ -79,6 +83,7 @@ export class ProjectAddComponent {
       FileUploadValidators.accept([
         CommonsStrings.MIME_TYPE_PNG,
         CommonsStrings.MIME_TYPE_JPG,
+        CommonsStrings.MIME_TYPE_JPEG,
       ]),
       FileUploadValidators.filesLimit(1),
     ]

@@ -3,25 +3,45 @@
     <mat-panel-title> Carga de imagen</mat-panel-title>
   </mat-expansion-panel-header>
   <mat-panel-description>
-    <file-upload
-      [multiple]="false" [animation]="true"
-      [control]="fileUploadControl"
-      class="w-full file-uploader">
 
-      <ng-template let-isFileDragDropAvailable="isFileDragDropAvailable" #placeholder>
-        <file-upload-drop-zone>
-          @if (isFileDragDropAvailable) {
-            <b>Drag & Drop</b><br> para subir un archivo
-          } @else {
-            <b>clickea aqui</b><br> para subir un archivo
-          }
-        </file-upload-drop-zone>
-      </ng-template>
+    <div class="flex flex-col gap-5 justify-center items-center">
 
-      <ng-template let-i="index" let-file="file" let-control="control" #item>
-        <file-upload-list-item [index]="i" [file]="file" [control]="control">Eliminar</file-upload-list-item>
-      </ng-template>
-    </file-upload>
+      <ui-elements-image-upload class="h-32 w-32" (fileSelected)="onFileSelected($event)"
+                                [urlFile]="componentEntity().properties.base64Image" [loader]=loader>
+
+      </ui-elements-image-upload>
+
+      @if (componentEntity().type === TypeComponent.IMAGE_BUTTON) {
+        <section class="w-full">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Ancho</mat-label>
+            <input type="number" matInput [(ngModel)]="componentEntity().properties.imageSize.width"
+            >
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Largo</mat-label>
+            <input type="number" matInput [(ngModel)]="componentEntity().properties.imageSize.height"
+            >
+          </mat-form-field>
+
+          <mat-radio-group class="grid grid-cols-5 grid-rows-5 gap-4 justify-items-center"
+                           [(ngModel)]="componentEntity().properties.positionImage">
+            <mat-radio-button [value]="PositionAlignment.TOP" class="col-start-2">
+            </mat-radio-button>
+
+            <mat-radio-button [value]="PositionAlignment.LEFT" class="row-start-2">
+            </mat-radio-button>
+            <mat-radio-button [value]="PositionAlignment.RIGHT" class="col-start-3 row-start-2">
+            </mat-radio-button>
+            <mat-radio-button [value]="PositionAlignment.BOTTOM" class="col-start-2 row-start-3">
+            </mat-radio-button>
+          </mat-radio-group>
+        </section>
+
+      }
+
+    </div>
 
   </mat-panel-description>
 

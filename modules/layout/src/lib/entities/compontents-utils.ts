@@ -2,7 +2,10 @@ import { ComponentEntity, TypeComponent } from './component-entity';
 import { CommonsUI } from '@amad-web-admin/modules/core';
 import { computed, InputSignal } from '@angular/core';
 import { buttonComponent } from './defaults-components';
-import { TextAlignment } from '@amad-web-admin/modules/layout';
+import {
+  PositionAlignment,
+  TextAlignment,
+} from '@amad-web-admin/modules/layout';
 
 export const imageButtonComponent: ComponentEntity = {
   UUID: '',
@@ -13,10 +16,15 @@ export const imageButtonComponent: ComponentEntity = {
       x: 0,
       y: 0,
     },
+    positionImage: PositionAlignment.RIGHT,
     base64Image: 'img.png',
     size: {
       width: CommonsUI.BUTTON_IMAGE_MIN_W,
       height: CommonsUI.BUTTON_IMAGE_MIN_H,
+    },
+    imageSize: {
+      width: 30,
+      height: 30,
     },
     margin: {
       top: 0,
@@ -41,6 +49,12 @@ export const textComponent: ComponentEntity = {
       x: 0,
       y: 0,
     },
+    positionImage: PositionAlignment.RIGHT,
+
+    imageSize: {
+      width: 0,
+      height: 0,
+    },
     size: {
       width: 60,
       height: 20,
@@ -64,6 +78,11 @@ export const imageComponent: ComponentEntity = {
       x: 0,
       y: 0,
     },
+    positionImage: PositionAlignment.RIGHT,
+    imageSize: {
+      width: 0,
+      height: 0,
+    },
     size: {
       width: CommonsUI.IMAGE_MIN_W,
       height: CommonsUI.IMAGE_MIN_H,
@@ -83,9 +102,14 @@ export const imageComponent: ComponentEntity = {
 export const carouselComponent: ComponentEntity = {
   type: TypeComponent.CARROUSEL,
   properties: {
+    positionImage: PositionAlignment.RIGHT,
     position: {
       x: 0,
       y: 0,
+    },
+    imageSize: {
+      width: 0,
+      height: 0,
     },
     size: {
       width: CommonsUI.CAROUSEL_MIN_W,
@@ -118,6 +142,11 @@ export const defaultComponentEntity: ComponentEntity = {
     position: {
       x: 0,
       y: 0,
+    },
+    positionImage: PositionAlignment.RIGHT,
+    imageSize: {
+      width: 0,
+      height: 0,
     },
     size: {
       width: CommonsUI.BUTTON_MIN_W,

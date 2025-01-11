@@ -1,8 +1,6 @@
 import { AfterViewInit, Component, signal, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
-  BadgeGreenComponent,
-  BadgeRedComponent,
   BreadcrumbComponent,
   BreadcrumbItem,
   DialogService,
@@ -17,35 +15,20 @@ import {
   MatCardSubtitle,
   MatCardTitle,
 } from '@angular/material/card';
-import {
-  MatCell,
-  MatCellDef,
-  MatColumnDef,
-  MatHeaderCell,
-  MatHeaderRow,
-  MatHeaderRowDef,
-  MatRow,
-  MatRowDef,
-  MatTable,
-} from '@angular/material/table';
-import { MatChipListbox, MatChipOption } from '@angular/material/chips';
 import { MatFormField } from '@angular/material/form-field';
-import { MatIcon } from '@angular/material/icon';
-import { MatButtonModule, MatIconButton } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import { MatInput, MatInputModule } from '@angular/material/input';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTooltip } from '@angular/material/tooltip';
 import { NavigationRoutes } from '@amad-web-admin/modules/core';
 import { ToolboxComponent } from '../toolbox/toolbox.component';
 import { PropertiesComponent } from '../properties/properties.component';
 import { PreviewMobileComponent } from '../preview-mobile/preview-mobile.component';
-import { CdkDropListGroup } from '@angular/cdk/drag-drop';
 import { ComponentEntity, TypeComponent } from '../entities/component-entity';
 import { defaultComponentEntity } from '../entities/compontents-utils';
 import { NavigationLayoutService } from '../commons/navigation-layout.service';
 import {
   ApplicantProject,
   ApplicantProjectLayout,
+  createDefaultApplicantProject,
   createDefaultApplicantProjectLayout,
   JsonProject,
   ProjectItem,
@@ -65,8 +48,6 @@ import { LoaderSnackbarComponent } from '@amad-web-admin/modules/ui-elements';
   standalone: true,
   imports: [
     CommonModule,
-    BadgeGreenComponent,
-    BadgeRedComponent,
     BreadcrumbComponent,
     FormsModule,
     MatCard,
@@ -74,27 +55,11 @@ import { LoaderSnackbarComponent } from '@amad-web-admin/modules/ui-elements';
     MatCardHeader,
     MatCardSubtitle,
     MatCardTitle,
-    MatCell,
-    MatCellDef,
-    MatChipListbox,
-    MatChipOption,
-    MatColumnDef,
     MatFormField,
-    MatHeaderCell,
-    MatHeaderRow,
-    MatHeaderRowDef,
-    MatIcon,
-    MatIconButton,
     MatInput,
-    MatPaginator,
-    MatRow,
-    MatRowDef,
-    MatTable,
-    MatTooltip,
     ToolboxComponent,
     PropertiesComponent,
     PreviewMobileComponent,
-    CdkDropListGroup,
     MatButtonModule,
     MatCheckbox,
     MatInputModule,
@@ -143,9 +108,16 @@ export class PreviewComponent implements AfterViewInit {
       color: 'text-blue-600',
       name: this.projectInformation.project.application_name,
     });
-    this.applicantProject = JSON.parse(
-      this.projectInformation.jsonProject.json
-    ) as ApplicantProject;
+
+    try {
+      this.applicantProject = JSON.parse(
+        this.projectInformation.jsonProject.json
+      ) as ApplicantProject;
+      // Proceed with using the 'user' object
+    } catch (error) {
+      this.applicantProject = createDefaultApplicantProject();
+      // Handle the error appropriately
+    }
   }
 
   ngAfterViewInit(): void {

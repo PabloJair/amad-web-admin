@@ -1,5 +1,5 @@
 import { ComponentEntity, TypeComponent } from './component-entity';
-import { Properties, TextAlignment } from './properties';
+import { PositionAlignment, Properties, TextAlignment } from './properties';
 import { Actions } from './actions';
 import { v4 as uuidv4 } from 'uuid';
 import { CommonsUI } from '@amad-web-admin/modules/core';
@@ -34,6 +34,8 @@ function createDefaultPosition(
   }
 ): Properties {
   return new (class implements Properties {
+    imageSize = { width: 10, height: 10 };
+    positionImage = PositionAlignment.RIGHT;
     alignment = undefined;
     background = '#000000';
     base64Image = '';

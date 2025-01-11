@@ -8,12 +8,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { MatButton } from '@angular/material/button';
 import { ComponentEntity } from '@amad-web-admin/modules/layout';
-import {
-  CommonsUI,
-  DraggableDirective,
-  ResizableDirective,
-} from '@amad-web-admin/modules/core';
-import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
+import { CommonsUI, ResizableDirective } from '@amad-web-admin/modules/core';
 import { LayoutDragComponent } from '../layout-drag/layout-drag.component';
 import {
   defaultComponentEntity,
@@ -23,15 +18,7 @@ import {
 @Component({
   selector: 'lib-app-button',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatButton,
-    ResizableDirective,
-    CdkDrag,
-    LayoutDragComponent,
-    CdkDragHandle,
-    DraggableDirective,
-  ],
+  imports: [CommonModule, ResizableDirective, LayoutDragComponent],
   templateUrl: './button.component.html',
   styleUrl: './button.component.scss',
 })

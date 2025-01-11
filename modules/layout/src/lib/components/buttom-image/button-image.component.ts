@@ -2,15 +2,19 @@ import { Component, computed, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LayoutDragComponent } from '../layout-drag/layout-drag.component';
 import { ComponentEntity } from '../../entities/component-entity';
-import { defaultComponentEntity, getAlignmentText } from '../../entities/compontents-utils';
+import {
+  defaultComponentEntity,
+  getAlignmentText,
+} from '../../entities/compontents-utils';
 import { CommonsUI, ResizableDirective } from '@amad-web-admin/modules/core';
+import { PositionAlignment } from '@amad-web-admin/modules/layout';
 
 @Component({
   selector: 'lib-button-image',
   standalone: true,
   imports: [CommonModule, LayoutDragComponent, ResizableDirective],
   templateUrl: './button-image.component.html',
-  styleUrl: './button-image.component.scss'
+  styleUrl: './button-image.component.scss',
 })
 export class ButtonImageComponent {
   cdkDragBoundaryName = input<string>('');
@@ -35,8 +39,20 @@ export class ButtonImageComponent {
   protected readonly CommonsUI = CommonsUI;
 
   changePosition($event: { x: number; y: number }) {
-
     this.component().properties.position = $event;
+  }
+
+  getAlignmentImage(positionAlignment: PositionAlignment): string {
+    switch (positionAlignment) {
+      case PositionAlignment.LEFT:
+        return 'flex-row-reverse';
+      case PositionAlignment.BOTTOM:
+        return 'flex-col';
+      case PositionAlignment.RIGHT:
+        return 'flex-row';
+      case PositionAlignment.TOP:
+        return 'flex-col-reverse';
+    }
   }
 
   protected readonly getAlignmentText = getAlignmentText;

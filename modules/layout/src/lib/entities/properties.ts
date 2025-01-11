@@ -5,6 +5,11 @@ export interface Properties {
     width: number;
     height: number;
   };
+  imageSize: {
+    width: number;
+    height: number;
+  };
+  positionImage: PositionAlignment;
   background?: string;
   text?: string;
   textAlignment: TextAlignment;
@@ -35,6 +40,13 @@ export interface ItemCarousel {
   src: string;
   title: string;
   id: string;
+}
+
+export enum PositionAlignment {
+  LEFT = 'left',
+  BOTTOM = 'bottom',
+  RIGHT = 'right',
+  TOP = 'top',
 }
 
 export enum TextAlignment {
