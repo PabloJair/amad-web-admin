@@ -13,7 +13,7 @@
         @if (componentEntity().type !== TypeComponent.IMAGE) {
           <lib-general-properties [componentEntity]="componentEntity()">
           </lib-general-properties>
-          
+
         } @else {
           <lib-image-properties [componentEntity]="componentEntity()"></lib-image-properties>
         }
@@ -25,9 +25,9 @@
         @if (componentEntity().type !== TypeComponent.IMAGE) {
           <lib-colors-properties [componentEntity]="componentEntity()"></lib-colors-properties>
         }
-        <lib-margin-size-properties [componentEntity]="componentEntity()"></lib-margin-size-properties>
         <lib-actions-properties [componentEntity]="componentEntity()" [sections]="sections()"></lib-actions-properties>
       }
+      <lib-margin-size-properties [componentEntity]="componentEntity()"></lib-margin-size-properties>
 
       @if (componentEntity().type === TypeComponent.CARROUSEL) {
         <lib-carousel-properties [componentEntity]="componentEntity()"></lib-carousel-properties>

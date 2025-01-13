@@ -10,20 +10,95 @@ export const defaultActions: Actions = new (class implements Actions {
   showBySchedule = [];
 })();
 
-export const buttonComponent: ComponentEntity = new (class
-  implements ComponentEntity
-{
-  UUID = crypto.randomUUID();
-  actions = defaultActions;
-  properties = createDefaultPosition(
-    { x: 0, y: 0 },
-    {
-      width: CommonsUI.BUTTON_MIN_W,
-      height: CommonsUI.BUTTON_MIN_H,
-    }
-  );
-  type = TypeComponent.BUTTON;
-})();
+export function buttonComponent(): ComponentEntity {
+  return new (class implements ComponentEntity {
+    UUID = crypto.randomUUID();
+    actions = defaultActions;
+    properties = createDefaultPosition(
+      { x: 0, y: 0 },
+      {
+        width: CommonsUI.BUTTON_MIN_W,
+        height: CommonsUI.BUTTON_MIN_H,
+      }
+    );
+    type = TypeComponent.BUTTON;
+  })();
+}
+
+export function imageComponent(): ComponentEntity {
+  return new (class implements ComponentEntity {
+    UUID = crypto.randomUUID();
+    actions = defaultActions;
+    properties = createDefaultPosition(
+      { x: 0, y: 0 },
+      {
+        width: CommonsUI.IMAGE_MIN_W,
+        height: CommonsUI.IMAGE_MIN_H,
+      }
+    );
+    type = TypeComponent.IMAGE;
+  })();
+}
+
+export function imageButtonComponent(): ComponentEntity {
+  return new (class implements ComponentEntity {
+    UUID = crypto.randomUUID();
+    actions = defaultActions;
+    properties = createDefaultPosition(
+      { x: 0, y: 0 },
+      {
+        width: CommonsUI.IMAGE_MIN_W,
+        height: CommonsUI.IMAGE_MIN_H,
+      }
+    );
+    type = TypeComponent.IMAGE_BUTTON;
+  })();
+}
+
+export function carouselComponent(): ComponentEntity {
+  return new (class implements ComponentEntity {
+    UUID = crypto.randomUUID();
+    actions = defaultActions;
+    properties = createDefaultPosition(
+      { x: 0, y: 0 },
+      {
+        width: CommonsUI.CAROUSEL_MIN_W,
+        height: CommonsUI.CAROUSEL_MIN_H,
+      }
+    );
+    type = TypeComponent.CARROUSEL;
+  })();
+}
+
+export function textComponent(): ComponentEntity {
+  return new (class implements ComponentEntity {
+    UUID = crypto.randomUUID();
+    actions = defaultActions;
+    properties = createDefaultPosition(
+      { x: 0, y: 0 },
+      {
+        width: CommonsUI.IMAGE_MIN_W,
+        height: CommonsUI.IMAGE_MIN_H,
+      }
+    );
+    type = TypeComponent.TEXT;
+  })();
+}
+
+export function defaultComponentEntity(): ComponentEntity {
+  return new (class implements ComponentEntity {
+    UUID = crypto.randomUUID();
+    actions = defaultActions;
+    properties = createDefaultPosition(
+      { x: 0, y: 0 },
+      {
+        width: CommonsUI.IMAGE_MIN_W,
+        height: CommonsUI.IMAGE_MIN_H,
+      }
+    );
+    type = TypeComponent.UNKNOWN;
+  })();
+}
 
 function createDefaultPosition(
   position: { x: number; y: number },

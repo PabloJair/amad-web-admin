@@ -23,7 +23,22 @@
 
   <mat-divider></mat-divider>
 
-  <span>Posición</span>
+  <div class="flex flex-col">
+    <span>Posición</span>
+    <mat-form-field appearance="outline">
+      <mat-label>X</mat-label>
+      <input type="number" matInput [(ngModel)]="componentEntity().properties.position.x"
+      >
 
-  <p>X:{{ componentEntity().properties.position.x }}, Y:{{ componentEntity().properties.position.y }}</p>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Y</mat-label>
+      <input type="number" matInput [(ngModel)]="componentEntity().properties.position.y"
+      >
+
+    </mat-form-field>
+
+  </div>
+
+
 </mat-expansion-panel>

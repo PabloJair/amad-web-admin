@@ -3,24 +3,19 @@ import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { LayoutDragComponent } from '../layout-drag/layout-drag.component';
 import { CommonsUI, ResizableDirective } from '@amad-web-admin/modules/core';
 import { ComponentEntity } from '@amad-web-admin/modules/layout';
-import { defaultComponentEntity } from '../../entities/compontents-utils';
+import { defaultComponentEntity } from '../../entities/defaults-components';
 
 @Component({
   selector: 'lib-image',
   standalone: true,
-  imports: [
-    CommonModule,
-    LayoutDragComponent,
-    ResizableDirective,
-    NgOptimizedImage,
-  ],
+  imports: [CommonModule, LayoutDragComponent, ResizableDirective],
   templateUrl: './image.component.html',
   styleUrl: './image.component.scss',
 })
 export class ImageComponent {
   cdkDragBoundaryName = input<string>('');
 
-  component = input<ComponentEntity>(defaultComponentEntity);
+  component = input<ComponentEntity>(defaultComponentEntity());
   onSelectedComponent = output<ComponentEntity>();
 
   isDragging = false;

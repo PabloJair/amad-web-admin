@@ -35,6 +35,8 @@
             <mat-label>APP ID</mat-label>
             <input matInput type="text" placeholder="Identificador de la app" formControlName="appId">
           </mat-form-field>
+
+
         </div>
         <div class="flex flex-col">
           <mat-checkbox
@@ -60,6 +62,33 @@
           >
             ¿Deseas {{ offline.checked ? "Desactivar" : "Activar" }} el modo offline?
           </mat-checkbox>
+
+          <div class="flex flex-col">
+            <div class="flex flex-row items-center">
+              <mat-form-field appearance="outline" class="w-96">
+                <mat-label>Telefonos a interceptar</mat-label>
+
+                <input #interceptor matInput mask="00-00-00-00-00">
+              </mat-form-field>
+              <button mat-icon-button (click)="addOtherPhone(interceptor.value)">
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+
+            <section class="flex flex-col">
+              @for (item of appProject.preconfiguration.interceptorPhone; track item) {
+
+                <span>{{ item }}
+                  <button mat-icon-button (click)="deleteInterceptorPhone(item)">
+                  <mat-icon>delete</mat-icon>
+                </button></span>
+
+
+              }
+            </section>
+          </div>
+
+
           <h4>Audio de bienvenida </h4>
 
           @if (this.appProject.preconfiguration.urlSound.length > 0) {

@@ -20,7 +20,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { MatButton } from '@angular/material/button';
+import { MatButton, MatIconButton } from '@angular/material/button';
 import {
   MatCard,
   MatCardActions,
@@ -44,6 +44,8 @@ import {
 } from '@amad-web-admin/modules/network';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ProjectsFacade } from '../+state/projects.facade';
+import { MatIconModule } from '@angular/material/icon';
+import { NgxMaskDirective } from 'ngx-mask';
 
 @Component({
   selector: 'lib-project-preconfiguration',
@@ -70,6 +72,9 @@ import { ProjectsFacade } from '../+state/projects.facade';
     ReactiveFormsModule,
     MatCheckboxModule,
     AudioComponent,
+    MatIconModule,
+    MatIconButton,
+    NgxMaskDirective,
   ],
   templateUrl: './project-preconfiguration.component.html',
   styleUrl: './project-preconfiguration.component.scss',
@@ -229,5 +234,16 @@ export class ProjectPreconfigurationComponent {
       updateJson,
       this.projectItem.jsonProject.id_json
     );
+  }
+
+  addOtherPhone(value: string) {
+    this.appProject.preconfiguration.interceptorPhone.push(value);
+  }
+
+  deleteInterceptorPhone(item: string) {
+    this.appProject.preconfiguration.interceptorPhone =
+      this.appProject.preconfiguration.interceptorPhone.filter(
+        (value) => value != item
+      );
   }
 }

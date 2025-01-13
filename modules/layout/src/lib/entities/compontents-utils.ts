@@ -1,201 +1,49 @@
 import { ComponentEntity, TypeComponent } from './component-entity';
-import { CommonsUI } from '@amad-web-admin/modules/core';
 import { computed, InputSignal } from '@angular/core';
-import { buttonComponent } from './defaults-components';
 import {
-  PositionAlignment,
-  TextAlignment,
-} from '@amad-web-admin/modules/layout';
-
-export const imageButtonComponent: ComponentEntity = {
-  UUID: '',
-  type: TypeComponent.IMAGE_BUTTON,
-  properties: {
-    text: 'Botón-Imagen',
-    position: {
-      x: 0,
-      y: 0,
-    },
-    positionImage: PositionAlignment.RIGHT,
-    base64Image: 'img.png',
-    size: {
-      width: CommonsUI.BUTTON_IMAGE_MIN_W,
-      height: CommonsUI.BUTTON_IMAGE_MIN_H,
-    },
-    imageSize: {
-      width: 30,
-      height: 30,
-    },
-    margin: {
-      top: 0,
-      bottom: 0,
-      left: 0,
-      right: 0,
-    },
-    cornerRadius: 0,
-    textAlignment: TextAlignment.MiddleCenter,
-  },
-  actions: {
-    call: '',
-    openWebView: '',
-    openSections: '',
-    showBySchedule: [],
-  },
-};
-export const textComponent: ComponentEntity = {
-  type: TypeComponent.TEXT,
-  properties: {
-    position: {
-      x: 0,
-      y: 0,
-    },
-    positionImage: PositionAlignment.RIGHT,
-
-    imageSize: {
-      width: 0,
-      height: 0,
-    },
-    size: {
-      width: 60,
-      height: 20,
-    },
-    cornerRadius: 0,
-    textAlignment: TextAlignment.MiddleCenter,
-  },
-  actions: {
-    call: '',
-    openWebView: '',
-    openSections: '',
-    showBySchedule: [],
-  },
-  UUID: '',
-};
-
-export const imageComponent: ComponentEntity = {
-  type: TypeComponent.IMAGE,
-  properties: {
-    position: {
-      x: 0,
-      y: 0,
-    },
-    positionImage: PositionAlignment.RIGHT,
-    imageSize: {
-      width: 0,
-      height: 0,
-    },
-    size: {
-      width: CommonsUI.IMAGE_MIN_W,
-      height: CommonsUI.IMAGE_MIN_H,
-    },
-    cornerRadius: 0,
-    textAlignment: TextAlignment.MiddleCenter,
-  },
-  actions: {
-    call: '',
-    openWebView: '',
-    openSections: '',
-    showBySchedule: [],
-  },
-  UUID: '',
-};
-
-export const carouselComponent: ComponentEntity = {
-  type: TypeComponent.CARROUSEL,
-  properties: {
-    positionImage: PositionAlignment.RIGHT,
-    position: {
-      x: 0,
-      y: 0,
-    },
-    imageSize: {
-      width: 0,
-      height: 0,
-    },
-    size: {
-      width: CommonsUI.CAROUSEL_MIN_W,
-      height: CommonsUI.CAROUSEL_MIN_H,
-    },
-    cornerRadius: 0,
-    itemCarousel: [],
-    textAlignment: TextAlignment.MiddleCenter,
-  },
-  actions: {
-    call: '',
-    openWebView: '',
-    openSections: '',
-    showBySchedule: [],
-  },
-  UUID: '',
-};
-export const componentsToolBox: ComponentEntity[] = [
   buttonComponent,
-  textComponent,
-  imageComponent,
   carouselComponent,
+  defaultComponentEntity,
   imageButtonComponent,
+  imageComponent,
+  textComponent,
+} from './defaults-components';
+
+export const componentsToolBox: ComponentEntity[] = [
+  buttonComponent(),
+  textComponent(),
+  imageComponent(),
+  carouselComponent(),
+  imageButtonComponent(),
 ];
-export const defaultComponentEntity: ComponentEntity = {
-  UUID: '',
-  type: TypeComponent.UNKNOWN,
-  properties: {
-    text: '',
-    position: {
-      x: 0,
-      y: 0,
-    },
-    positionImage: PositionAlignment.RIGHT,
-    imageSize: {
-      width: 0,
-      height: 0,
-    },
-    size: {
-      width: CommonsUI.BUTTON_MIN_W,
-      height: CommonsUI.BUTTON_MIN_H,
-    },
-    margin: {
-      top: 0,
-      bottom: 0,
-      left: 0,
-      right: 0,
-    },
-    cornerRadius: 0,
-    textAlignment: TextAlignment.MiddleCenter,
-  },
-  actions: {
-    call: '',
-    openWebView: '',
-    openSections: '',
-    showBySchedule: [],
-  },
-};
 
 export function createComponent(typeComponent: TypeComponent): ComponentEntity {
   let componentEntity: ComponentEntity;
 
   switch (typeComponent) {
     case TypeComponent.IMAGE:
-      componentEntity = imageComponent;
+      componentEntity = imageComponent();
       break;
     case TypeComponent.BUTTON:
-      componentEntity = buttonComponent;
+      componentEntity = buttonComponent();
       break;
     case TypeComponent.TEXT:
-      componentEntity = textComponent;
+      componentEntity = textComponent();
       break;
     case TypeComponent.CARROUSEL:
-      componentEntity = carouselComponent;
+      componentEntity = carouselComponent();
       break;
     case TypeComponent.IMAGE_BUTTON:
-      componentEntity = imageButtonComponent;
+      componentEntity = imageButtonComponent();
       break;
     case TypeComponent.DIALOG:
-      componentEntity = defaultComponentEntity;
+      componentEntity = defaultComponentEntity();
       break;
     case TypeComponent.UNKNOWN:
-      componentEntity = defaultComponentEntity;
+      componentEntity = defaultComponentEntity();
       break;
     default:
-      componentEntity = defaultComponentEntity;
+      componentEntity = defaultComponentEntity();
       break;
   }
   componentEntity.UUID = crypto.randomUUID();

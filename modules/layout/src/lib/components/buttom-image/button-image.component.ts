@@ -2,12 +2,10 @@ import { Component, computed, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LayoutDragComponent } from '../layout-drag/layout-drag.component';
 import { ComponentEntity } from '@amad-web-admin/modules/layout';
-import {
-  defaultComponentEntity,
-  getAlignmentText,
-} from '../../entities/compontents-utils';
+import { getAlignmentText } from '../../entities/compontents-utils';
 import { CommonsUI, ResizableDirective } from '@amad-web-admin/modules/core';
 import { PositionAlignment } from '@amad-web-admin/modules/layout';
+import { defaultComponentEntity } from '../../entities/defaults-components';
 
 @Component({
   selector: 'lib-button-image',
@@ -19,7 +17,7 @@ import { PositionAlignment } from '@amad-web-admin/modules/layout';
 export class ButtonImageComponent {
   cdkDragBoundaryName = input<string>('');
 
-  component = input<ComponentEntity>(defaultComponentEntity);
+  component = input<ComponentEntity>(defaultComponentEntity());
 
   fontSize = computed(() => {
     return;

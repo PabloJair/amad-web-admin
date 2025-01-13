@@ -8,10 +8,7 @@ import { MatDivider } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckbox } from '@angular/material/checkbox';
-import {
-  defaultComponentEntity,
-  getViewNameTypeComponent,
-} from '../entities/compontents-utils';
+import { getViewNameTypeComponent } from '../entities/compontents-utils';
 import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 import {
   FileUploadComponent,
@@ -26,6 +23,7 @@ import { ColorsPropertiesComponent } from '../components/properties-components/c
 import { ImagePropertiesComponent } from '../components/properties-components/image-properties/image-properties.component';
 import { MarginSizePropertiesComponent } from '../components/properties-components/margin-size-properties/margin-size-properties.component';
 import { ActionsPropertiesComponent } from '../components/properties-components/actions-properties/actions-properties.component';
+import { defaultComponentEntity } from '../entities/defaults-components';
 
 @Component({
   selector: 'lib-properties',
@@ -35,18 +33,9 @@ import { ActionsPropertiesComponent } from '../components/properties-components/
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatDivider,
     MatExpansionModule,
     MatIconModule,
-    MatCheckbox,
-    MatRadioGroup,
-    MatRadioButton,
-    FileUploadComponent,
-    FileUploadDropZoneComponent,
-    FileUploadListItemComponent,
     ReactiveFormsModule,
-    MatSlider,
-    MatSliderThumb,
     CarouselPropertiesComponent,
     GeneralPropertiesComponent,
     ColorsPropertiesComponent,
@@ -58,7 +47,7 @@ import { ActionsPropertiesComponent } from '../components/properties-components/
   styleUrl: './properties.component.scss',
 })
 export class PropertiesComponent {
-  componentEntity = input<ComponentEntity>(defaultComponentEntity);
+  componentEntity = input<ComponentEntity>(defaultComponentEntity());
   updateComponentEntity = output<ComponentEntity>();
   showProperties = input(false);
   delete = output<string>();

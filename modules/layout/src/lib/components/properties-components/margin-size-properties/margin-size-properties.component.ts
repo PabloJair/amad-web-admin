@@ -11,8 +11,8 @@ import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { ComponentEntity } from '@amad-web-admin/modules/layout';
-import { defaultComponentEntity } from '../../../entities/compontents-utils';
 import { FormsModule } from '@angular/forms';
+import { defaultComponentEntity } from '../../../entities/defaults-components';
 
 @Component({
   selector: 'lib-margin-size-properties',
@@ -34,7 +34,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './margin-size-properties.component.scss',
 })
 export class MarginSizePropertiesComponent {
-  componentEntity = input<ComponentEntity>(defaultComponentEntity);
+  componentEntity = input<ComponentEntity>(defaultComponentEntity());
 
   changeWidth(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

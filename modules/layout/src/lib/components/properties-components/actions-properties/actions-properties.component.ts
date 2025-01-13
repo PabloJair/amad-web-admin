@@ -12,12 +12,13 @@ import {
 } from '@angular/material/expansion';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
-import { defaultComponentEntity } from '../../../entities/compontents-utils';
 import { DialogScheduleComponent } from '../../../dialog-schedule/dialog-schedule.component';
 import { DialogService } from '@amad-web-admin/modules/ui-elements';
-import { MatSelectChange, MatSelectModule } from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { CommonsStrings } from '@amad-web-admin/modules/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { defaultComponentEntity } from '../../../entities/defaults-components';
+import { NgxMaskDirective } from 'ngx-mask';
 
 @Component({
   selector: 'lib-actions-properties',
@@ -35,6 +36,8 @@ import { FormsModule } from '@angular/forms';
     MatLabel,
     MatSelectModule,
     FormsModule,
+    NgxMaskDirective,
+    ReactiveFormsModule,
   ],
   templateUrl: './actions-properties.component.html',
   styleUrl: './actions-properties.component.scss',
@@ -43,7 +46,7 @@ export class ActionsPropertiesComponent {
   protected readonly getDayForNumber = getDayForNumber;
   protected readonly TypeComponent = TypeComponent;
 
-  componentEntity = input<ComponentEntity>(defaultComponentEntity);
+  componentEntity = input<ComponentEntity>(defaultComponentEntity());
 
   sections = input<{ name: string; id: string }[]>();
 
@@ -60,8 +63,9 @@ export class ActionsPropertiesComponent {
     this.dialogService
       .openAnyDialog(DialogScheduleComponent)
       .subscribe((value) => {
-        this.updateShowBySchedule(value);
-        console.log(this.componentEntity());
+        if (value) {
+          this.updateShowBySchedule(value);
+        }
       });
   }
 
@@ -78,43 +82,12 @@ export class ActionsPropertiesComponent {
     this.componentEntity().actions?.showBySchedule.push(addShowBySchedule);
   }
 
-  checkedSection($event: MatCheckboxChange) {
-    this.openUrl.checked = false;
-    this.openCall.checked = false;
-    this.openSection.checked = $event.checked;
-
-    this.inputUrl.value = CommonsStrings.EMPTY_STRING;
-    this.inputCall.value = CommonsStrings.EMPTY_STRING;
-  }
-
-  checkedOpenUrl($event: MatCheckboxChange) {
-    this.openCall.checked = false;
-    this.openSection.checked = false;
-    this.openUrl.checked = $event.checked;
-    this.inputUrl.value = CommonsStrings.EMPTY_STRING;
-    this.inputCall.value = CommonsStrings.EMPTY_STRING;
-  }
-
   checkedOpenCall($event: MatCheckboxChange) {
     this.openSection.checked = false;
     this.openUrl.checked = false;
     this.openCall.checked = $event.checked;
     this.inputUrl.value = CommonsStrings.EMPTY_STRING;
     this.inputCall.value = CommonsStrings.EMPTY_STRING;
-  }
-
-  changeUrlText($event: Event) {
-    this.componentEntity().actions.openWebView = (
-      $event.target as HTMLInputElement
-    ).value;
-    this.componentEntity().actions.openSections = CommonsStrings.EMPTY_STRING;
-    this.componentEntity().actions.call = CommonsStrings.EMPTY_STRING;
-  }
-
-  selectedSection($event: string) {
-    this.componentEntity().actions.openSections = $event;
-    this.componentEntity().actions.call = CommonsStrings.EMPTY_STRING;
-    this.componentEntity().actions.openWebView = CommonsStrings.EMPTY_STRING;
   }
 
   changeCall($event: Event) {

@@ -23,7 +23,6 @@ import { ToolboxComponent } from '../toolbox/toolbox.component';
 import { PropertiesComponent } from '../properties/properties.component';
 import { PreviewMobileComponent } from '../preview-mobile/preview-mobile.component';
 import { ComponentEntity, TypeComponent } from '../entities/component-entity';
-import { defaultComponentEntity } from '../entities/compontents-utils';
 import { NavigationLayoutService } from '../commons/navigation-layout.service';
 import {
   ApplicantProject,
@@ -43,6 +42,7 @@ import {
 import { LayoutFacade } from '../+state/layout.facade';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoaderSnackbarComponent } from '@amad-web-admin/modules/ui-elements';
+import { defaultComponentEntity } from '../entities/defaults-components';
 
 @Component({
   standalone: true,
@@ -70,7 +70,7 @@ import { LoaderSnackbarComponent } from '@amad-web-admin/modules/ui-elements';
 })
 export class PreviewComponent implements AfterViewInit {
   @ViewChild(PreviewMobileComponent)
-  previewMobileComponent?: PreviewMobileComponent;
+  previewMobileComponent!: PreviewMobileComponent;
 
   projectInformation!: {
     jsonProject: JsonProject;
@@ -82,7 +82,7 @@ export class PreviewComponent implements AfterViewInit {
     createDefaultApplicantProjectLayout()
   );
   showProperties = false;
-  selectedComponent = signal<ComponentEntity>(defaultComponentEntity);
+  selectedComponent = signal<ComponentEntity>(defaultComponentEntity());
   sectionsProperties = signal<{ name: string; id: string }[]>([]);
   protected breadcrumbItems: BreadcrumbItem[] = [
     {
@@ -132,14 +132,15 @@ export class PreviewComponent implements AfterViewInit {
   }
 
   onAddComponent($event: TypeComponent) {
-    this.previewMobileComponent?.addNewComponent($event);
-    this.selectedComponent = signal(defaultComponentEntity);
+    console.log(this.selectedComponent.name);
+    const componentEntity = this.previewMobileComponent.addNewComponent($event);
+    this.selectedComponent.set(componentEntity);
     this.sectionsProperties = signal<{ name: string; id: string }[]>([]);
   }
 
   onSelectedComponent($event: ComponentEntity) {
     this.showProperties = true;
-    this.selectedComponent = signal($event);
+    this.selectedComponent.set($event);
     this.sectionsProperties.set(this.getListSections());
     console.log(`Selected component:${this.selectedComponent()}`);
   }
@@ -147,7 +148,7 @@ export class PreviewComponent implements AfterViewInit {
   onDelete($event: string) {
     this.previewMobileComponent?.deleteComponent($event);
     this.showProperties = false;
-    this.selectedComponent.set(defaultComponentEntity);
+    this.selectedComponent.set(defaultComponentEntity());
   }
 
   showOtherViews() {
@@ -259,6 +260,4 @@ export class PreviewComponent implements AfterViewInit {
       $event.target as HTMLInputElement
     ).value;
   }
-
-  onClean() {}
 }

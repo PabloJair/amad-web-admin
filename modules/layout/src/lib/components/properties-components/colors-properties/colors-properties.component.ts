@@ -8,14 +8,14 @@ import {
   FileUploadListItemComponent,
 } from '@iplab/ngx-file-upload';
 import { MatButtonModule } from '@angular/material/button';
-import { ComponentEntity } from '../../../entities/component-entity';
-import { defaultComponentEntity } from '../../../entities/compontents-utils';
+import { ComponentEntity } from '@amad-web-admin/modules/layout';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDivider } from '@angular/material/divider';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { defaultComponentEntity } from '../../../entities/defaults-components';
 
 @Component({
   selector: 'lib-colors-properties',
@@ -25,15 +25,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatDivider,
     MatExpansionModule,
     MatIconModule,
-    MatCheckbox,
-    MatRadioGroup,
-    MatRadioButton,
-    FileUploadComponent,
-    FileUploadDropZoneComponent,
-    FileUploadListItemComponent,
     ReactiveFormsModule,
     FormsModule,
   ],
@@ -41,5 +34,5 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   styleUrl: './colors-properties.component.scss',
 })
 export class ColorsPropertiesComponent {
-  componentEntity = input<ComponentEntity>(defaultComponentEntity);
+  componentEntity = input<ComponentEntity>(defaultComponentEntity());
 }

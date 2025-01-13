@@ -1,7 +1,6 @@
 import { Component, input, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ComponentEntity } from '@amad-web-admin/modules/layout';
-import { defaultComponentEntity } from '../../../entities/compontents-utils';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { ItemCarousel } from '../../../entities/properties';
@@ -17,6 +16,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { MatButtonModule } from '@angular/material/button';
 import { UploadService } from '@amad-web-admin/modules/network';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { defaultComponentEntity } from '../../../entities/defaults-components';
 
 @Component({
   selector: 'lib-carousel-properties',
@@ -27,7 +27,6 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
     MatIconModule,
     FileUploadComponent,
     FileUploadDropZoneComponent,
-    FileUploadListItemComponent,
     MatButtonModule,
     MatProgressSpinner,
   ],
@@ -55,7 +54,7 @@ export class CarouselPropertiesComponent {
     });
   }
 
-  componentEntity = input<ComponentEntity>(defaultComponentEntity);
+  componentEntity = input<ComponentEntity>(defaultComponentEntity());
   public readonly fileImageCarrousel = new FileUploadControl(
     {
       listVisible: true,

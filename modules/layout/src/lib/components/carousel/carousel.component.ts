@@ -8,11 +8,11 @@ import {
   trigger,
 } from '@angular/animations';
 import { ComponentEntity } from '@amad-web-admin/modules/layout';
-import { carouselComponent } from '../../entities/compontents-utils';
 import { LayoutDragComponent } from '../layout-drag/layout-drag.component';
 import { CommonsUI, ResizableDirective } from '@amad-web-admin/modules/core';
 import { SliderComponent } from '../slider/slider.component';
 import { CdkDrag } from '@angular/cdk/drag-drop';
+import { carouselComponent } from '../../entities/defaults-components';
 
 interface Image {
   src: string;
@@ -28,7 +28,6 @@ interface Image {
     LayoutDragComponent,
     ResizableDirective,
     SliderComponent,
-    CdkDrag,
   ],
   templateUrl: './carousel.component.html',
   styleUrl: './carousel.component.scss',
@@ -56,7 +55,7 @@ interface Image {
 export class CarouselComponent {
   cdkDragBoundaryName = input<string>('');
 
-  component = input<ComponentEntity>(carouselComponent);
+  component = input<ComponentEntity>(carouselComponent());
 
   fontSize = computed(() => {
     return;

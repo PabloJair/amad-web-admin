@@ -13,10 +13,10 @@ import {
   MatRadioChange,
   MatRadioGroup,
 } from '@angular/material/radio';
-import { defaultComponentEntity } from '../../../entities/compontents-utils';
 import { MatInput } from '@angular/material/input';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { defaultComponentEntity } from '../../../entities/defaults-components';
 
 @Component({
   selector: 'lib-general-properties',
@@ -41,5 +41,5 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 })
 export class GeneralPropertiesComponent {
   protected readonly TypeComponent = TypeComponent;
-  componentEntity = input<ComponentEntity>(defaultComponentEntity);
+  componentEntity = input<ComponentEntity>(defaultComponentEntity());
 }

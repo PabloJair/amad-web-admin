@@ -8,25 +8,16 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import {
-  CdkDrag,
-  CdkDragHandle,
-  CdkDropList,
-  CdkDropListGroup,
-} from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 import { ComponentEntity, TypeComponent } from '../entities/component-entity';
-import { MatButton } from '@angular/material/button';
 import { ButtonComponent } from '../components/button/button.component';
-import {
-  createComponent,
-  defaultComponentEntity,
-} from '../entities/compontents-utils';
+import { createComponent } from '../entities/compontents-utils';
 import { TextComponent } from '../components/text/text.component';
 import { ImageComponent } from '../components/image/image.component';
 import { ButtonImageComponent } from '../components/buttom-image/button-image.component';
 import { CarouselComponent } from '../components/carousel/carousel.component';
-import { LayoutDragComponent } from '../components/layout-drag/layout-drag.component';
 import { CdkOverlayOrigin } from '@angular/cdk/overlay';
+import { defaultComponentEntity } from '../entities/defaults-components';
 
 @Component({
   selector: 'lib-preview-mobile',
@@ -38,8 +29,6 @@ import { CdkOverlayOrigin } from '@angular/cdk/overlay';
     ImageComponent,
     ButtonImageComponent,
     CarouselComponent,
-    CdkDrag,
-    CdkOverlayOrigin,
     CdkDragHandle,
   ],
   templateUrl: './preview-mobile.component.html',
@@ -56,9 +45,12 @@ export class PreviewMobileComponent {
 
   constructor(private cdr: ChangeDetectorRef) {}
 
-  public addNewComponent(typeComponent: TypeComponent): void {
+  public addNewComponent(typeComponent: TypeComponent): ComponentEntity {
     const component = { ...createComponent(typeComponent) };
     this.componentEntitiesAdd().push(component);
+    this.cdr.detectChanges();
+
+    return component;
   }
 
   public reloadComponent(componentEntity: ComponentEntity[]) {
@@ -67,13 +59,10 @@ export class PreviewMobileComponent {
       height: 0,
       width: 0,
     });
-
     this.cdr.detectChanges();
   }
 
   public deleteComponent(uuid: string): void {
-    this.cdr.detectChanges();
-
     this.componentEntitiesAdd.update(() =>
       this.componentEntitiesAdd().filter((value) => value.UUID !== uuid)
     );
@@ -85,5 +74,5 @@ export class PreviewMobileComponent {
     this.onSelectedComponent.emit(item);
   }
 
-  protected readonly defaultComponentEntity = defaultComponentEntity;
+  protected readonly defaultComponentEntity = defaultComponentEntity();
 }

@@ -3,20 +3,20 @@ import { CommonModule } from '@angular/common';
 import { LayoutDragComponent } from '../layout-drag/layout-drag.component';
 import { CommonsUI, ResizableDirective } from '@amad-web-admin/modules/core';
 import { ComponentEntity } from '../../entities/component-entity';
-import { defaultComponentEntity, getAlignmentText } from '../../entities/compontents-utils';
+import { getAlignmentText } from '../../entities/compontents-utils';
+import { defaultComponentEntity } from '../../entities/defaults-components';
 
 @Component({
   selector: 'lib-text',
   standalone: true,
   imports: [CommonModule, LayoutDragComponent, ResizableDirective],
   templateUrl: './text.component.html',
-  styleUrl: './text.component.scss'
+  styleUrl: './text.component.scss',
 })
 export class TextComponent {
-
   cdkDragBoundaryName = input<string>('');
 
-  component = input<ComponentEntity>(defaultComponentEntity);
+  component = input<ComponentEntity>(defaultComponentEntity());
 
   fontSize = computed(() => {
     return;
@@ -36,7 +36,6 @@ export class TextComponent {
   protected readonly CommonsUI = CommonsUI;
 
   changePosition($event: { x: number; y: number }) {
-
     this.component().properties.position = $event;
   }
 

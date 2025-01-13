@@ -10,22 +10,26 @@ import { MatButton } from '@angular/material/button';
 import { ComponentEntity } from '@amad-web-admin/modules/layout';
 import { CommonsUI, ResizableDirective } from '@amad-web-admin/modules/core';
 import { LayoutDragComponent } from '../layout-drag/layout-drag.component';
-import {
-  defaultComponentEntity,
-  getAlignmentText,
-} from '../../entities/compontents-utils';
+import { getAlignmentText } from '../../entities/compontents-utils';
+import { CarouselComponent } from '../carousel/carousel.component';
+import { defaultComponentEntity } from '../../entities/defaults-components';
 
 @Component({
   selector: 'lib-app-button',
   standalone: true,
-  imports: [CommonModule, ResizableDirective, LayoutDragComponent],
+  imports: [
+    CommonModule,
+    ResizableDirective,
+    LayoutDragComponent,
+    CarouselComponent,
+  ],
   templateUrl: './button.component.html',
   styleUrl: './button.component.scss',
 })
 export class ButtonComponent implements AfterViewInit {
   cdkDragBoundaryName = input<string>('');
   onSelectedComponent = output<ComponentEntity>();
-  public component = input<ComponentEntity>(defaultComponentEntity);
+  public component = input<ComponentEntity>(defaultComponentEntity());
   totalSize = input<{ width: number; height: number }>({
     height: 0,
     width: 0,
