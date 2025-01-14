@@ -25,17 +25,15 @@ import { CommonsUI } from '@amad-web-admin/modules/core';
   templateUrl: './layout-drag.component.html',
   styleUrl: './layout-drag.component.scss',
 })
-export class LayoutDragComponent implements AfterViewInit {
+export class LayoutDragComponent {
   cdkDragBoundaryName = input<string>('');
   isDragging = input(false);
   changePosition = output<{ x: number; y: number }>();
-  dx = input<number>(CommonsUI.DEFAULT_DX);
-  dy = input<number>(CommonsUI.DEFAULT_DY);
+  dx = input<number>(CommonsUI.ZERO);
+  dy = input<number>(CommonsUI.ZERO);
   @ViewChild('dragContainer', { static: false }) dragContainer!: ElementRef;
 
   constructor(public el: ElementRef) {}
-
-  ngAfterViewInit(): void {}
 
   onDragEnd(event: CdkDragEnd): void {
     const boundaryRect = (

@@ -32,25 +32,21 @@ export class ImageUploadComponent {
   fileSelected = output<File[]>();
   loader = input<boolean>(false);
   urlFile = input<string>();
-
+  acceptFiles = input<string[]>([
+    CommonsStrings.MIME_TYPE_JPG,
+    CommonsStrings.MIME_TYPE_JPEG,
+    CommonsStrings.MIME_TYPE_PNG,
+  ]);
   public readonly fileUploadControl = new FileUploadControl(
     {
       listVisible: false,
       native: false,
-      accept: [
-        CommonsStrings.MIME_TYPE_JPG,
-        CommonsStrings.MIME_TYPE_JPEG,
-        CommonsStrings.MIME_TYPE_PNG,
-      ],
+      accept: this.acceptFiles(),
       discardInvalid: false,
       multiple: false,
     },
     [
-      FileUploadValidators.accept([
-        CommonsStrings.MIME_TYPE_JPG,
-        CommonsStrings.MIME_TYPE_JPEG,
-        CommonsStrings.MIME_TYPE_PNG,
-      ]),
+      FileUploadValidators.accept(this.acceptFiles()),
       FileUploadValidators.filesLimit(1),
     ]
   );

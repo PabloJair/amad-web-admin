@@ -24,6 +24,7 @@ import { ImagePropertiesComponent } from '../components/properties-components/im
 import { MarginSizePropertiesComponent } from '../components/properties-components/margin-size-properties/margin-size-properties.component';
 import { ActionsPropertiesComponent } from '../components/properties-components/actions-properties/actions-properties.component';
 import { defaultComponentEntity } from '../entities/defaults-components';
+import { VideoPropertiesComponent } from '../components/properties-components/video-properties/video-properties.component';
 
 @Component({
   selector: 'lib-properties',
@@ -42,6 +43,7 @@ import { defaultComponentEntity } from '../entities/defaults-components';
     ImagePropertiesComponent,
     MarginSizePropertiesComponent,
     ActionsPropertiesComponent,
+    VideoPropertiesComponent,
   ],
   templateUrl: './properties.component.html',
   styleUrl: './properties.component.scss',

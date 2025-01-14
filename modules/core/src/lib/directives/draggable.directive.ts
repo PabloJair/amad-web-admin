@@ -17,8 +17,8 @@ export class DraggableDirective {
   cdkDragBoundaryName = input<string>('');
   isDragging = input(false);
   changePosition = output<{ x: number; y: number }>();
-  dx = input<number>(CommonsUI.DEFAULT_DX);
-  dy = input<number>(CommonsUI.DEFAULT_DY);
+  dx = input<number>(CommonsUI.ZERO);
+  dy = input<number>(CommonsUI.ZERO);
 
   constructor(private el: ElementRef, private renderer: Renderer2) {}
 

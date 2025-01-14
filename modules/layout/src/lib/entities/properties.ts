@@ -25,6 +25,7 @@ export interface Properties {
   };
   urlImage?: string;
   base64Image?: string;
+  videoURL?: string;
   cornerRadius: number;
   fontSize?: number;
   alignment?: 'left' | 'center' | 'right';

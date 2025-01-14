@@ -15,5 +15,6 @@ export enum TypeComponent {
   TEXT,
   CARROUSEL,
   DIALOG,
+  VIDEO,
   UNKNOWN,
 }

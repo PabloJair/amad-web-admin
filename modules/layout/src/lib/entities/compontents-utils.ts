@@ -4,6 +4,7 @@ import {
   buttonComponent,
   carouselComponent,
   defaultComponentEntity,
+  defaultVideoComponentEntity,
   imageButtonComponent,
   imageComponent,
   textComponent,
@@ -15,6 +16,7 @@ export const componentsToolBox: ComponentEntity[] = [
   imageComponent(),
   carouselComponent(),
   imageButtonComponent(),
+  defaultVideoComponentEntity(),
 ];
 
 export function createComponent(typeComponent: TypeComponent): ComponentEntity {
@@ -39,6 +41,9 @@ export function createComponent(typeComponent: TypeComponent): ComponentEntity {
     case TypeComponent.DIALOG:
       componentEntity = defaultComponentEntity();
       break;
+    case TypeComponent.VIDEO:
+      componentEntity = defaultVideoComponentEntity();
+      break;
     case TypeComponent.UNKNOWN:
       componentEntity = defaultComponentEntity();
       break;
@@ -58,6 +63,7 @@ export function getViewNameTypeComponent(
     [TypeComponent.BUTTON]: 'Boton',
     [TypeComponent.IMAGE_BUTTON]: 'Boton/imagen',
     [TypeComponent.TEXT]: 'Texto',
+    [TypeComponent.VIDEO]: 'Video',
     [TypeComponent.CARROUSEL]: 'Carrusel',
     [TypeComponent.DIALOG]: 'Dialog',
   };
@@ -74,6 +80,7 @@ export function getViewIconTypeComponent(
     [TypeComponent.IMAGE_BUTTON]: 'compare',
     [TypeComponent.TEXT]: 'title',
     [TypeComponent.CARROUSEL]: 'web_stories',
+    [TypeComponent.VIDEO]: 'movie',
     [TypeComponent.DIALOG]: 'dialogs',
   };
 

@@ -36,6 +36,14 @@
             [component]="item"
           ></lib-image>
         }
+        @case (TypeComponent.VIDEO) {
+          <lib-video
+            class="absolute"
+            cdkDragBoundaryName="#boundary"
+            (click)="showProperties(item)"
+            [component]="item"
+          ></lib-video>
+        }
         @case (TypeComponent.IMAGE_BUTTON) {
           <lib-button-image
             class="absolute"

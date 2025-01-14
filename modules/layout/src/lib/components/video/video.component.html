@@ -1,0 +1,27 @@
+<lib-layout-drag
+  [cdkDragBoundaryName]="cdkDragBoundaryName()"
+  [isDragging]="isDragging"
+  (changePosition)="changePosition($event)"
+  [dx]="component().properties.position.x"
+  [dy]="component().properties.position.y"
+>
+
+  <div
+    coreResizable
+    [ngStyle]="{
+        'width.px':component().properties.size.width ,
+        'height.px':component().properties.size.height ,
+        }"
+    class=" bg-gray-900  rounded-lg shadow-lg">
+    <video
+      class="w-full h-full max-w-3xl rounded-lg border border-gray-700"
+      controls
+      autoplay
+      muted
+      loop
+    >
+      <source src="video.mp4" type="video/mp4" />
+      Tu navegador no soporta el elemento de video.
+    </video>
+  </div>
+</lib-layout-drag>

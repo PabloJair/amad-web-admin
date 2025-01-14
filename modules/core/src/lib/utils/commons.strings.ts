@@ -11,6 +11,7 @@ export enum CommonsStrings {
   MIME_TYPE_MP3 = 'audio/mpeg',
   MIME_TYPE_JPEG = 'image/jpeg',
   MIME_TYPE_JPG = 'image/jpg',
+  MIME_TYPE_VIDEO = 'video/mp4',
   REGEX_VERSION = '^[1-9]\\d*(\\.[1-9]\\d*)*$',
   EMPTY_STRING = '',
   HEADER_SEPOMEX_API = 'header_sepomex_api',
@@ -27,6 +28,7 @@ export enum CommonsUI {
   BUTTON_IMAGE_MIN_H = 50,
   CAROUSEL_MIN_W = 300,
   CAROUSEL_MIN_H = 250,
-  DEFAULT_DY = 0,
-  DEFAULT_DX = 0,
+  ZERO = 0,
+  VIDEO_W = 350,
+  VIDEO_H = 280,
 }

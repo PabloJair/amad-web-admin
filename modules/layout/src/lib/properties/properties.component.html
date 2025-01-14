@@ -9,7 +9,7 @@
     </div>
 
     <mat-accordion class="flex flex-col gap-4">
-      @if (componentEntity().type !== TypeComponent.CARROUSEL) {
+      @if (componentEntity().type !== TypeComponent.CARROUSEL && componentEntity().type !== TypeComponent.VIDEO) {
         @if (componentEntity().type !== TypeComponent.IMAGE) {
           <lib-general-properties [componentEntity]="componentEntity()">
           </lib-general-properties>
@@ -31,6 +31,12 @@
 
       @if (componentEntity().type === TypeComponent.CARROUSEL) {
         <lib-carousel-properties [componentEntity]="componentEntity()"></lib-carousel-properties>
+      }
+
+      @if (componentEntity().type === TypeComponent.VIDEO) {
+        <lib-video-properties [componentEntity]="componentEntity()">
+          
+        </lib-video-properties>
       }
     </mat-accordion>
 

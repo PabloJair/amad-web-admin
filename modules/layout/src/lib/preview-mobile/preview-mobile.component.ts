@@ -18,6 +18,7 @@ import { ButtonImageComponent } from '../components/buttom-image/button-image.co
 import { CarouselComponent } from '../components/carousel/carousel.component';
 import { CdkOverlayOrigin } from '@angular/cdk/overlay';
 import { defaultComponentEntity } from '../entities/defaults-components';
+import { VideoComponent } from '../components/video/video.component';
 
 @Component({
   selector: 'lib-preview-mobile',
@@ -30,6 +31,7 @@ import { defaultComponentEntity } from '../entities/defaults-components';
     ButtonImageComponent,
     CarouselComponent,
     CdkDragHandle,
+    VideoComponent,
   ],
   templateUrl: './preview-mobile.component.html',
   styleUrl: './preview-mobile.component.scss',

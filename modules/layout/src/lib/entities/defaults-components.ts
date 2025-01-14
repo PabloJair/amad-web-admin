@@ -102,6 +102,21 @@ export function defaultComponentEntity(): ComponentEntity {
   })();
 }
 
+export function defaultVideoComponentEntity(): ComponentEntity {
+  return new (class implements ComponentEntity {
+    UUID = crypto.randomUUID();
+    actions = defaultActions();
+    properties = createDefaultPosition(
+      { x: 0, y: 0 },
+      {
+        width: CommonsUI.VIDEO_W,
+        height: CommonsUI.VIDEO_H,
+      }
+    );
+    type = TypeComponent.VIDEO;
+  })();
+}
+
 function createDefaultPosition(
   position: { x: number; y: number },
   size: {
