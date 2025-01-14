@@ -43,6 +43,7 @@ import { LayoutFacade } from '../+state/layout.facade';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoaderSnackbarComponent } from '@amad-web-admin/modules/ui-elements';
 import { defaultComponentEntity } from '../entities/defaults-components';
+import { timeout, timer } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -132,9 +133,9 @@ export class PreviewComponent implements AfterViewInit {
   }
 
   onAddComponent($event: TypeComponent) {
-    console.log(this.selectedComponent.name);
+    this.showProperties = false;
     const componentEntity = this.previewMobileComponent.addNewComponent($event);
-    this.selectedComponent.set(componentEntity);
+    console.log(componentEntity);
     this.sectionsProperties = signal<{ name: string; id: string }[]>([]);
   }
 

@@ -18,16 +18,19 @@
   @if (componentEntity().type === TypeComponent.BUTTON
   || componentEntity().type === TypeComponent.IMAGE_BUTTON || componentEntity().type === TypeComponent.IMAGE) {
     <section>
+      <div class="relative flex items-center">
+        <div class="flex-grow border-t border-gray-300"></div>
+        <span class="px-4 text-gray-500 text-sm font-medium">Accion a realizar</span>
+        <div class="flex-grow border-t border-gray-300"></div>
+      </div>
       <div class="flex flex-row justify-center content-center">
-        <mat-checkbox #url [checked]="componentEntity().actions.openWebView !== ''"
-                      [disabled]="section.checked || call.checked"
-        >
-        </mat-checkbox>
         <mat-form-field appearance="outline" class="w-full">
           <mat-label>Abrir url</mat-label>
           <input type="url"
-                 #inputUrl matInput [disabled]="!url.checked"
+                 #inputUrl matInput
                  [(ngModel)]="componentEntity().actions.openWebView"
+                 [disabled]="componentEntity().actions.call.length>0
+                 || componentEntity().actions.openSections.length>0 "
                  (keyup)="
                  componentEntity().actions.openSections = '';
                  componentEntity().actions.call = ''">
@@ -35,14 +38,14 @@
       </div>
 
       <div class="flex flex-row justify-center content-center">
-        <mat-checkbox #section
-                      [checked]="componentEntity().actions.openSections !== ''"
-                      [disabled]="url.checked || call.checked"
-        >
-        </mat-checkbox>
         <mat-form-field appearance="outline" class="w-full">
           <mat-label>Selecciona sección</mat-label>
-          <mat-select [(ngModel)]="componentEntity().actions.openSections" [disabled]=!section.checked>
+          <mat-select
+            [disabled]="componentEntity().actions.call.length>0
+                 || componentEntity().actions.openWebView.length>0 "
+            [(ngModel)]="componentEntity().actions.openSections">
+            <mat-option [value]="''">No selección
+            </mat-option>
             @for (section of sections() ?? []; track section.id) {
               <mat-option [value]="section.id">{{ section.name }}
               </mat-option>
@@ -52,14 +55,11 @@
       </div>
 
       <div class="flex flex-row justify-center content-center">
-        <mat-checkbox #call [checked]="componentEntity().actions.call !== ''"
-                      [disabled]="section.checked || url.checked"
-
-        >
-        </mat-checkbox>
         <mat-form-field appearance="outline" class="w-full">
           <mat-label>LLamar a</mat-label>
-          <input type="text" mask="00-00-00-00-00" #inputCall matInput [disabled]="!call.checked"
+          <input type="text" mask="00-00-00-00-00" #inputCall matInput
+                 [disabled]="componentEntity().actions.openSections.length>0
+                 || componentEntity().actions.openWebView.length>0 "
                  [(ngModel)]="componentEntity().actions.call"
                  (keyup)="
                  componentEntity().actions.openSections = '';

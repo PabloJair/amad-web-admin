@@ -3,17 +3,19 @@ import { PositionAlignment, Properties, TextAlignment } from './properties';
 import { Actions } from './actions';
 import { CommonsUI } from '@amad-web-admin/modules/core';
 
-export const defaultActions: Actions = new (class implements Actions {
-  call = '';
-  openSections = '';
-  openWebView = '';
-  showBySchedule = [];
-})();
+export function defaultActions(): Actions {
+  return new (class implements Actions {
+    call = '';
+    openSections = '';
+    openWebView = '';
+    showBySchedule = [];
+  })();
+}
 
 export function buttonComponent(): ComponentEntity {
   return new (class implements ComponentEntity {
     UUID = crypto.randomUUID();
-    actions = defaultActions;
+    actions = defaultActions();
     properties = createDefaultPosition(
       { x: 0, y: 0 },
       {
@@ -28,7 +30,7 @@ export function buttonComponent(): ComponentEntity {
 export function imageComponent(): ComponentEntity {
   return new (class implements ComponentEntity {
     UUID = crypto.randomUUID();
-    actions = defaultActions;
+    actions = defaultActions();
     properties = createDefaultPosition(
       { x: 0, y: 0 },
       {
@@ -43,7 +45,7 @@ export function imageComponent(): ComponentEntity {
 export function imageButtonComponent(): ComponentEntity {
   return new (class implements ComponentEntity {
     UUID = crypto.randomUUID();
-    actions = defaultActions;
+    actions = defaultActions();
     properties = createDefaultPosition(
       { x: 0, y: 0 },
       {
@@ -58,7 +60,7 @@ export function imageButtonComponent(): ComponentEntity {
 export function carouselComponent(): ComponentEntity {
   return new (class implements ComponentEntity {
     UUID = crypto.randomUUID();
-    actions = defaultActions;
+    actions = defaultActions();
     properties = createDefaultPosition(
       { x: 0, y: 0 },
       {
@@ -73,7 +75,7 @@ export function carouselComponent(): ComponentEntity {
 export function textComponent(): ComponentEntity {
   return new (class implements ComponentEntity {
     UUID = crypto.randomUUID();
-    actions = defaultActions;
+    actions = defaultActions();
     properties = createDefaultPosition(
       { x: 0, y: 0 },
       {
@@ -88,7 +90,7 @@ export function textComponent(): ComponentEntity {
 export function defaultComponentEntity(): ComponentEntity {
   return new (class implements ComponentEntity {
     UUID = crypto.randomUUID();
-    actions = defaultActions;
+    actions = defaultActions();
     properties = createDefaultPosition(
       { x: 0, y: 0 },
       {

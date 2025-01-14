@@ -1,4 +1,12 @@
-import { Component, computed, input, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  computed,
+  effect,
+  input,
+  ViewChild,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { getDayForNumber, ShowBySchedule } from '../../../entities/actions';
 import { ComponentEntity, TypeComponent } from '@amad-web-admin/modules/layout';
@@ -42,22 +50,31 @@ import { NgxMaskDirective } from 'ngx-mask';
   templateUrl: './actions-properties.component.html',
   styleUrl: './actions-properties.component.scss',
 })
-export class ActionsPropertiesComponent {
+export class ActionsPropertiesComponent implements AfterViewInit {
   protected readonly getDayForNumber = getDayForNumber;
   protected readonly TypeComponent = TypeComponent;
 
   componentEntity = input<ComponentEntity>(defaultComponentEntity());
 
   sections = input<{ name: string; id: string }[]>();
-
-  @ViewChild('section') openSection!: MatCheckbox;
-  @ViewChild('call') openCall!: MatCheckbox;
-  @ViewChild('url') openUrl!: MatCheckbox;
-
   @ViewChild('inputUrl') inputUrl!: MatInput;
   @ViewChild('inputCall') inputCall!: MatInput;
 
-  constructor(private dialogService: DialogService) {}
+  constructor(
+    private dialogService: DialogService,
+    private changeDetectorRef: ChangeDetectorRef
+  ) {
+    effect(() => {
+      this.setupData();
+
+      console.log('Cambio de ,', this.componentEntity());
+    });
+  }
+
+  ngAfterViewInit(): void {
+    this.changeDetectorRef.detectChanges();
+    console.log('Cambio de , Se llama de nuevo');
+  }
 
   openDialogDate() {
     this.dialogService
@@ -82,19 +99,7 @@ export class ActionsPropertiesComponent {
     this.componentEntity().actions?.showBySchedule.push(addShowBySchedule);
   }
 
-  checkedOpenCall($event: MatCheckboxChange) {
-    this.openSection.checked = false;
-    this.openUrl.checked = false;
-    this.openCall.checked = $event.checked;
-    this.inputUrl.value = CommonsStrings.EMPTY_STRING;
-    this.inputCall.value = CommonsStrings.EMPTY_STRING;
-  }
-
-  changeCall($event: Event) {
-    this.componentEntity().actions.openSections = '';
-    this.componentEntity().actions.call = (
-      $event.target as HTMLInputElement
-    ).value;
-    this.componentEntity().actions.openWebView = CommonsStrings.EMPTY_STRING;
+  setupData() {
+    setTimeout(() => {}, 0);
   }
 }
