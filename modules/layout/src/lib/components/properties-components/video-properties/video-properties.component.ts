@@ -9,7 +9,6 @@ import {
 } from '@angular/material/expansion';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
-import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentEntity, TypeComponent } from '@amad-web-admin/modules/layout';
 import { defaultComponentEntity } from '../../../entities/defaults-components';
@@ -42,10 +41,6 @@ export class VideoPropertiesComponent {
   protected readonly TypeComponent = TypeComponent;
 
   loader = false;
-  patterns = {
-    A: { pattern: /[a-zA-Z0-9]/ }, // Solo permite caracteres alfanuméricos para los primeros caracteres de la URL.
-    '*': { pattern: /[a-zA-Z0-9.-_/?:&%#=@~]/ }, // Permite caracteres comunes en URLs.
-  };
 
   constructor(protected uploadImage: UploadService) {}
 
@@ -54,7 +49,7 @@ export class VideoPropertiesComponent {
     if ($event.length > 0) {
       this.loader = false;
       this.uploadImage.uploadFile($event[0]).subscribe((value) => {
-        this.componentEntity().properties.base64Image = value.data;
+        this.componentEntity().properties.videoURL = value.data;
       });
     }
   }

@@ -82,40 +82,53 @@
                   <button mat-icon-button (click)="deleteInterceptorPhone(item)">
                   <mat-icon>delete</mat-icon>
                 </button></span>
-
-
               }
             </section>
           </div>
 
 
-          <h4>Audio de bienvenida </h4>
+          <div class="flex flex-row  w-full  gap-10">
+            <div class="flex flex-col">
+              <h5> Audio de Bienvenida</h5>
+              @if (this.appProject.preconfiguration.urlSound.length > 0) {
+                <button mat-button (click)="appProject.preconfiguration.urlSound =''" class="w-56">Nuevo Archivo
+                </button>
+                <ui-elements-audio [src]="appProject.preconfiguration.urlSound"></ui-elements-audio>
+              } @else {
+                <ui-elements-upload (fileSelected)="onFileSelected($event,true )"
+                                    [loader]="loaderFiles"
+                                    [acceptFiles]="[CommonsStrings.MIME_TYPE_MP3]"
 
-          @if (this.appProject.preconfiguration.urlSound.length > 0) {
-            <button mat-button (click)="appProject.preconfiguration.urlSound =''" class="w-56">Nuevo Archivo</button>
+                ></ui-elements-upload>
+              }
 
-            <ui-elements-audio [src]="appProject.preconfiguration.urlSound"></ui-elements-audio>
-          } @else {
-            <file-upload
-              [multiple]="false" [animation]="true"
-              class="w-96 h-20 file-uploader"
-              [control]="fileUploadControl"
-              formControlName="mp3"
-            >
-              <ng-template let-isFileDragDropAvailable="isFileDragDropAvailable" #placeholder>
-                <file-upload-drop-zone>
-                  @if (isFileDragDropAvailable) {
-                    <b>Drag & Drop</b><br> para subir un archivo
-                  } @else {
-                    <b>clickea aqui</b><br> para subir un archivo
-                  }
-                </file-upload-drop-zone>
-              </ng-template>
-              <ng-template let-i="index" let-file="file" let-control="control" #item>
-                <file-upload-list-item [index]="i" [file]="file" [control]="control">Eliminar</file-upload-list-item>
-              </ng-template>
-            </file-upload>
-          }
+            </div>
+            <div class="flex flex-col">
+              <h5> Video de Bienvenida</h5>
+
+              @if (this.appProject.preconfiguration.welcomeVideo) {
+                <button mat-button (click)="appProject.preconfiguration.welcomeVideo =''" class="w-56">Nuevo Archivo
+                </button>
+                <video
+                  class="w-64 h-48"
+                  controls
+                  autoplay
+                  muted
+                  loop
+                >
+                  <source [src]="this.appProject.preconfiguration.welcomeVideo" type="video/mp4" />
+                  Tu navegador no soporta el elemento de video.
+                </video>
+              } @else {
+                <ui-elements-upload (fileSelected)="onFileSelected($event,false )"
+                                    [acceptFiles]="[CommonsStrings.MIME_TYPE_VIDEO]"
+                                    [loader]="loaderFiles"
+                ></ui-elements-upload>
+              }
+
+            </div>
+
+          </div>
         </div>
       </form>
 

@@ -10,8 +10,8 @@
     <mat-card-header>
       <div class="flex flex-row gap-3">
 
-        <ui-elements-image-upload class="h-32 w-32" (fileSelected)="onFileSelected($event)"
-                                  [urlFile]="iconUrl" [loader]=loading$()></ui-elements-image-upload>
+        <ui-elements-upload class="h-32 w-32" (fileSelected)="onFileSelected($event)"
+                            [urlFile]="iconUrl" [loader]=loading$()></ui-elements-upload>
         <div class="flex flex-col">
           <h6 class="text-gray-500">Editar Projecto</h6>
           <p class="text-lg">Información</p>

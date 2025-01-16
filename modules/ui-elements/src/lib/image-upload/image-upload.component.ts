@@ -1,10 +1,9 @@
-import { Component, input, output } from '@angular/core';
+import { AfterViewInit, Component, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
+  FilesAcceptDirective,
   FileUploadComponent,
   FileUploadControl,
-  FileUploadDropZoneComponent,
-  FileUploadListItemComponent,
   FileUploadValidators,
 } from '@iplab/ngx-file-upload';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -13,22 +12,21 @@ import { MatIcon } from '@angular/material/icon';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
-  selector: 'ui-elements-image-upload',
+  selector: 'ui-elements-upload',
   standalone: true,
   imports: [
     CommonModule,
     FileUploadComponent,
-    FileUploadDropZoneComponent,
     FormsModule,
     ReactiveFormsModule,
-    FileUploadListItemComponent,
     MatIcon,
     MatProgressSpinner,
+    FilesAcceptDirective,
   ],
   templateUrl: './image-upload.component.html',
   styleUrl: './image-upload.component.scss',
 })
-export class ImageUploadComponent {
+export class ImageUploadComponent implements AfterViewInit {
   fileSelected = output<File[]>();
   loader = input<boolean>(false);
   urlFile = input<string>();
@@ -37,7 +35,7 @@ export class ImageUploadComponent {
     CommonsStrings.MIME_TYPE_JPEG,
     CommonsStrings.MIME_TYPE_PNG,
   ]);
-  public readonly fileUploadControl = new FileUploadControl(
+  public fileUploadControl = new FileUploadControl(
     {
       listVisible: false,
       native: false,
@@ -61,14 +59,17 @@ export class ImageUploadComponent {
     });
   }
 
+  ngAfterViewInit(): void {
+    console.log(this.acceptFiles());
+    this.fileUploadControl.acceptFiles(this.acceptFiles().join('|'));
+  }
+
   convertFileToImage(file: File) {
     new Promise((resolve, reject) => {
       const reader = new FileReader();
-
       reader.onload = () => {
         this.urlFile();
       };
-
       reader.onerror = (error) => reject(error);
       reader.readAsDataURL(file);
     }).then((r) => console.log(r));

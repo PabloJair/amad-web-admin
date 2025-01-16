@@ -6,21 +6,19 @@
 
     <div class="flex flex-col gap-5 justify-center items-center">
 
-      <ui-elements-image-upload class="h-32 w-32"
-                                (fileSelected)="onFileSelected($event)"
-                                [loader]=loader
-                                [acceptFiles]="[CommonsStrings.MIME_TYPE_VIDEO]"
+      <ui-elements-upload class="h-32 w-32"
+                          (fileSelected)="onFileSelected($event)"
+                          [loader]=loader
+                          [acceptFiles]="[CommonsStrings.MIME_TYPE_VIDEO]"
       >
 
-      </ui-elements-image-upload>
+      </ui-elements-upload>
 
       <section class="w-full">
         <mat-form-field appearance="outline" class="w-full">
           <mat-label>URL del Video</mat-label>
           <input
             type="text"
-            mask="A*.A*" prefix="https://www." [showMaskTyped]="true"
-            [dropSpecialCharacters]="false"
             matInput [(ngModel)]="componentEntity().properties.videoURL"
           >
         </mat-form-field>
@@ -32,4 +30,3 @@
 
 </mat-expansion-panel>
 
-{{ componentEntity().properties.videoURL |json }}

@@ -5,6 +5,7 @@ import {
   BreadcrumbComponent,
   BreadcrumbItem,
   ButtonLoaderComponent,
+  ImageUploadComponent,
 } from '@amad-web-admin/modules/ui-elements';
 import {
   FilesAcceptValidator,
@@ -75,6 +76,7 @@ import { NgxMaskDirective } from 'ngx-mask';
     MatIconModule,
     MatIconButton,
     NgxMaskDirective,
+    ImageUploadComponent,
   ],
   templateUrl: './project-preconfiguration.component.html',
   styleUrl: './project-preconfiguration.component.scss',
@@ -86,18 +88,8 @@ export class ProjectPreconfigurationComponent {
     project: ProjectItem;
   };
   appProject!: ApplicantProject;
-  public readonly fileUploadControl = new FileUploadControl(
-    {
-      listVisible: true,
-      accept: [CommonsStrings.MIME_TYPE_MP3],
-      discardInvalid: true,
-      multiple: false,
-    },
-    [
-      FileUploadValidators.accept([CommonsStrings.MIME_TYPE_MP3]),
-      FileUploadValidators.filesLimit(1),
-    ]
-  );
+
+  loaderFiles = false;
   protected breadcrumbItems: BreadcrumbItem[] = [
     {
       color: 'text-blue-600',
@@ -191,8 +183,7 @@ export class ProjectPreconfigurationComponent {
       this.addConfigurationForm.controls.offline.value ?? false;
     this.appProject.preconfiguration.interceptorPhone =
       this.addConfigurationForm.controls.interceptorPhone.value ?? [];
-    this.appProject.preconfiguration.urlSound =
-      this.addConfigurationForm.controls.urlSound.value ?? '';
+
     this.appProject.preconfiguration.urlAnalytics =
       this.addConfigurationForm.controls.urlAnalytics.value ?? '';
     this.appProject.status = this.addConfigurationForm.controls.status.value
@@ -201,15 +192,21 @@ export class ProjectPreconfigurationComponent {
     this.appProject.appId =
       this.addConfigurationForm.controls.appId.value ?? '';
 
-    if (this.fileUploadControl.value[0]) {
-      this.uploadImage
-        .uploadFile(this.fileUploadControl.value[0])
-        .subscribe((value) => {
+    this.uploadJson();
+  }
+
+  onFileSelected($event: File[], isFileSound: boolean) {
+    this.loaderFiles = true;
+    if ($event.length > 0) {
+      this.loaderFiles = false;
+      this.uploadImage.uploadFile($event[0]).subscribe((value) => {
+        if (isFileSound) {
           this.appProject.preconfiguration.urlSound = value.data;
-          this.uploadJson();
-        });
-    } else {
-      this.uploadJson();
+        } else {
+          this.appProject.preconfiguration.welcomeVideo = value.data;
+        }
+        this.uploadJson();
+      });
     }
   }
 
@@ -246,4 +243,6 @@ export class ProjectPreconfigurationComponent {
         (value) => value != item
       );
   }
+
+  protected readonly CommonsStrings = CommonsStrings;
 }

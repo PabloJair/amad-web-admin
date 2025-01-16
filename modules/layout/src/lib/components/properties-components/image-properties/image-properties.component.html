@@ -6,10 +6,10 @@
 
     <div class="flex flex-col gap-5 justify-center items-center">
 
-      <ui-elements-image-upload class="h-32 w-32" (fileSelected)="onFileSelected($event)"
-                                [urlFile]="componentEntity().properties.base64Image" [loader]=loader>
+      <ui-elements-upload class="h-32 w-32" (fileSelected)="onFileSelected($event)"
+                          [urlFile]="componentEntity().properties.base64Image" [loader]=loader>
 
-      </ui-elements-image-upload>
+      </ui-elements-upload>
 
       @if (componentEntity().type === TypeComponent.IMAGE_BUTTON) {
         <section class="w-full">
