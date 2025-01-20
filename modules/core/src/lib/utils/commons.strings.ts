@@ -16,7 +16,7 @@ export enum CommonsStrings {
   EMPTY_STRING = '',
   HEADER_SEPOMEX_API = 'header_sepomex_api',
   HEADER_SEPOMEX_URL = 'sepomex_url',
-  MONKEY_API = 'x-rapidapi-key',
+  MONKEY_API = 'aki-key-qr',
 }
 
 export enum CommonsUI {

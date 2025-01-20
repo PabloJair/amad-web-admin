@@ -88,9 +88,10 @@ export interface ApplicantProject {
 
 export interface PersonalInformation {
   showTypesData: TypeInputPersonalInformation[];
-  locationInformation?: LocationConfiguration;
+  locationInformation: LocationConfiguration | null;
   urlImage: string;
   title: string;
+  active: boolean;
 }
 
 export enum TypeInputPersonalInformation {
@@ -132,9 +133,10 @@ export function createDefaultApplicantProject(): ApplicantProject {
   return {
     personalInformation: {
       showTypesData: [],
-      locationInformation: undefined,
+      locationInformation: null,
       urlImage: '',
       title: '',
+      active: false,
     },
     appId: '',
     views: [],

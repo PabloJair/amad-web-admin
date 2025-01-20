@@ -4,10 +4,15 @@
   (changePosition)="changePosition($event)"
   [dx]="component().properties.position.x"
   [dy]="component().properties.position.y"
+  [ngStyle]="{
+        'width.px':component().properties.size.width ,
+        'height.px':component().properties.size.height ,
+        }"
 >
-
   <div
     coreResizable
+    (onFinishResize)="onFinishResized($event)"
+    (onResize)="onResize($event)"
     [ngStyle]="{
         'width.px':component().properties.size.width ,
         'height.px':component().properties.size.height ,
@@ -20,8 +25,14 @@
       muted
       loop
     >
-      <source [src]="component().properties.videoURL" type="video/mp4" />
+      <source
+        [ngStyle]="{
+        'width.px':component().properties.size.width ,
+        'height.px':component().properties.size.height ,
+        }"
+        [src]="component().properties.videoURL" type="video/mp4" />
       Tu navegador no soporta el elemento de video.
     </video>
   </div>
 </lib-layout-drag>
+

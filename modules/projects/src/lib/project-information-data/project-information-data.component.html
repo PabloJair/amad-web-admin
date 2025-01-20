@@ -76,29 +76,37 @@
             (cdkDropListDropped)="drop($event)">
             @for (item of selectedFields; track item) {
               <div class="container-box  " cdkDrag (click)="onClick(item)">
-                <p>{{ item.toString() }}</p>
+
+                <p>{{ item.toString() }}
+                  <button mat-icon-button color="primary" (click)="deleteItem(item)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </p>
                 <section class="flex flex-col gap-2">
-                  @if (item === TypeInputPersonalInformation.LOCALIZATION_CONFIGURATION && this.locationConfiguration !== undefined) {
-                    @if (locationConfiguration!.state) {
+                  @if (item === TypeInputPersonalInformation.LOCALIZATION_CONFIGURATION && this.personalInformation().locationInformation !== null) {
+                    @if (this.personalInformation().locationInformation!.state) {
                       <mat-chip (removed)="this.clearLocationData(['state', 'municipality', 'neighborhoods']);">
-                        <span class="text-xs truncate">{{ locationConfiguration!.state!.estado }}</span>
+                        <span
+                          class="text-xs truncate">{{ this.personalInformation().locationInformation!.state!.estado }}</span>
                         <button matChipRemove>
                           <mat-icon>cancel</mat-icon>
                         </button>
                       </mat-chip>
                     }
-                    @if (locationConfiguration!.municipality) {
+                    @if (this.personalInformation().locationInformation!.municipality) {
                       <mat-chip (removed)="clearLocationData(['municipality', 'neighborhoods']);">
-                        <span class="text-xs truncate">  {{ locationConfiguration!.municipality!.municipio }}</span>
+                        <span
+                          class="text-xs truncate">  {{ this.personalInformation().locationInformation!.municipality!.municipio }}</span>
                         <button matChipRemove>
                           <mat-icon>cancel</mat-icon>
                         </button>
                       </mat-chip>
                     }
-                    @if (locationConfiguration!.neighborhoods) {
+                    @if (this.personalInformation().locationInformation!.neighborhoods) {
                       <mat-chip (removed)="clearLocationData(['neighborhoods']);
 ">
-                        <span class="text-xs truncate"> {{ locationConfiguration!.neighborhoods!.colonia }}</span>
+                        <span
+                          class="text-xs truncate"> {{ this.personalInformation().locationInformation!.neighborhoods!.colonia }}</span>
                         <button matChipRemove>
                           <mat-icon>cancel</mat-icon>
                         </button>
@@ -112,7 +120,9 @@
         </section>
       </div>
 
-
+      <mat-slide-toggle #status
+                        [(ngModel)]="personalInformation().active">{{ status.checked ? 'Activo' : 'Desactivado' }}
+      </mat-slide-toggle>
     </mat-card-content>
     <mat-card-actions class="flex gap-5">
       <ui-elements-button-loader text="Actualizar" (click)="edit()"></ui-elements-button-loader>

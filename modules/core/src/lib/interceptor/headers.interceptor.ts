@@ -25,14 +25,7 @@ export class HeadersInterceptor implements HttpInterceptor {
     if (this.auth.isAuthenticate()) {
       if (request.headers.has(CommonsStrings.MONKEY_API)) {
         let modifiedHeaders = request.headers.delete(CommonsStrings.MONKEY_API);
-        modifiedHeaders = modifiedHeaders.append(
-          CommonsStrings.MONKEY_API,
-          this.apiKeyMonkey
-        );
-        modifiedHeaders = modifiedHeaders.append(
-          'x-rapidapi-host',
-          'qrcode-monkey.p.rapidapi.com'
-        );
+        modifiedHeaders = modifiedHeaders.append('api-key', this.apiKeyMonkey);
         newApiRequest = request.clone({
           headers: modifiedHeaders,
         });

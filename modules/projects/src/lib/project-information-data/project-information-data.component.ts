@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatButton } from '@angular/material/button';
+import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDialog } from '@angular/material/dialog';
@@ -15,15 +15,9 @@ import {
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   BreadcrumbComponent,
-  BreadcrumbItem,
   ButtonLoaderComponent,
 } from '@amad-web-admin/modules/ui-elements';
-import {
-  CommonsStrings,
-  createFileUploadImageControlDefault,
-  NavigationRoutes,
-} from '@amad-web-admin/modules/core';
-import { ProjectsFacade } from '@amad-web-admin/modules/projects';
+import { createFileUploadImageControlDefault } from '@amad-web-admin/modules/core';
 import { ProjectNavigationService } from '../commons/project-navigation.service';
 import { ProjectSelectLocationComponent } from '../project-select-location/project-select-location.component';
 import {
@@ -45,6 +39,8 @@ import {
 } from '@iplab/ngx-file-upload';
 import { MatInputModule } from '@angular/material/input';
 import { getBreadcrumbInformationPersonal } from '../commons/BreadcrumbsCommons';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
+import { ProjectsFacade } from '@amad-web-admin/modules/projects';
 
 @Component({
   selector: 'lib-project-information-data',
@@ -66,13 +62,14 @@ import { getBreadcrumbInformationPersonal } from '../commons/BreadcrumbsCommons'
     FormsModule,
     ReactiveFormsModule,
     MatInputModule,
+    MatIconButton,
+    MatSlideToggle,
   ],
   templateUrl: './project-information-data.component.html',
   styleUrl: './project-information-data.component.scss',
 })
 export class ProjectInformationDataComponent {
   // Protected variables
-  protected locationConfiguration?: LocationConfiguration;
   protected readonly TypeInputPersonalInformation =
     TypeInputPersonalInformation;
 
@@ -81,20 +78,16 @@ export class ProjectInformationDataComponent {
 
   private readonly defaultPersonalInformation: PersonalInformation = {
     title: '',
-    locationInformation: undefined,
+    locationInformation: null,
     urlImage: '',
     showTypesData: [],
+    active: false,
   };
   personalInformation = signal<PersonalInformation>(
     this.defaultPersonalInformation
   );
   public selectedFields: TypeInputPersonalInformation[] = [];
-  public fields: TypeInputPersonalInformation[] = [
-    TypeInputPersonalInformation.NAME,
-    TypeInputPersonalInformation.EMAIL,
-    TypeInputPersonalInformation.PHONE,
-    TypeInputPersonalInformation.LOCALIZATION_CONFIGURATION,
-  ];
+  public fields: TypeInputPersonalInformation[] = [];
 
   public readonly projectItem: {
     jsonProject: JsonProject;
@@ -138,9 +131,7 @@ export class ProjectInformationDataComponent {
 
   /** Edit or update JSON configuration */
   edit() {
-    if (this.requiresLocationConfig()) {
-      this.personalInformation().locationInformation =
-        this.locationConfiguration;
+    if (!this.requiresLocationConfig()) {
       this.personalInformation().showTypesData = this.selectedFields;
       this.saveImage();
     } else {
@@ -149,7 +140,7 @@ export class ProjectInformationDataComponent {
   }
 
   saveImage() {
-    let jsonData = getJsonData(this.projectItem.jsonProject);
+    const jsonData = getJsonData(this.projectItem.jsonProject);
 
     this.spinnerService.show().then();
     if (this.fileUploadControl.value[0]) {
@@ -162,6 +153,14 @@ export class ProjectInformationDataComponent {
           this.uploadJson(jsonData);
         });
     } else {
+      if (
+        !this.personalInformation().showTypesData.includes(
+          TypeInputPersonalInformation.LOCALIZATION_CONFIGURATION
+        )
+      ) {
+        this.personalInformation().locationInformation = null;
+      }
+
       jsonData.personalInformation = this.personalInformation();
       this.uploadJson(jsonData);
     }
@@ -173,7 +172,7 @@ export class ProjectInformationDataComponent {
       .open(ProjectSelectLocationComponent)
       .afterClosed()
       .subscribe((value) => {
-        if (value) this.locationConfiguration = value;
+        if (value) this.personalInformation().locationInformation = value;
       });
   }
 
@@ -191,8 +190,37 @@ export class ProjectInformationDataComponent {
     const applicantProject = getJsonData(this.projectItem.jsonProject);
     this.selectedFields =
       applicantProject.personalInformation?.showTypesData ?? [];
-    this.locationConfiguration =
-      applicantProject.personalInformation?.locationInformation;
+    this.personalInformation().locationInformation =
+      applicantProject.personalInformation?.locationInformation ?? null;
+
+    if (
+      !this.personalInformation().showTypesData.includes(
+        TypeInputPersonalInformation.PHONE
+      )
+    ) {
+      this.fields.push(TypeInputPersonalInformation.PHONE);
+    }
+    if (
+      !this.personalInformation().showTypesData.includes(
+        TypeInputPersonalInformation.NAME
+      )
+    ) {
+      this.fields.push(TypeInputPersonalInformation.NAME);
+    }
+    if (
+      !this.personalInformation().showTypesData.includes(
+        TypeInputPersonalInformation.LOCALIZATION_CONFIGURATION
+      )
+    ) {
+      this.fields.push(TypeInputPersonalInformation.LOCALIZATION_CONFIGURATION);
+    }
+    if (
+      !this.personalInformation().showTypesData.includes(
+        TypeInputPersonalInformation.EMAIL
+      )
+    ) {
+      this.fields.push(TypeInputPersonalInformation.EMAIL);
+    }
   }
 
   private uploadJson(appProject: ApplicantProject) {
@@ -211,19 +239,26 @@ export class ProjectInformationDataComponent {
     return (
       this.selectedFields.includes(
         TypeInputPersonalInformation.LOCALIZATION_CONFIGURATION
-      ) && this.locationConfiguration !== undefined
+      ) && this.personalInformation().locationInformation === null
     );
   }
 
-  clearLocationData(keys: string[]) {
-    for (const key of keys) {
-      if (this.locationConfiguration) {
-        this.locationConfiguration[key as keyof LocationConfiguration] =
-          undefined;
+  clearLocationData(keys: (keyof LocationConfiguration)[]) {
+    const personalInfo = this.personalInformation();
+    if (personalInfo?.locationInformation) {
+      for (const key of keys) {
+        if (key in personalInfo.locationInformation) {
+          personalInfo.locationInformation[key] = undefined;
+        }
       }
     }
   }
 
   protected readonly getBreadcrumbInformationPersonal =
     getBreadcrumbInformationPersonal;
+
+  deleteItem(item: TypeInputPersonalInformation) {
+    this.selectedFields = this.selectedFields.filter((value) => value !== item);
+    this.fields.push(item);
+  }
 }

@@ -4,19 +4,10 @@ import { ComponentEntity, TypeComponent } from '../entities/component-entity';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDivider } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
-import { MatCheckbox } from '@angular/material/checkbox';
 import { getViewNameTypeComponent } from '../entities/compontents-utils';
-import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
-import {
-  FileUploadComponent,
-  FileUploadDropZoneComponent,
-  FileUploadListItemComponent,
-} from '@iplab/ngx-file-upload';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatSlider, MatSliderThumb } from '@angular/material/slider';
 import { CarouselPropertiesComponent } from '../components/properties-components/carousel-properties/carousel-properties.component';
 import { GeneralPropertiesComponent } from '../components/properties-components/general-properties/general-properties.component';
 import { ColorsPropertiesComponent } from '../components/properties-components/colors-properties/colors-properties.component';

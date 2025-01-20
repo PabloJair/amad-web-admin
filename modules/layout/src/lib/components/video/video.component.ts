@@ -21,4 +21,13 @@ export class VideoComponent {
   changePosition($event: { x: number; y: number }) {
     this.component().properties.position = $event;
   }
+
+  onResize($event: { width: number; height: number }) {
+    this.component().properties.size = $event;
+    this.isDragging = true;
+  }
+
+  onFinishResized($event: boolean) {
+    this.isDragging = $event;
+  }
 }

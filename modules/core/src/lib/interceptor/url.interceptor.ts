@@ -21,11 +21,9 @@ export class UrlInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
     if (request.headers.has(CommonsStrings.MONKEY_API)) {
-      const modifiedHeaders = request.headers.delete(CommonsStrings.MONKEY_API);
       return next.handle(
         request.clone({
-          url: `${this.apiURLMonkey}/${request.url}`,
-          headers: modifiedHeaders,
+          url: `${this.apiURLMonkey}${request.url}`,
         })
       );
     }

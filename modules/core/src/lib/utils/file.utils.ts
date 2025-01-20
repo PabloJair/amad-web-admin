@@ -24,13 +24,18 @@ export function createFileUploadImageControlDefault(): FileUploadControl {
   return new FileUploadControl(
     {
       listVisible: true,
-      accept: [CommonsStrings.MIME_TYPE_JPG, CommonsStrings.MIME_TYPE_PNG],
+      accept: [
+        CommonsStrings.MIME_TYPE_JPG,
+        CommonsStrings.MIME_TYPE_JPEG,
+        CommonsStrings.MIME_TYPE_PNG,
+      ],
       discardInvalid: true,
       multiple: false,
     },
     [
       FileUploadValidators.accept([
         CommonsStrings.MIME_TYPE_JPG,
+        CommonsStrings.MIME_TYPE_JPEG,
         CommonsStrings.MIME_TYPE_PNG,
       ]),
       FileUploadValidators.filesLimit(1),
