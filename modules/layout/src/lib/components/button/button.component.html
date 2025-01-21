@@ -3,8 +3,8 @@
   cdkDragBoundaryName="#boundary"
   [isDragging]="isDragging"
   (changePosition)="changePosition($event)"
-  [dx]="defaultX"
-  [dy]="defaultY"
+  [dx]="component().properties.position.x"
+  [dy]="component().properties.position.y"
   (click)="onSelectedComponent.emit(component())"
 >
 

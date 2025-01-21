@@ -47,6 +47,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ProjectsFacade } from '../+state/projects.facade';
 import { MatIconModule } from '@angular/material/icon';
 import { NgxMaskDirective } from 'ngx-mask';
+import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'lib-project-preconfiguration',
@@ -55,10 +56,6 @@ import { NgxMaskDirective } from 'ngx-mask';
     CommonModule,
     BreadcrumbComponent,
     ButtonLoaderComponent,
-    FilesAcceptValidator,
-    FileUploadDropZoneComponent,
-    FileUploadListItemComponent,
-    FileUploadComponent,
     FormsModule,
     MatButton,
     MatCard,
@@ -77,6 +74,7 @@ import { NgxMaskDirective } from 'ngx-mask';
     MatIconButton,
     NgxMaskDirective,
     ImageUploadComponent,
+    NgxSpinnerComponent,
   ],
   templateUrl: './project-preconfiguration.component.html',
   styleUrl: './project-preconfiguration.component.scss',
@@ -128,7 +126,8 @@ export class ProjectPreconfigurationComponent {
   constructor(
     public navigation: ProjectNavigationService,
     public projectFacade: ProjectsFacade,
-    public uploadImage: UploadService
+    public uploadImage: UploadService,
+    private spinner: NgxSpinnerService
   ) {
     this.projectItem = this.navigation.getJsonConfiguration();
     this.appProject =
@@ -181,9 +180,6 @@ export class ProjectPreconfigurationComponent {
       this.addConfigurationForm.controls.showState.value ?? false;
     this.appProject.preconfiguration.offline =
       this.addConfigurationForm.controls.offline.value ?? false;
-    this.appProject.preconfiguration.interceptorPhone =
-      this.addConfigurationForm.controls.interceptorPhone.value ?? [];
-
     this.appProject.preconfiguration.urlAnalytics =
       this.addConfigurationForm.controls.urlAnalytics.value ?? '';
     this.appProject.status = this.addConfigurationForm.controls.status.value
@@ -191,7 +187,6 @@ export class ProjectPreconfigurationComponent {
       : ApplicantProjectStatus.DISABLE;
     this.appProject.appId =
       this.addConfigurationForm.controls.appId.value ?? '';
-
     this.uploadJson();
   }
 
@@ -211,6 +206,7 @@ export class ProjectPreconfigurationComponent {
   }
 
   private uploadJson() {
+    this.spinner.show();
     const updateJson: UpdateJsonProjectLayout = {
       id_application: this.projectItem.project.id_application,
       json: JSON.stringify(this.appProject),
@@ -223,7 +219,22 @@ export class ProjectPreconfigurationComponent {
     );
 
     const success$ = this.projectFacade.anySuccess.subscribe((value) => {
+      this.spinner.hide();
+
       if (value) {
+        this.navigation.setJsonConfiguration({
+          project: this.projectItem.project,
+          jsonProject: {
+            id_json: this.projectItem.jsonProject.id_json,
+            status: this.projectItem.jsonProject.id_json,
+            json: updateJson.json,
+            language: this.projectItem.jsonProject.language,
+            id_application: this.projectItem.jsonProject.id_application,
+            is_default: this.projectItem.jsonProject.is_default,
+          },
+          codeLanguage: this.projectItem.codeLanguage,
+        });
+        this.setup();
         success$.unsubscribe();
       }
     });

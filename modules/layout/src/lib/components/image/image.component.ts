@@ -1,4 +1,10 @@
-import { Component, computed, input, output } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  computed,
+  input,
+  output,
+} from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { LayoutDragComponent } from '../layout-drag/layout-drag.component';
 import { CommonsUI, ResizableDirective } from '@amad-web-admin/modules/core';
@@ -12,8 +18,12 @@ import { defaultComponentEntity } from '../../entities/defaults-components';
   templateUrl: './image.component.html',
   styleUrl: './image.component.scss',
 })
-export class ImageComponent {
+export class ImageComponent implements AfterViewInit {
   cdkDragBoundaryName = input<string>('');
+
+  ngAfterViewInit(): void {
+    this.component().properties.background = undefined;
+  }
 
   component = input<ComponentEntity>(defaultComponentEntity());
   onSelectedComponent = output<ComponentEntity>();

@@ -151,7 +151,7 @@ export class ProjectsEffects {
         this.service$.putProjectJson(request.value, request.id).pipe(
           map((response) =>
             projectResponseAction.successUpdateJsonProject({
-              value: response.data,
+              value: response.message,
             })
           ),
           catchError((error) => of(projectAppAction.fail(error.error)))

@@ -35,9 +35,7 @@ export class ProjectNavigationService {
   } {
     const project = this.router.getCurrentNavigation()?.extras
       .state as JsonProject;
-    return project !== undefined
-      ? project
-      : this.localStorage.get(this.KEY_JSON_PROJECT);
+    return this.localStorage.get(this.KEY_JSON_PROJECT);
   }
 
   navigateToEdit(projectItem: ProjectItem, companyItem: CompanyItem) {
@@ -87,15 +85,14 @@ export class ProjectNavigationService {
       codeLanguage,
       project,
     };
-    this.router
-      .navigate(
-        [NavigationRoutes.dashboard.DASHBOARD, NavigationRoutes.layout.HOME],
-        {
-          state: state,
-        }
-      )
-      .then(() => true);
     this.localStorage.set(this.KEY_JSON_PROJECT, state);
+
+    this.router
+      .navigate([
+        NavigationRoutes.dashboard.DASHBOARD,
+        NavigationRoutes.layout.HOME,
+      ])
+      .then(() => true);
   }
 
   navigateToConfiguration(
@@ -108,19 +105,22 @@ export class ProjectNavigationService {
       codeLanguage,
       project,
     };
-    this.router
-      .navigate(
-        [
-          NavigationRoutes.dashboard.DASHBOARD,
-          NavigationRoutes.projects.PROJECT,
-          NavigationRoutes.projects.PROJECT_CONFIGURATIONS,
-        ],
-        {
-          state: state,
-        }
-      )
-      .then(() => true);
     this.localStorage.set(this.KEY_JSON_PROJECT, state);
+    this.router
+      .navigate([
+        NavigationRoutes.dashboard.DASHBOARD,
+        NavigationRoutes.projects.PROJECT,
+        NavigationRoutes.projects.PROJECT_CONFIGURATIONS,
+      ])
+      .then(() => true);
+  }
+
+  public setJsonConfiguration(data: {
+    jsonProject: JsonProject;
+    project: ProjectItem;
+    codeLanguage: string;
+  }) {
+    this.localStorage.set(this.KEY_JSON_PROJECT, data);
   }
 
   navigateToList() {
@@ -146,17 +146,13 @@ export class ProjectNavigationService {
       codeLanguage,
       project,
     };
+    this.localStorage.set(this.KEY_JSON_PROJECT, state);
     this.router
-      .navigate(
-        [
-          NavigationRoutes.dashboard.DASHBOARD,
-          NavigationRoutes.projects.PROJECT,
-          NavigationRoutes.projects.PROJECT_PERSONAL_INFORMATION,
-        ],
-        {
-          state: state,
-        }
-      )
-      .then(() => this.localStorage.set(this.KEY_JSON_PROJECT, state));
+      .navigate([
+        NavigationRoutes.dashboard.DASHBOARD,
+        NavigationRoutes.projects.PROJECT,
+        NavigationRoutes.projects.PROJECT_PERSONAL_INFORMATION,
+      ])
+      .then(() => true);
   }
 }
