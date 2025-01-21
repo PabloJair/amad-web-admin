@@ -3,7 +3,7 @@
   "$schema": "node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "prefix": "app",
-  "version": 1.8,
+  "version": "2.1.2",
   "sourceRoot": "./src",
   "tags": [],
   "targets": {
@@ -19,7 +19,7 @@
           "moment"
         ],
         "baseHref": "./",
-        "outputPath": "dist/amad-web-admin-1.8",
+        "outputPath": "dist/amad-web-admin",
         "index": "./src/index.html",
         "main": "./src/main.ts",
         "plugins": [

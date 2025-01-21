@@ -9,7 +9,7 @@
     "start:development": "nx serve --host=0.0.0.0 --configuration=development",
     "start:production": "nx serve --host=0.0.0.0 --configuration=production",
     "buildProduction": "nx build",
-    "buildQa": "nx build  --configuration=qa",
+    "buildQa": "nx build amad-web-admin --configuration=qa --outputPath=dist/amad-web-admin-qa-$(node -p \"require('./project.json').version\")",
     "buildDev": "nx build --configuration=development",
     "buildLocal": "nx build --configuration=local",
     "test": "nx test"
