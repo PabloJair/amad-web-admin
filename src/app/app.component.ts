@@ -9,11 +9,10 @@ import {
 } from '@amad-web-admin/modules/core';
 
 @Component({
-  standalone: true,
-  imports: [RouterModule, FormsModule, MatFormFieldModule, MatInputModule],
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+    imports: [RouterModule, FormsModule, MatFormFieldModule, MatInputModule],
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.scss'
 })
 export class AppComponent {
   constructor(

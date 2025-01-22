@@ -15,24 +15,16 @@ import { NgOptimizedImage } from '@angular/common';
 @Component({
   selector: 'lib-dialog-code-google',
   standalone: true,
-  imports: [
-    MatFormField,
-    MatInput,
-    ReactiveFormsModule,
-    DialogLayoutComponent,
-    MatButton,
-    NgOtpInputModule,
-    MatProgressSpinner,
-    NgOptimizedImage,
-  ],
+  imports: [ReactiveFormsModule, DialogLayoutComponent, NgOtpInputModule],
   templateUrl: './dialog-code-google.component.html',
   styleUrl: './dialog-code-google.component.scss',
 })
 export class DialogCodeGoogleComponent {
   LENGTH_CODE = 6;
+
   constructor(
     protected dialogRef: MatDialogRef<DialogCodeGoogleComponent>,
-    @Inject(MAT_DIALOG_DATA) public data?: string,
+    @Inject(MAT_DIALOG_DATA) public data?: string
   ) {}
 
   onCodeChange($event: string) {
