@@ -91,6 +91,7 @@ export interface PersonalInformation {
   locationInformation: LocationConfiguration | null;
   urlImage: string;
   title: string;
+
   active: boolean;
 }
 

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   AudioComponent,
@@ -7,14 +7,7 @@ import {
   ButtonLoaderComponent,
   ImageUploadComponent,
 } from '@amad-web-admin/modules/ui-elements';
-import {
-  FilesAcceptValidator,
-  FileUploadComponent,
-  FileUploadControl,
-  FileUploadDropZoneComponent,
-  FileUploadListItemComponent,
-  FileUploadValidators,
-} from '@iplab/ngx-file-upload';
+import { FileUploadValidators } from '@iplab/ngx-file-upload';
 import {
   FormControl,
   FormGroup,

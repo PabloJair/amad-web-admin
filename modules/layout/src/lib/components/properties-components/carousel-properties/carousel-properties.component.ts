@@ -58,7 +58,11 @@ export class CarouselPropertiesComponent {
   public readonly fileImageCarrousel = new FileUploadControl(
     {
       listVisible: true,
-      accept: [CommonsStrings.MIME_TYPE_PNG, CommonsStrings.MIME_TYPE_JPG],
+      accept: [
+        CommonsStrings.MIME_TYPE_PNG,
+        CommonsStrings.MIME_TYPE_JPEG,
+        CommonsStrings.MIME_TYPE_JPG,
+      ],
       discardInvalid: true,
       multiple: false,
     },
@@ -66,6 +70,7 @@ export class CarouselPropertiesComponent {
       FileUploadValidators.accept([
         CommonsStrings.MIME_TYPE_PNG,
         CommonsStrings.MIME_TYPE_JPG,
+        CommonsStrings.MIME_TYPE_JPEG,
       ]),
       FileUploadValidators.filesLimit(1),
     ]
