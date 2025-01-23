@@ -107,6 +107,7 @@ export class ProjectPreconfigurationComponent {
     activeGeoLocalization: new FormControl<boolean>(false),
     showState: new FormControl<boolean>(false),
     status: new FormControl<boolean>(false),
+    tagAnalyticOpen: new FormControl<string>(''),
     mp3: new FormControl(null, {
       nonNullable: true,
       validators: [
@@ -152,6 +153,9 @@ export class ProjectPreconfigurationComponent {
     this.addConfigurationForm.controls.interceptorPhone.setValue(
       this.appProject.preconfiguration.interceptorPhone
     );
+    this.addConfigurationForm.controls.tagAnalyticOpen.setValue(
+      this.appProject.preconfiguration.tagAnalyticOpen
+    );
     this.addConfigurationForm.controls.urlSound.setValue(
       this.appProject.preconfiguration.urlSound
     );
@@ -180,6 +184,8 @@ export class ProjectPreconfigurationComponent {
       : ApplicantProjectStatus.DISABLE;
     this.appProject.appId =
       this.addConfigurationForm.controls.appId.value ?? '';
+    this.appProject.preconfiguration.tagAnalyticOpen =
+      this.addConfigurationForm.controls.tagAnalyticOpen.value ?? '';
     this.uploadJson();
   }
 

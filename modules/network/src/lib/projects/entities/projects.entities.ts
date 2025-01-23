@@ -91,7 +91,6 @@ export interface PersonalInformation {
   locationInformation: LocationConfiguration | null;
   urlImage: string;
   title: string;
-
   active: boolean;
 }
 
@@ -115,6 +114,8 @@ export interface Preconfiguration {
   welcomeVideo: string;
   interceptorPhone: string[];
   showState: boolean;
+  tagAnalyticOpen: string;
+
   activeGeoLocalization: boolean;
 }
 
@@ -143,6 +144,7 @@ export function createDefaultApplicantProject(): ApplicantProject {
     views: [],
     status: ApplicantProjectStatus.ACTIVE,
     preconfiguration: {
+      tagAnalyticOpen: '',
       activeGeoLocalization: false,
       interceptorPhone: [],
       offline: false,
