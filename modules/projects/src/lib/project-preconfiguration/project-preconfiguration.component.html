@@ -97,12 +97,15 @@
                 <button mat-button (click)="appProject.preconfiguration.urlSound =''" class="w-56">Nuevo Archivo
                 </button>
                 <ui-elements-audio [src]="appProject.preconfiguration.urlSound"></ui-elements-audio>
+                <button mat-button (click)="onDeleteAudio()">Eliminar audio</button>
+
               } @else {
                 <ui-elements-upload (fileSelected)="onFileSelected($event,true )"
                                     [loader]="loaderFiles"
                                     [acceptFiles]="[CommonsStrings.MIME_TYPE_MP3]"
 
                 ></ui-elements-upload>
+
               }
 
             </div>
@@ -122,6 +125,8 @@
                   <source [src]="this.appProject.preconfiguration.welcomeVideo" type="video/mp4" />
                   Tu navegador no soporta el elemento de video.
                 </video>
+                <button mat-button (click)="onDeleteVideo()">Eliminar video</button>
+
               } @else {
                 <ui-elements-upload (fileSelected)="onFileSelected($event,false )"
                                     [acceptFiles]="[CommonsStrings.MIME_TYPE_VIDEO]"

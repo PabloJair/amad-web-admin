@@ -74,11 +74,14 @@
     <mat-divider></mat-divider>
     <span>Horario</span>
     @for (itemTimeScheduled of componentEntity().actions.showBySchedule; track itemTimeScheduled) {
-      <p>
-        {{ itemTimeScheduled.show ? "Mostrar" : "No Mostrar" }}
-        De {{ getDayForNumber(itemTimeScheduled.dayStart) }} a {{ getDayForNumber(itemTimeScheduled.dayEnd) }}
-        , {{ itemTimeScheduled.hourStart }} a las {{ itemTimeScheduled.hourEnd }}
-      </p>
+      @if (itemTimeScheduled) {
+        <p>
+          {{ itemTimeScheduled?.show ? "Mostrar" : "No Mostrar" }}
+          De {{ getDayForNumber(itemTimeScheduled.dayStart) }} a {{ getDayForNumber(itemTimeScheduled.dayEnd) }}
+          , {{ itemTimeScheduled.hourStart }} a las {{ itemTimeScheduled.hourEnd }}
+        </p>
+      }
+
     }
     <button mat-button (click)="openDialogDate()"> Agregar</button>
 

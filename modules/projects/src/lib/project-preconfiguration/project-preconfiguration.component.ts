@@ -255,4 +255,12 @@ export class ProjectPreconfigurationComponent {
   }
 
   protected readonly CommonsStrings = CommonsStrings;
+
+  onDeleteAudio() {
+    this.appProject.preconfiguration.urlSound = '';
+  }
+
+  onDeleteVideo() {
+    this.appProject.preconfiguration.welcomeVideo = '';
+  }
 }

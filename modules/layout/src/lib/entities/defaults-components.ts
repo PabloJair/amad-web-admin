@@ -2,6 +2,7 @@ import { ComponentEntity, TypeComponent } from './component-entity';
 import { PositionAlignment, Properties, TextAlignment } from './properties';
 import { Actions } from './actions';
 import { CommonsUI } from '@amad-web-admin/modules/core';
+import { v4 as uuidv4 } from 'uuid';
 
 export function defaultActions(): Actions {
   return new (class implements Actions {
@@ -14,7 +15,7 @@ export function defaultActions(): Actions {
 
 export function buttonComponent(): ComponentEntity {
   return new (class implements ComponentEntity {
-    UUID = crypto.randomUUID();
+    UUID = uuidv4();
     actions = defaultActions();
     properties = createDefaultPosition(
       { x: 0, y: 0 },
@@ -29,7 +30,7 @@ export function buttonComponent(): ComponentEntity {
 
 export function imageComponent(): ComponentEntity {
   return new (class implements ComponentEntity {
-    UUID = crypto.randomUUID();
+    UUID = uuidv4();
     actions = defaultActions();
     properties = createDefaultPosition(
       { x: 0, y: 0 },
@@ -44,7 +45,7 @@ export function imageComponent(): ComponentEntity {
 
 export function imageButtonComponent(): ComponentEntity {
   return new (class implements ComponentEntity {
-    UUID = crypto.randomUUID();
+    UUID = uuidv4();
     actions = defaultActions();
     properties = createDefaultPosition(
       { x: 0, y: 0 },
@@ -59,7 +60,7 @@ export function imageButtonComponent(): ComponentEntity {
 
 export function carouselComponent(): ComponentEntity {
   return new (class implements ComponentEntity {
-    UUID = crypto.randomUUID();
+    UUID = uuidv4();
     actions = defaultActions();
     properties = createDefaultPosition(
       { x: 0, y: 0 },
@@ -74,7 +75,7 @@ export function carouselComponent(): ComponentEntity {
 
 export function textComponent(): ComponentEntity {
   return new (class implements ComponentEntity {
-    UUID = crypto.randomUUID();
+    UUID = uuidv4();
     actions = defaultActions();
     properties = createDefaultPosition(
       { x: 0, y: 0 },
@@ -89,7 +90,7 @@ export function textComponent(): ComponentEntity {
 
 export function defaultComponentEntity(): ComponentEntity {
   return new (class implements ComponentEntity {
-    UUID = crypto.randomUUID();
+    UUID = uuidv4();
     actions = defaultActions();
     properties = createDefaultPosition(
       { x: 0, y: 0 },
@@ -104,7 +105,7 @@ export function defaultComponentEntity(): ComponentEntity {
 
 export function defaultVideoComponentEntity(): ComponentEntity {
   return new (class implements ComponentEntity {
-    UUID = crypto.randomUUID();
+    UUID = uuidv4();
     actions = defaultActions();
     properties = createDefaultPosition(
       { x: 0, y: 0 },

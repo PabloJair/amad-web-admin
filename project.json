@@ -3,7 +3,7 @@
   "$schema": "node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "prefix": "app",
-  "version": "2.1.2",
+  "version": "2.1.4",
   "sourceRoot": "./src",
   "tags": [],
   "targets": {

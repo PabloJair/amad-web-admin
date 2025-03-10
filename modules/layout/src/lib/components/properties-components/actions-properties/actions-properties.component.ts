@@ -96,7 +96,9 @@ export class ActionsPropertiesComponent implements AfterViewInit {
       };
     }
     console.log(addShowBySchedule);
-    this.componentEntity().actions?.showBySchedule.push(addShowBySchedule);
+    if (addShowBySchedule) {
+      this.componentEntity().actions?.showBySchedule.push(addShowBySchedule);
+    }
   }
 
   setupData() {
