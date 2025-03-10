@@ -1,11 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LocalStorageService } from 'angular-web-storage';
-import {
-  JsonProject,
-  ProjectItem,
-  ProjectStatus,
-} from '@amad-web-admin/modules/network';
+import { JsonProject, ProjectItem } from '@amad-web-admin/modules/network';
 
 @Injectable()
 export class NavigationLayoutService {
@@ -22,18 +18,15 @@ export class NavigationLayoutService {
     codeLanguage: string;
     project: ProjectItem;
   } {
-    const project = this.router.getCurrentNavigation()?.extras
-      .state as JsonProject;
-    return project !== undefined
-      ? project
-      : this.localStorage.get(this.KEY_JSON_PROJECT);
+    const project = this.router.getCurrentNavigation()?.extras.state as {
+      jsonProject: JsonProject;
+      codeLanguage: string;
+      project: ProjectItem;
+    };
+    return project !== undefined ? project : this.localStorage.get(this.KEY_JSON_PROJECT);
   }
 
-  saveLocalJson(
-    jsonProject: JsonProject,
-    codeLanguage: string,
-    project: ProjectItem
-  ): void {
+  saveLocalJson(jsonProject: JsonProject, codeLanguage: string, project: ProjectItem): void {
     const state = {
       jsonProject,
       codeLanguage,

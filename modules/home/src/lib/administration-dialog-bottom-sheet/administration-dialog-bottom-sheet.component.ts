@@ -12,15 +12,7 @@ import { NavigationRoutes } from '@amad-web-admin/modules/core';
 @Component({
   selector: 'lib-administration-dialog-bottom-sheet',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatListItemIcon,
-    MatIconButton,
-    MatListModule,
-    MatIconModule,
-    MatTooltip,
-    MatLine,
-  ],
+  imports: [CommonModule, MatListModule, MatIconModule, MatLine],
   templateUrl: './administration-dialog-bottom-sheet.component.html',
   styleUrl: './administration-dialog-bottom-sheet.component.scss',
 })

@@ -1,7 +1,6 @@
 import { AfterViewInit, Component, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
-  FilesAcceptDirective,
   FileUploadComponent,
   FileUploadControl,
   FileUploadValidators,
@@ -21,7 +20,6 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
     ReactiveFormsModule,
     MatIcon,
     MatProgressSpinner,
-    FilesAcceptDirective,
   ],
   templateUrl: './image-upload.component.html',
   styleUrl: './image-upload.component.scss',
@@ -43,10 +41,7 @@ export class ImageUploadComponent implements AfterViewInit {
       discardInvalid: false,
       multiple: false,
     },
-    [
-      FileUploadValidators.accept(this.acceptFiles()),
-      FileUploadValidators.filesLimit(1),
-    ]
+    [FileUploadValidators.accept(this.acceptFiles()), FileUploadValidators.filesLimit(1)]
   );
 
   constructor() {

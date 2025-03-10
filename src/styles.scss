@@ -1,11 +1,14 @@
 @use '@angular/material' as mat;
-@use "m3-theme" as mat3-theme;
+@use 'm3-theme' as mat3-theme;
 
 @include mat.core();
+
+@import 'tailwindcss';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 // Plus imports for other components in your app.
@@ -16,20 +19,20 @@
 
 // Define the theme object.
 
-
 $amad-web-admin-theme: mat.define-theme(
-                (
-                        color: (
-                                theme-type: light,
-                                primary: mat.$azure-palette,
-                                tertiary: mat.$blue-palette,
-                        ), density: (
-                        scale: -2
-                ),
-                        typography: (
-                                use-system-variables: true,
-                        ),
-                )
+  (
+    color: (
+      theme-type: light,
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+    ),
+    density: (
+      scale: -2,
+    ),
+    typography: (
+      use-system-variables: true,
+    ),
+  )
 );
 .mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field,
 .mdc-notched-outline__notch {
@@ -43,11 +46,9 @@ $amad-web-admin-theme: mat.define-theme(
   @include mat.core-theme($amad-web-admin-theme);
 
   @include mat.all-component-themes($amad-web-admin-theme);
-
 }
 
 .file-uploader {
-
   outline: 0;
   min-height: 180px;
   border-radius: 5px;
@@ -83,7 +84,6 @@ $amad-web-admin-theme: mat.define-theme(
       position: relative;
     }
   }
-
 }
 
 .file-uploader {
@@ -108,7 +108,6 @@ $amad-web-admin-theme: mat.define-theme(
 .cancel-button-color {
   @include mat.button-color($amad-web-admin-theme, $color-variant: error);
 }
-
 
 .success-button-color {
   @include mat.button-color($amad-web-admin-theme, $color-variant: secondary);

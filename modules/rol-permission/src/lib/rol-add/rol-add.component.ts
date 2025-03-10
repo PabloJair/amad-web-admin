@@ -23,14 +23,8 @@ import {
 } from '@angular/material/card';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
-import { MatOption } from '@angular/material/autocomplete';
-import { MatSelect } from '@angular/material/select';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
-import {
-  AutoUnsubscribe,
-  CommonsStrings,
-  NavigationRoutes,
-} from '@amad-web-admin/modules/core';
+import { AutoUnsubscribe, CommonsStrings, NavigationRoutes } from '@amad-web-admin/modules/core';
 import { Subscription } from 'rxjs';
 import { RolesAndPermissionFacade } from '../+store/roles-and-permission.facade';
 import { AddUserRol } from '@amad-web-admin/modules/network';
@@ -54,8 +48,6 @@ import { RolPermissionNavigationService } from '../commons/rol-permission-naviga
     MatFormField,
     MatInput,
     MatLabel,
-    MatOption,
-    MatSelect,
     MatSlideToggle,
     ReactiveFormsModule,
   ],
@@ -73,21 +65,16 @@ export class RolAddComponent {
     protected rolesAndPermissionFacade: RolesAndPermissionFacade,
     protected navigation: RolPermissionNavigationService
   ) {
-    this.successAddRol$$ = rolesAndPermissionFacade.successRol$.subscribe(
-      (value) => {
-        this.loading$.set(false);
-        this.navigation.navigateToList();
-      }
-    );
+    this.successAddRol$$ = rolesAndPermissionFacade.successRol$.subscribe((value) => {
+      this.loading$.set(false);
+      this.navigation.navigateToList();
+    });
     this.loading$$ = this.rolesAndPermissionFacade.loaded$.subscribe((value) =>
       this.loading$.set(value)
     );
 
     this.error$$ = this.rolesAndPermissionFacade.error$.subscribe((value) => {
-      this.dialogService.showError(
-        CommonsStrings.ERROR_GENERIC_TITLE,
-        value.message
-      );
+      this.dialogService.showError(CommonsStrings.ERROR_GENERIC_TITLE, value.message);
     });
   }
 
@@ -124,8 +111,6 @@ export class RolAddComponent {
   });
 
   add() {
-    this.rolesAndPermissionFacade.addUser(
-      this.addRolForm.getRawValue() as unknown as AddUserRol
-    );
+    this.rolesAndPermissionFacade.addUser(this.addRolForm.getRawValue() as unknown as AddUserRol);
   }
 }

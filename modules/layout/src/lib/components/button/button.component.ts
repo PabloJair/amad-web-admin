@@ -1,28 +1,15 @@
-import {
-  AfterViewInit,
-  Component,
-  computed,
-  input,
-  output,
-} from '@angular/core';
+import { AfterViewInit, Component, computed, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatButton } from '@angular/material/button';
 import { ComponentEntity } from '@amad-web-admin/modules/layout';
 import { CommonsUI, ResizableDirective } from '@amad-web-admin/modules/core';
 import { LayoutDragComponent } from '../layout-drag/layout-drag.component';
 import { getAlignmentText } from '../../entities/compontents-utils';
-import { CarouselComponent } from '../carousel/carousel.component';
 import { defaultComponentEntity } from '../../entities/defaults-components';
 
 @Component({
   selector: 'lib-app-button',
   standalone: true,
-  imports: [
-    CommonModule,
-    ResizableDirective,
-    LayoutDragComponent,
-    CarouselComponent,
-  ],
+  imports: [CommonModule, ResizableDirective, LayoutDragComponent],
   templateUrl: './button.component.html',
   styleUrl: './button.component.scss',
 })

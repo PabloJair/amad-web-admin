@@ -1,16 +1,8 @@
 import { AfterViewInit, Component, Inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatButton, MatIconButton } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
 import { MatLine } from '@angular/material/core';
-import {
-  MatListItem,
-  MatListItemIcon,
-  MatListItemTitle,
-  MatNavList,
-} from '@angular/material/list';
+import { MatListItem, MatListItemTitle, MatNavList } from '@angular/material/list';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { MatTooltip } from '@angular/material/tooltip';
 import {
   JsonProject,
   LanguagesProject,
@@ -18,29 +10,14 @@ import {
   ProjectItem,
 } from '@amad-web-admin/modules/network';
 import { ProjectsFacade } from '../+state/projects.facade';
-import {
-  MAT_BOTTOM_SHEET_DATA,
-  MatBottomSheetRef,
-} from '@angular/material/bottom-sheet';
+import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { ProjectNavigationService } from '../commons/project-navigation.service';
 import { TypeView } from './TypeView';
 
 @Component({
   selector: 'lib-select-languages-project',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatButton,
-    MatIcon,
-    MatIconButton,
-    MatLine,
-    MatListItem,
-    MatListItemIcon,
-    MatListItemTitle,
-    MatNavList,
-    MatProgressSpinner,
-    MatTooltip,
-  ],
+  imports: [CommonModule, MatLine, MatListItem, MatListItemTitle, MatNavList, MatProgressSpinner],
   providers: [ProjectsFacade, ProjectNavigationService],
   templateUrl: './select-languages-project.component.html',
   styleUrl: './select-languages-project.component.scss',
@@ -78,33 +55,19 @@ export class SelectLanguagesProjectComponent implements AfterViewInit {
   private navigateTo(item: LanguagesProject, jsonProject: JsonProject) {
     switch (this.data.type) {
       case TypeView.LAYOUT:
-        this.navigation.navigateToLayout(
-          jsonProject,
-          this.data.projectItem,
-          item.code
-        );
+        this.navigation.navigateToLayout(jsonProject, this.data.projectItem, item.code);
         break;
       case TypeView.CONFIGURATION:
-        this.navigation.navigateToConfiguration(
-          jsonProject,
-          this.data.projectItem,
-          item.code
-        );
+        this.navigation.navigateToConfiguration(jsonProject, this.data.projectItem, item.code);
         break;
       case TypeView.INFORMATION_PERSONAL:
-        this.navigation.navigateToInformationData(
-          jsonProject,
-          this.data.projectItem,
-          item.code
-        );
+        this.navigation.navigateToInformationData(jsonProject, this.data.projectItem, item.code);
         break;
     }
   }
 
   goTo(item: LanguagesProject) {
-    const filter = this.data.projectInformation.jsons.find(
-      (value) => value.language == item.code
-    );
+    const filter = this.data.projectInformation.jsons.find((value) => value.language == item.code);
     if (filter) {
       this.navigateTo(item, filter);
     } else {

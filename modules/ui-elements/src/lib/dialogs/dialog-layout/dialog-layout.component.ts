@@ -1,14 +1,11 @@
 import { Component } from '@angular/core';
-import { MatFormField } from '@angular/material/form-field';
-import { MatInput } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle } from '@angular/material/dialog';
-import { MatButton } from '@angular/material/button';
+import { MatDialogActions, MatDialogContent } from '@angular/material/dialog';
 
 @Component({
   selector: 'dialog-layout',
   standalone: true,
-  imports: [MatFormField, MatInput, ReactiveFormsModule, MatDialogTitle, MatDialogContent, MatDialogActions, MatButton, MatDialogClose],
+  imports: [ReactiveFormsModule, MatDialogContent, MatDialogActions],
   templateUrl: './dialog-layout.component.html',
   styleUrl: './dialog-layout.component.scss',
 })

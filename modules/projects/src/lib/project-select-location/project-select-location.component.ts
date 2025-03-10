@@ -10,7 +10,6 @@ import { MatButton } from '@angular/material/button';
 import { MatFormField } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { SepomexFacade } from '../+state/sepomex/sepomex.facade';
-import { AsyncPipe } from '@angular/common';
 import {
   LocationConfiguration,
   MunicipalityResponse,
@@ -34,7 +33,6 @@ import { AutoUnsubscribe } from '@amad-web-admin/modules/core';
     MatButton,
     MatFormField,
     MatSelectModule,
-    AsyncPipe,
     FormsModule,
     MatAutocompleteModule,
     MatInput,
@@ -84,15 +82,11 @@ export class ProjectSelectLocationComponent implements AfterViewInit {
   }
 
   onSelectedState() {
-    this.facade.getListMunicipality(
-      this.viewInformationData().state?.id_estado ?? 0
-    );
+    this.facade.getListMunicipality(this.viewInformationData().state?.id_estado ?? 0);
   }
 
   onSelectedMunicipality() {
-    this.facade.getListNeighborhoods(
-      this.viewInformationData().municipality?.id_municipio ?? 0
-    );
+    this.facade.getListNeighborhoods(this.viewInformationData().municipality?.id_municipio ?? 0);
   }
 
   save() {

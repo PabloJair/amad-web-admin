@@ -12,7 +12,6 @@ import { MatInput } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentEntity, TypeComponent } from '@amad-web-admin/modules/layout';
 import { defaultComponentEntity } from '../../../entities/defaults-components';
-import { NgxMaskDirective } from 'ngx-mask';
 import { UploadService } from '@amad-web-admin/modules/network';
 import { CommonsStrings } from '@amad-web-admin/modules/core';
 
@@ -31,7 +30,6 @@ import { CommonsStrings } from '@amad-web-admin/modules/core';
     MatLabel,
     ReactiveFormsModule,
     FormsModule,
-    NgxMaskDirective,
   ],
   templateUrl: './video-properties.component.html',
   styleUrl: './video-properties.component.scss',

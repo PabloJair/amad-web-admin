@@ -1,27 +1,12 @@
-import {
-  AfterViewInit,
-  Component,
-  effect,
-  ElementRef,
-  input,
-  output,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, input, output, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  CdkDrag,
-  CdkDragEnd,
-  CdkDragHandle,
-  CdkDragMove,
-  CdkDragStart,
-  CdkDropList,
-} from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDragEnd, CdkDragMove, CdkDragStart } from '@angular/cdk/drag-drop';
 import { CommonsUI } from '@amad-web-admin/modules/core';
 
 @Component({
   selector: 'lib-layout-drag',
   standalone: true,
-  imports: [CommonModule, CdkDrag, CdkDropList, CdkDragHandle],
+  imports: [CommonModule, CdkDrag],
   templateUrl: './layout-drag.component.html',
   styleUrl: './layout-drag.component.scss',
 })

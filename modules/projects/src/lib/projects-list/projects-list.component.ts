@@ -8,7 +8,7 @@ import {
   DialogService,
 } from '@amad-web-admin/modules/ui-elements';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatAnchor, MatIconButton } from '@angular/material/button';
+import { MatIconButton } from '@angular/material/button';
 import {
   MatCard,
   MatCardContent,
@@ -36,7 +36,6 @@ import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTooltip } from '@angular/material/tooltip';
-import { RouterLink } from '@angular/router';
 import {
   AutoUnsubscribe,
   CommonsStrings,
@@ -57,7 +56,6 @@ import { CompanyStatus } from '../../../../network/src/lib/companies/entities/co
     CommonModule,
     BreadcrumbComponent,
     FormsModule,
-    MatAnchor,
     MatCard,
     MatCardContent,
     MatCardHeader,
@@ -81,7 +79,6 @@ import { CompanyStatus } from '../../../../network/src/lib/companies/entities/co
     MatTable,
     MatTooltip,
     ReactiveFormsModule,
-    RouterLink,
     MatHeaderCellDef,
     MatNoDataRow,
     BadgeGreenComponent,

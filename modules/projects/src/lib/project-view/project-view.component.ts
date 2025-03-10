@@ -8,75 +8,71 @@ import { CompanyItem, ProjectItem, ProjectStatus } from '@amad-web-admin/modules
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { ProjectNavigationService } from '../commons/project-navigation.service';
-import {
-  BadgeGreenComponent,
-  BadgeRedComponent,
-  DialogResult,
-  DialogService,
-  ResultType
-} from '@amad-web-admin/modules/ui-elements';
+import { DialogResult, DialogService, ResultType } from '@amad-web-admin/modules/ui-elements';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
   standalone: true,
-  imports: [CommonModule,
+  imports: [
+    CommonModule,
     MatListModule,
     MatProgressSpinner,
     MatLine,
     MatButton,
-    BadgeGreenComponent,
-    BadgeRedComponent,
     MatIcon,
     MatListItemIcon,
-    MatTooltip, MatIconButton],
+    MatTooltip,
+    MatIconButton,
+  ],
   templateUrl: './project-view.component.html',
   styleUrl: './project-view.component.scss',
-  providers:[ProjectsFacade,ProjectNavigationService]
+  providers: [ProjectsFacade, ProjectNavigationService],
 })
 export class ProjectViewComponent {
-
   $loading = signal(true);
-  projects = signal<ProjectItem[]>([])
+  projects = signal<ProjectItem[]>([]);
 
-  constructor(@Inject(MAT_BOTTOM_SHEET_DATA) public data: CompanyItem,
-              private projectFacade:ProjectsFacade,
-              private navigationService:ProjectNavigationService,
-              private dialogService:DialogService,
-              private _bottomSheetRef: MatBottomSheetRef<ProjectViewComponent>
+  constructor(
+    @Inject(MAT_BOTTOM_SHEET_DATA) public data: CompanyItem,
+    private projectFacade: ProjectsFacade,
+    private navigationService: ProjectNavigationService,
+    private dialogService: DialogService,
+    private _bottomSheetRef: MatBottomSheetRef<ProjectViewComponent>
   ) {
-
-    this.projectFacade.listProjects$.subscribe(value => this.projects.set(value))
-    this.projectFacade.loaded$.subscribe(value => this.$loading.set(value))
-    this.projectFacade.getListProjects(data.id_cia.toString())
+    this.projectFacade.listProjects$.subscribe((value) => this.projects.set(value));
+    this.projectFacade.loaded$.subscribe((value) => this.$loading.set(value));
+    this.projectFacade.getListProjects(data.id_cia.toString());
   }
 
   viewProject(projectItem: ProjectItem) {
-
-    this._bottomSheetRef.dismiss()
-    this.navigationService.navigateToEdit(projectItem,this.data)
+    this._bottomSheetRef.dismiss();
+    this.navigationService.navigateToEdit(projectItem, this.data);
   }
 
   goToNewProject() {
-    this._bottomSheetRef.dismiss()
-    this.navigationService.navigateToAdd(this.data)
+    this._bottomSheetRef.dismiss();
+    this.navigationService.navigateToAdd(this.data);
   }
 
   protected readonly ProjectStatus = ProjectStatus;
 
   changeStatus(item: ProjectItem) {
-    this.dialogService.showWarning(
-      "Atención",
-      `¿Deseas ${item.status == ProjectStatus.ACTIVE?'desactivar' :'activar'} el projecto de ${item.application_name}`,).subscribe((dialogResult:DialogResult)=>{
-      if(dialogResult.resultType == ResultType.BUTTON_ONE){
-        this.$loading.set(true)
-        this.projectFacade.changeStatus(item.id_application,
-          item.status == ProjectStatus.ACTIVE? ProjectStatus.DISABLE : ProjectStatus.ACTIVE)
-      }else{
-        this._bottomSheetRef.dismiss()
-
-      }
-    })
-
+    this.dialogService
+      .showWarning(
+        'Atención',
+        `¿Deseas ${item.status == ProjectStatus.ACTIVE ? 'desactivar' : 'activar'} el projecto de ${item.application_name}`
+      )
+      .subscribe((dialogResult: DialogResult) => {
+        if (dialogResult.resultType == ResultType.BUTTON_ONE) {
+          this.$loading.set(true);
+          this.projectFacade.changeStatus(
+            item.id_application,
+            item.status == ProjectStatus.ACTIVE ? ProjectStatus.DISABLE : ProjectStatus.ACTIVE
+          );
+        } else {
+          this._bottomSheetRef.dismiss();
+        }
+      });
   }
 }

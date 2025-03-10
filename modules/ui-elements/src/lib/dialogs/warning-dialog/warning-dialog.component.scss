@@ -2,7 +2,8 @@
   color: white;
   background-color: forestgreen;
 }
+
 .mat-button-amber {
   color: white;
-  @apply bg-amber-800
+  background-color: theme('colors.amber.800'); // ✅ Usa Tailwind dentro de SCSS
 }

@@ -15,9 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@amad-web-admin/modules/authentication": [
-        "modules/authentication/src/index.ts"
-      ],
+      "@amad-web-admin/modules/authentication": ["modules/authentication/src/index.ts"],
       "@amad-web-admin/modules/companies": ["modules/companies/src/index.ts"],
       "@amad-web-admin/modules/core": ["modules/core/src/index.ts"],
       "@amad-web-admin/modules/dashboard": ["modules/dashboard/src/index.ts"],
@@ -25,12 +23,8 @@
       "@amad-web-admin/modules/layout": ["modules/layout/src/index.ts"],
       "@amad-web-admin/modules/network": ["modules/network/src/index.ts"],
       "@amad-web-admin/modules/projects": ["modules/projects/src/index.ts"],
-      "@amad-web-admin/modules/rol-permission": [
-        "modules/rol-permission/src/index.ts"
-      ],
-      "@amad-web-admin/modules/ui-elements": [
-        "modules/ui-elements/src/index.ts"
-      ],
+      "@amad-web-admin/modules/rol-permission": ["modules/rol-permission/src/index.ts"],
+      "@amad-web-admin/modules/ui-elements": ["modules/ui-elements/src/index.ts"],
       "@amad-web-admin/modules/user": ["modules/user/src/index.ts"]
     }
   },

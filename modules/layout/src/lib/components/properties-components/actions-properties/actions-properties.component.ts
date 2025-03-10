@@ -2,7 +2,6 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
-  computed,
   effect,
   input,
   ViewChild,
@@ -11,7 +10,6 @@ import { CommonModule } from '@angular/common';
 import { getDayForNumber, ShowBySchedule } from '../../../entities/actions';
 import { ComponentEntity, TypeComponent } from '@amad-web-admin/modules/layout';
 import { MatButton } from '@angular/material/button';
-import { MatCheckbox, MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDivider } from '@angular/material/divider';
 import {
   MatExpansionPanel,
@@ -23,7 +21,6 @@ import { MatInput } from '@angular/material/input';
 import { DialogScheduleComponent } from '../../../dialog-schedule/dialog-schedule.component';
 import { DialogService } from '@amad-web-admin/modules/ui-elements';
 import { MatSelectModule } from '@angular/material/select';
-import { CommonsStrings } from '@amad-web-admin/modules/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { defaultComponentEntity } from '../../../entities/defaults-components';
 import { NgxMaskDirective } from 'ngx-mask';
@@ -34,7 +31,6 @@ import { NgxMaskDirective } from 'ngx-mask';
   imports: [
     CommonModule,
     MatButton,
-    MatCheckbox,
     MatDivider,
     MatExpansionPanel,
     MatExpansionPanelHeader,
@@ -77,13 +73,11 @@ export class ActionsPropertiesComponent implements AfterViewInit {
   }
 
   openDialogDate() {
-    this.dialogService
-      .openAnyDialog(DialogScheduleComponent)
-      .subscribe((value) => {
-        if (value) {
-          this.updateShowBySchedule(value);
-        }
-      });
+    this.dialogService.openAnyDialog(DialogScheduleComponent).subscribe((value) => {
+      if (value) {
+        this.updateShowBySchedule(value);
+      }
+    });
   }
 
   updateShowBySchedule(addShowBySchedule: ShowBySchedule) {

@@ -1,24 +1,16 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  CdkDrag,
-  CdkDragDrop,
-  CdkDropList,
-  CdkDropListGroup,
-  moveItemInArray,
-  transferArrayItem
-} from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'lib-modules-layout',
   standalone: true,
-  imports: [CommonModule, CdkDropListGroup, CdkDropList, CdkDrag, RouterOutlet],
+  imports: [CommonModule, RouterOutlet],
   templateUrl: './modules-layout.component.html',
   styleUrl: './modules-layout.component.scss',
 })
 export class ModulesLayoutComponent {
-
   todo = ['Boton', 'Pick up groceries', 'Go home', 'Fall asleep'];
 
   done = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];
@@ -31,7 +23,7 @@ export class ModulesLayoutComponent {
         event.previousContainer.data,
         event.container.data,
         event.previousIndex,
-        event.currentIndex,
+        event.currentIndex
       );
     }
   }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MatList, MatListItem, MatListItemIcon } from '@angular/material/list';
+import { MatListItemIcon } from '@angular/material/list';
 import { MatIcon } from '@angular/material/icon';
 import { MatDivider } from '@angular/material/divider';
 import { MatIconButton } from '@angular/material/button';
@@ -11,25 +11,13 @@ import {
   CommonsStrings,
   NavigationRoutes,
 } from '@amad-web-admin/modules/core';
-import { Router, RouterLink } from '@angular/router';
-import * as coreModule from '@amad-web-admin/modules/core';
-import { AuthenticationService } from '@amad-web-admin/modules/network';
+import { RouterLink } from '@angular/router';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'dashboard-nav-menu',
   standalone: true,
-  imports: [
-    MatListItem,
-    MatIcon,
-    MatList,
-    MatListItemIcon,
-    MatDivider,
-    MatIconButton,
-    NgClass,
-    MatRipple,
-    RouterLink,
-  ],
+  imports: [MatIcon, MatListItemIcon, MatDivider, MatIconButton, NgClass, MatRipple, RouterLink],
   templateUrl: './nav-menu.component.html',
   styleUrl: './nav-menu.component.scss',
 })
@@ -70,12 +58,7 @@ export class NavMenuComponent {
 
   closeSession() {
     this.dialogService
-      .showWarning(
-        '¿Deseas cerrar sesión?',
-        '',
-        CommonsStrings.ACCEPT,
-        CommonsStrings.CANCEL
-      )
+      .showWarning('¿Deseas cerrar sesión?', '', CommonsStrings.ACCEPT, CommonsStrings.CANCEL)
       .subscribe((value) => {
         this.authenticationInformationService.deleteSession();
         window.location.reload();

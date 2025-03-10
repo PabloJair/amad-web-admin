@@ -18,7 +18,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import {
-  FilesAcceptValidator,
   FileUploadComponent,
   FileUploadControl,
   FileUploadDropZoneComponent,
@@ -27,12 +26,7 @@ import {
 } from '@iplab/ngx-file-upload';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { ProjectNavigationService } from '../commons/project-navigation.service';
-import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { JsonPipe } from '@angular/common';
 import { File } from '@ngx-dropzone/cdk';
 import { ProjectsFacade } from '../+state/projects.facade';
@@ -50,7 +44,6 @@ import { Subscription } from 'rxjs';
     FileUploadComponent,
     MatSlideToggle,
     ReactiveFormsModule,
-    FilesAcceptValidator,
     FileUploadDropZoneComponent,
     FileUploadListItemComponent,
     ButtonLoaderComponent,
@@ -90,13 +83,10 @@ export class ProjectAddComponent {
       nonNullable: true,
       validators: Validators.required,
     }),
-    application_description: new FormControl<string>(
-      CommonsStrings.EMPTY_STRING,
-      {
-        nonNullable: true,
-        validators: Validators.required,
-      }
-    ),
+    application_description: new FormControl<string>(CommonsStrings.EMPTY_STRING, {
+      nonNullable: true,
+      validators: Validators.required,
+    }),
     status: new FormControl<boolean>(true, {
       nonNullable: true,
       validators: Validators.required,
@@ -104,19 +94,13 @@ export class ProjectAddComponent {
     url: new FormControl<string>(CommonsStrings.EMPTY_STRING),
     version: new FormControl<string>(CommonsStrings.EMPTY_STRING, {
       nonNullable: true,
-      validators: [
-        Validators.required,
-        Validators.pattern(CommonsStrings.REGEX_VERSION),
-      ],
+      validators: [Validators.required, Validators.pattern(CommonsStrings.REGEX_VERSION)],
     }),
     icon: new FormControl(null, {
       nonNullable: true,
       validators: [
         FileUploadValidators.filesLimit(1),
-        FileUploadValidators.accept([
-          CommonsStrings.MIME_TYPE_JPG,
-          CommonsStrings.MIME_TYPE_PNG,
-        ]),
+        FileUploadValidators.accept([CommonsStrings.MIME_TYPE_JPG, CommonsStrings.MIME_TYPE_PNG]),
         Validators.required,
       ],
     }),
@@ -168,8 +152,7 @@ export class ProjectAddComponent {
     this.loading$.set(true);
 
     const request: AddOrEditProjectRequest = {
-      application_description:
-        this.addCompanyForm.controls.application_description.value,
+      application_description: this.addCompanyForm.controls.application_description.value,
       icon: '',
       application_name: this.addCompanyForm.controls.application_name.value,
       status: this.addCompanyForm.controls.status.value

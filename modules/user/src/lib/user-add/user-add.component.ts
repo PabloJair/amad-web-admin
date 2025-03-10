@@ -6,11 +6,6 @@ import {
   ButtonLoaderComponent,
   DialogService,
 } from '@amad-web-admin/modules/ui-elements';
-import {
-  FileUploadComponent,
-  FileUploadDropZoneComponent,
-  FileUploadListItemComponent,
-} from '@iplab/ngx-file-upload';
 import { MatButton } from '@angular/material/button';
 import {
   MatCard,
@@ -22,17 +17,8 @@ import {
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
-import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import {
-  AutoUnsubscribe,
-  CommonsStrings,
-  NavigationRoutes,
-} from '@amad-web-admin/modules/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AutoUnsubscribe, CommonsStrings, NavigationRoutes } from '@amad-web-admin/modules/core';
 import { UserNavigationService } from '../commons/user-navigation.service';
 import { UsersFacade } from '../+state/user.facade';
 import { StatusRol, UserStatus } from '@amad-web-admin/modules/network';
@@ -47,9 +33,6 @@ import { Subscription } from 'rxjs';
     CommonModule,
     BreadcrumbComponent,
     ButtonLoaderComponent,
-    FileUploadComponent,
-    FileUploadDropZoneComponent,
-    FileUploadListItemComponent,
     MatButton,
     MatCard,
     MatCardActions,
@@ -82,15 +65,10 @@ export class UserAddComponent implements AfterViewInit {
       this.loading$.set(false);
       this.navigation.navigateToList();
     });
-    this.loading$$ = this.userFacade.loaded$.subscribe((value) =>
-      this.loading$.set(value)
-    );
+    this.loading$$ = this.userFacade.loaded$.subscribe((value) => this.loading$.set(value));
 
     this.error$$ = this.userFacade.error$.subscribe((value) => {
-      this.dialogService.showError(
-        CommonsStrings.ERROR_GENERIC_TITLE,
-        value.message
-      );
+      this.dialogService.showError(CommonsStrings.ERROR_GENERIC_TITLE, value.message);
     });
 
     console.log();

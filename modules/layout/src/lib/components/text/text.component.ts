@@ -1,7 +1,7 @@
 import { Component, computed, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LayoutDragComponent } from '../layout-drag/layout-drag.component';
-import { CommonsUI, ResizableDirective } from '@amad-web-admin/modules/core';
+import { CommonsUI } from '@amad-web-admin/modules/core';
 import { ComponentEntity } from '../../entities/component-entity';
 import { getAlignmentText } from '../../entities/compontents-utils';
 import { defaultComponentEntity } from '../../entities/defaults-components';
@@ -9,7 +9,7 @@ import { defaultComponentEntity } from '../../entities/defaults-components';
 @Component({
   selector: 'lib-text',
   standalone: true,
-  imports: [CommonModule, LayoutDragComponent, ResizableDirective],
+  imports: [CommonModule, LayoutDragComponent],
   templateUrl: './text.component.html',
   styleUrl: './text.component.scss',
 })
