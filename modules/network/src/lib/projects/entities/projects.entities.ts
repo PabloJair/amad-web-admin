@@ -1,4 +1,4 @@
-import { ComponentEntity } from '@amad-web-admin/modules/layout';
+import { ComponentEntity, Properties } from '@amad-web-admin/modules/layout';
 import * as UUID from 'uuid';
 import {
   MunicipalityResponse,
@@ -82,7 +82,7 @@ export interface ApplicantProject {
   status: ApplicantProjectStatus;
   appId: string;
   preconfiguration: Preconfiguration;
-  views: ApplicantProjectLayout[];
+  views: View[];
   personalInformation?: PersonalInformation;
 }
 
@@ -119,10 +119,11 @@ export interface Preconfiguration {
   activeGeoLocalization: boolean;
 }
 
-export interface ApplicantProjectLayout {
+export interface View {
   id: string;
   nameView: string;
   mainView: boolean;
+  properties?: Properties | null;
   component: ComponentEntity[];
 }
 
@@ -156,11 +157,12 @@ export function createDefaultApplicantProject(): ApplicantProject {
   };
 }
 
-export function createDefaultApplicantProjectLayout(): ApplicantProjectLayout {
+export function createDefaultApplicantProjectLayout(): View {
   return {
     id: UUID.v4(),
     mainView: false,
     nameView: 'Vista 1',
+    properties: null,
     component: [],
   };
 }

@@ -4,7 +4,7 @@ import { MatLine } from '@angular/material/core';
 import { MatListItem, MatListItemTitle, MatNavList } from '@angular/material/list';
 import {
   ApplicantProject,
-  ApplicantProjectLayout,
+  View,
   createDefaultApplicantProjectLayout,
 } from '@amad-web-admin/modules/network';
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
@@ -27,7 +27,7 @@ export class SelectLayoutsComponent {
     this.list.set(data);
   }
 
-  load(item: ApplicantProjectLayout) {
+  load(item: View) {
     this._bottomSheetRef.dismiss({
       item,
       isNew: false,

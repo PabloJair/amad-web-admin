@@ -1,22 +1,13 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  input,
-  output,
-  signal,
-  ViewChild,
-  ViewContainerRef,
-} from '@angular/core';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
-import { ComponentEntity, TypeComponent } from '../entities/component-entity';
+import { ChangeDetectorRef, Component, output, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { CdkDragHandle } from '@angular/cdk/drag-drop';
+import { ComponentEntity, TypeComponent } from '@amad-web-admin/modules/network';
 import { ButtonComponent } from '../components/button/button.component';
 import { createComponent } from '../entities/compontents-utils';
 import { TextComponent } from '../components/text/text.component';
 import { ImageComponent } from '../components/image/image.component';
 import { ButtonImageComponent } from '../components/buttom-image/button-image.component';
 import { CarouselComponent } from '../components/carousel/carousel.component';
-import { CdkOverlayOrigin } from '@angular/cdk/overlay';
 import { defaultComponentEntity } from '../entities/defaults-components';
 import { VideoComponent } from '../components/video/video.component';
 
@@ -77,4 +68,8 @@ export class PreviewMobileComponent {
   }
 
   protected readonly defaultComponentEntity = defaultComponentEntity();
+
+  onClick() {
+    this.clean.emit();
+  }
 }

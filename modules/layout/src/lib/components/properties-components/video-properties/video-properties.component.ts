@@ -10,9 +10,8 @@ import {
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ComponentEntity, TypeComponent } from '@amad-web-admin/modules/layout';
 import { defaultComponentEntity } from '../../../entities/defaults-components';
-import { UploadService } from '@amad-web-admin/modules/network';
+import { ComponentEntity, UploadService } from '@amad-web-admin/modules/network';
 import { CommonsStrings } from '@amad-web-admin/modules/core';
 
 @Component({
@@ -36,8 +35,6 @@ import { CommonsStrings } from '@amad-web-admin/modules/core';
 })
 export class VideoPropertiesComponent {
   componentEntity = input<ComponentEntity>(defaultComponentEntity());
-  protected readonly TypeComponent = TypeComponent;
-
   loader = false;
 
   constructor(protected uploadImage: UploadService) {}

@@ -1,7 +1,7 @@
 import { Component, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CdkDropList } from '@angular/cdk/drag-drop';
-import { ComponentEntity, TypeComponent } from '../entities/component-entity';
+import { ComponentEntity, TypeComponent } from '@amad-web-admin/modules/network';
 import {
   componentsToolBox,
   getViewIconTypeComponent,

@@ -1,14 +1,7 @@
 import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  FileUploadComponent,
-  FileUploadControl,
-  FileUploadDropZoneComponent,
-  FileUploadListItemComponent,
-} from '@iplab/ngx-file-upload';
-import { ComponentEntity, TypeComponent } from '@amad-web-admin/modules/layout';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { UploadService } from '@amad-web-admin/modules/network';
+import { ComponentEntity, TypeComponent, UploadService } from '@amad-web-admin/modules/network';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';

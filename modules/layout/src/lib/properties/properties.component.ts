@@ -1,6 +1,6 @@
-import { Component, computed, input, output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ComponentEntity, TypeComponent } from '../entities/component-entity';
+import { ComponentEntity, TypeComponent } from '@amad-web-admin/modules/network';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';

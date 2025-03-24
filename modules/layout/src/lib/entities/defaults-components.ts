@@ -1,6 +1,11 @@
-import { ComponentEntity, TypeComponent } from './component-entity';
-import { PositionAlignment, Properties, TextAlignment } from './properties';
-import { Actions } from './actions';
+import {
+  ComponentEntity,
+  TypeComponent,
+  Actions,
+  PositionAlignment,
+  Properties,
+  TextAlignment,
+} from '@amad-web-admin/modules/network';
 import { CommonsUI } from '@amad-web-admin/modules/core';
 import { v4 as uuidv4 } from 'uuid';
 

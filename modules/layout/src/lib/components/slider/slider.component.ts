@@ -1,21 +1,20 @@
 import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ItemCarousel } from '../../entities/properties';
+import { ItemCarousel } from '../../../../../network/src/lib/layout/entities/properties';
 
 @Component({
   selector: 'lib-slider',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './slider.component.html',
-  styleUrl: './slider.component.scss'
+  styleUrl: './slider.component.scss',
 })
 export class SliderComponent {
   slides = input<ItemCarousel[]>([]);
 
   currentSlide = 0;
 
-  constructor() {
-  }
+  constructor() {}
 
   onPreviousClick() {
     const previous = this.currentSlide - 1;

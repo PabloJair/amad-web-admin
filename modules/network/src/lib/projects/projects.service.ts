@@ -11,7 +11,6 @@ import {
   LanguagesProject,
   ProjectInformation,
   ProjectItem,
-  QRCode,
   StatusProject,
   UpdateJsonProjectLayout,
 } from './entities/projects.entities';
@@ -23,32 +22,20 @@ export class ProjectsService {
   constructor(private http: HttpClient) {}
 
   listCompany(filter: FilterProjects): Observable<BaseResponse<CompanyItem[]>> {
-    return this.http.post<BaseResponse<CompanyItem[]>>(
-      projectsEndpoints.POST_LIST_COMPANY,
-      filter
-    );
+    return this.http.post<BaseResponse<CompanyItem[]>>(projectsEndpoints.POST_LIST_COMPANY, filter);
   }
 
-  addProject(
-    project: AddOrEditProjectRequest
-  ): Observable<BaseResponse<number>> {
-    return this.http.post<BaseResponse<number>>(
-      projectsEndpoints.ADD_PROJECTS,
-      project
-    );
+  addProject(project: AddOrEditProjectRequest): Observable<BaseResponse<number>> {
+    return this.http.post<BaseResponse<number>>(projectsEndpoints.ADD_PROJECTS, project);
   }
 
-  getProjectInformation(
-    project: ProjectItem
-  ): Observable<BaseResponse<ProjectInformation>> {
+  getProjectInformation(project: ProjectItem): Observable<BaseResponse<ProjectInformation>> {
     return this.http.get<BaseResponse<ProjectInformation>>(
       `${projectsEndpoints.GET_PROJECT_INFORMATION}${project.id_application}`
     );
   }
 
-  createJsonProject(
-    createJsonProject: CreateJsonProject
-  ): Observable<BaseResponse<number>> {
+  createJsonProject(createJsonProject: CreateJsonProject): Observable<BaseResponse<number>> {
     return this.http.post<BaseResponse<number>>(
       projectsEndpoints.POST_CREATE_JSON,
       createJsonProject
@@ -76,10 +63,7 @@ export class ProjectsService {
   }
 
   listProject(idCompany: string): Observable<BaseResponse<ProjectItem[]>> {
-    const url = projectsEndpoints.GET_LIST_PROJECTS.replace(
-      'idCompany',
-      idCompany
-    );
+    const url = projectsEndpoints.GET_LIST_PROJECTS.replace('idCompany', idCompany);
     return this.http.get<BaseResponse<ProjectItem[]>>(url);
   }
 
@@ -95,8 +79,6 @@ export class ProjectsService {
 
   getLanguages(): Observable<BaseResponse<LanguagesProject[]>> {
     const url = projectsEndpoints.GET_LANGUAGES;
-    return this.http.get<BaseResponse<LanguagesProject[]>>(
-      projectsEndpoints.GET_LANGUAGES
-    );
+    return this.http.get<BaseResponse<LanguagesProject[]>>(projectsEndpoints.GET_LANGUAGES);
   }
 }

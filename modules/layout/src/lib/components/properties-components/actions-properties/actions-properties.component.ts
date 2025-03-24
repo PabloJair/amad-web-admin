@@ -7,8 +7,12 @@ import {
   ViewChild,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { getDayForNumber, ShowBySchedule } from '../../../entities/actions';
-import { ComponentEntity, TypeComponent } from '@amad-web-admin/modules/layout';
+import {
+  ComponentEntity,
+  getDayForNumber,
+  ShowBySchedule,
+  TypeComponent,
+} from '@amad-web-admin/modules/network';
 import { MatButton } from '@angular/material/button';
 import { MatDivider } from '@angular/material/divider';
 import {
@@ -61,8 +65,6 @@ export class ActionsPropertiesComponent implements AfterViewInit {
     private changeDetectorRef: ChangeDetectorRef
   ) {
     effect(() => {
-      this.setupData();
-
       console.log('Cambio de ,', this.componentEntity());
     });
   }
@@ -93,9 +95,5 @@ export class ActionsPropertiesComponent implements AfterViewInit {
     if (addShowBySchedule) {
       this.componentEntity().actions?.showBySchedule.push(addShowBySchedule);
     }
-  }
-
-  setupData() {
-    setTimeout(() => {}, 0);
   }
 }

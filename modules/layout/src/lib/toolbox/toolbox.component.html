@@ -1,4 +1,4 @@
-<div cdkDropList class="h-full border stroke-gray-600"
+<div cdkDropList class="h-auto border p-3 stroke-gray-600"
      [cdkDropListData]="componentEntities"
 >
 
@@ -8,13 +8,10 @@
            (click)="addComponent(componentEntity.type)">
         <div class="flex flex-col justify-center items-center  h-full w-full">
           <span class="text-xs text-white"> {{ getViewNameTypeComponent(componentEntity) }}</span>
-
           <mat-icon aria-label="Example home icon"
                     [fontIcon]="getViewIconTypeComponent(componentEntity)"></mat-icon>
-
         </div>
       </div>
     }
-
   </div>
 </div>

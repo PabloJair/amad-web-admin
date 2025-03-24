@@ -22,11 +22,11 @@ import { NavigationRoutes } from '@amad-web-admin/modules/core';
 import { ToolboxComponent } from '../toolbox/toolbox.component';
 import { PropertiesComponent } from '../properties/properties.component';
 import { PreviewMobileComponent } from '../preview-mobile/preview-mobile.component';
-import { ComponentEntity, TypeComponent } from '../entities/component-entity';
+import { ComponentEntity, TypeComponent } from '@amad-web-admin/modules/network';
 import { NavigationLayoutService } from '../commons/navigation-layout.service';
 import {
   ApplicantProject,
-  ApplicantProjectLayout,
+  View,
   createDefaultApplicantProject,
   createDefaultApplicantProjectLayout,
   JsonProject,
@@ -34,16 +34,11 @@ import {
 } from '@amad-web-admin/modules/network';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { SelectLayoutsComponent } from '../select-layouts/select-layouts.component';
-import {
-  MatCheckbox,
-  MatCheckboxChange,
-  MatCheckboxModule,
-} from '@angular/material/checkbox';
+import { MatCheckbox, MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox';
 import { LayoutFacade } from '../+state/layout.facade';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoaderSnackbarComponent } from '@amad-web-admin/modules/ui-elements';
 import { defaultComponentEntity } from '../entities/defaults-components';
-import { timeout, timer } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -79,9 +74,7 @@ export class PreviewComponent implements AfterViewInit {
     project: ProjectItem;
   };
   applicantProject!: ApplicantProject;
-  selectedApplicantProjectLayout = signal<ApplicantProjectLayout>(
-    createDefaultApplicantProjectLayout()
-  );
+  selectedApplicantProjectLayout = signal<View>(createDefaultApplicantProjectLayout());
   showProperties = false;
   selectedComponent = signal<ComponentEntity>(defaultComponentEntity());
   sectionsProperties = signal<{ name: string; id: string }[]>([]);
@@ -127,9 +120,7 @@ export class PreviewComponent implements AfterViewInit {
         ? this.applicantProject.views[0]
         : createDefaultApplicantProjectLayout()
     );
-    this.previewMobileComponent?.reloadComponent(
-      this.selectedApplicantProjectLayout().component
-    );
+    this.previewMobileComponent?.reloadComponent(this.selectedApplicantProjectLayout().component);
   }
 
   onAddComponent($event: TypeComponent) {
@@ -165,18 +156,12 @@ export class PreviewComponent implements AfterViewInit {
       });
   }
 
-  showMessageSave(applicantProjectLayout: {
-    item: ApplicantProjectLayout;
-    isNew: boolean;
-  }) {
+  showMessageSave(applicantProjectLayout: { item: View; isNew: boolean }) {
     this.serviceDialog
       .showWarning('Atención', '¿Deseas guardar tus cambios?')
       .subscribe((value) => {
         console.log(applicantProjectLayout);
-        if (
-          applicantProjectLayout.isNew ||
-          value.resultType == ResultType.BUTTON_ONE
-        ) {
+        if (applicantProjectLayout.isNew || value.resultType == ResultType.BUTTON_ONE) {
           this.selectedApplicantProjectLayout.set(applicantProjectLayout.item);
           this.changeComponents();
 
@@ -190,20 +175,15 @@ export class PreviewComponent implements AfterViewInit {
   }
 
   changeComponents() {
-    this.previewMobileComponent?.reloadComponent(
-      this.selectedApplicantProjectLayout().component
-    );
+    this.previewMobileComponent?.reloadComponent(this.selectedApplicantProjectLayout().component);
   }
 
   saveJson() {
-    const changeItem = this.applicantProject.views.indexOf(
-      this.selectedApplicantProjectLayout()
-    );
+    const changeItem = this.applicantProject.views.indexOf(this.selectedApplicantProjectLayout());
     if (changeItem == -1) {
       this.applicantProject.views.push(this.selectedApplicantProjectLayout());
     } else {
-      this.applicantProject.views[changeItem] =
-        this.selectedApplicantProjectLayout();
+      this.applicantProject.views[changeItem] = this.selectedApplicantProjectLayout();
     }
   }
 
@@ -233,9 +213,7 @@ export class PreviewComponent implements AfterViewInit {
             message: value,
           },
         });
-        this.projectInformation.jsonProject.json = JSON.stringify(
-          this.applicantProject
-        );
+        this.projectInformation.jsonProject.json = JSON.stringify(this.applicantProject);
         this.navigation.saveLocalJson(
           this.projectInformation.jsonProject,
           this.projectInformation.codeLanguage,
@@ -257,8 +235,6 @@ export class PreviewComponent implements AfterViewInit {
   }
 
   changeNameView($event: Event) {
-    this.selectedApplicantProjectLayout().nameView = (
-      $event.target as HTMLInputElement
-    ).value;
+    this.selectedApplicantProjectLayout().nameView = ($event.target as HTMLInputElement).value;
   }
 }

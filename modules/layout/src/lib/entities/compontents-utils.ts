@@ -1,4 +1,4 @@
-import { ComponentEntity, TypeComponent } from './component-entity';
+import { ComponentEntity, TypeComponent } from '@amad-web-admin/modules/network';
 import { computed, InputSignal } from '@angular/core';
 import {
   buttonComponent,
@@ -55,9 +55,7 @@ export function createComponent(typeComponent: TypeComponent): ComponentEntity {
   return componentEntity;
 }
 
-export function getViewNameTypeComponent(
-  componentEntity: ComponentEntity
-): string {
+export function getViewNameTypeComponent(componentEntity: ComponentEntity): string {
   const viewNameMap: { [key in TypeComponent]?: string } = {
     [TypeComponent.IMAGE]: 'Imagen',
     [TypeComponent.BUTTON]: 'Boton',
@@ -71,9 +69,7 @@ export function getViewNameTypeComponent(
   return viewNameMap[componentEntity.type] ?? 'Unknown Component Type';
 }
 
-export function getViewIconTypeComponent(
-  componentEntity: ComponentEntity
-): string {
+export function getViewIconTypeComponent(componentEntity: ComponentEntity): string {
   const viewNameMap: { [key in TypeComponent]?: string } = {
     [TypeComponent.IMAGE]: 'image',
     [TypeComponent.BUTTON]: 'gamepad',
@@ -92,16 +88,7 @@ export function getAlignmentText(
 ): string {
   const alignmentText = typeAlignment ? typeAlignment : 'TS';
   const viewNameMap: {
-    [key in
-      | 'TS'
-      | 'TC'
-      | 'TE'
-      | 'MS'
-      | 'MC'
-      | 'ME'
-      | 'ES'
-      | 'EC'
-      | 'EE']?: string;
+    [key in 'TS' | 'TC' | 'TE' | 'MS' | 'MC' | 'ME' | 'ES' | 'EC' | 'EE']?: string;
   } = {
     ['TS']: 'justify-start',
     ['TC']: 'justify-center',

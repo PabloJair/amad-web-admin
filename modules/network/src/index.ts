@@ -36,3 +36,8 @@ export * from './lib/companies/entities/company-status';
 
 export * from './lib/sepomex/sepomex.service';
 export * from './lib/sepomex/sepomex.response';
+
+export * from './lib/layout/entities/properties';
+export * from './lib/layout/entities/component-entity';
+export * from './lib/layout/entities/actions';
+export * from './lib/layout/entities/type-component';

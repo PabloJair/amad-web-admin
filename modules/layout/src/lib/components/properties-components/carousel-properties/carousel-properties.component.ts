@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ComponentEntity } from '@amad-web-admin/modules/layout';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
-import { ItemCarousel } from '../../../entities/properties';
+import { ItemCarousel } from '../../../../../../network/src/lib/layout/entities/properties';
 import {
   FileUploadComponent,
   FileUploadControl,
@@ -82,8 +82,6 @@ export class CarouselPropertiesComponent {
 
   delete(item: ItemCarousel) {
     this.componentEntity().properties.itemCarousel =
-      this.componentEntity().properties.itemCarousel?.filter(
-        (value) => value.id != item.id
-      );
+      this.componentEntity().properties.itemCarousel?.filter((value) => value.id != item.id);
   }
 }
