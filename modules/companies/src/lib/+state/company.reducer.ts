@@ -1,20 +1,15 @@
 import { EntityAdapter, createEntityAdapter, IdSelector } from '@ngrx/entity';
 import { CompanyAppState } from './company.state';
 import { createFeature, createReducer, on } from '@ngrx/store';
-import { CompanyItem, ProjectItem } from '@amad-web-admin/modules/network';
-import {
-  companyAppAction,
-  companyRequestAction,
-  companyResponseAction,
-} from './company.actions';
+import { companyAppAction, companyRequestAction, companyResponseAction } from './company.actions';
+import { CompanyItem } from '@amad-web-admin/shared';
 
 export const COMPANY_FEATURE_KEY = 'module-company';
 const selectCompanyId: IdSelector<CompanyItem> = ({ id_cia }) => id_cia;
 
-export const companiesAdapter: EntityAdapter<CompanyItem> =
-  createEntityAdapter<CompanyItem>({
-    selectId: selectCompanyId,
-  });
+export const companiesAdapter: EntityAdapter<CompanyItem> = createEntityAdapter<CompanyItem>({
+  selectId: selectCompanyId,
+});
 
 export const companyInitialState: CompanyAppState = {
   company: undefined,
@@ -45,15 +40,15 @@ export const companyAppReducer = createReducer(
     error: null,
     loader: false,
   })),
-  on(companyRequestAction.delete, (state, items) => ({
+  on(companyRequestAction.delete, (state) => ({
     ...state,
-    anySuccess: null,
+    anySuccess: undefined,
     error: null,
     loader: true,
   })),
-  on(companyResponseAction.successDelete, (state, items) => ({
+  on(companyResponseAction.successDelete, (state, item) => ({
     ...state,
-    anySuccess: companyResponseAction.successDelete,
+    anySuccess: item.value,
     error: null,
     loader: false,
   })),
@@ -65,7 +60,7 @@ export const companyAppReducer = createReducer(
   })),
   on(companyAppAction.fail, (state, items) => ({
     ...state,
-    anySuccess: null,
+    anySuccess: undefined,
     error: items,
     loader: false,
   })),

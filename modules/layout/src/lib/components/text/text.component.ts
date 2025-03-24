@@ -2,7 +2,7 @@ import { Component, computed, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LayoutDragComponent } from '../layout-drag/layout-drag.component';
 import { CommonsUI } from '@amad-web-admin/modules/core';
-import { ComponentEntity } from '../../../../../network/src/lib/layout/entities/component-entity';
+import { ComponentEntity } from '@amad-web-admin/shared';
 import { getAlignmentText } from '../../entities/compontents-utils';
 import { defaultComponentEntity } from '../../entities/defaults-components';
 

@@ -15,8 +15,8 @@
         'width.px':component().properties.size.width ,
         'height.px':component().properties.size.height ,
         }"
-    (onFinishResize)="onFinishResized($event)"
-    (onResize)="onResize($event)"
+    (finishResized)="onFinishResized($event)"
+    (resized)="onResize($event)"
   >
     <lib-slider [slides]="component().properties.itemCarousel ?? []"></lib-slider>
   </div>

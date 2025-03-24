@@ -41,7 +41,11 @@ export class LayoutDragComponent {
   onDragStart($event: CdkDragStart) {
     console.log('dx:', this.dx());
     console.log('dy:', this.dy());
+    console.log('$event:', $event);
   }
 
-  onDragMoved($event: CdkDragMove) {}
+  onDragMoved($event: CdkDragMove) {
+    console.log('dx:', this.dx());
+    console.log('$event:', $event);
+  }
 }

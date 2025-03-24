@@ -1,14 +1,8 @@
-import {
-  AfterViewInit,
-  Component,
-  computed,
-  input,
-  output,
-} from '@angular/core';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { AfterViewInit, Component, input, output } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { LayoutDragComponent } from '../layout-drag/layout-drag.component';
 import { CommonsUI, ResizableDirective } from '@amad-web-admin/modules/core';
-import { ComponentEntity } from '@amad-web-admin/modules/layout';
+import { ComponentEntity } from '@amad-web-admin/shared';
 import { defaultComponentEntity } from '../../entities/defaults-components';
 
 @Component({
@@ -26,7 +20,7 @@ export class ImageComponent implements AfterViewInit {
   }
 
   component = input<ComponentEntity>(defaultComponentEntity());
-  onSelectedComponent = output<ComponentEntity>();
+  selectedComponent = output<ComponentEntity>();
 
   isDragging = false;
 

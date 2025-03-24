@@ -1,10 +1,5 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import {
-  AddUserRol,
-  EditUserRol,
-  FilterRoles,
-  UserRolItem,
-} from '@amad-web-admin/modules/network';
+import { AddUserRol, EditUserRol, FilterRoles, UserRolItem } from '@amad-web-admin/shared';
 
 export const rolAndPermissionsRequestAction = createActionGroup({
   source: 'module-rol-and-permissions-request',

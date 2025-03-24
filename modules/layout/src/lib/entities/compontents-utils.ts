@@ -1,5 +1,3 @@
-import { ComponentEntity, TypeComponent } from '@amad-web-admin/modules/network';
-import { computed, InputSignal } from '@angular/core';
 import {
   buttonComponent,
   carouselComponent,
@@ -9,6 +7,7 @@ import {
   imageComponent,
   textComponent,
 } from './defaults-components';
+import { ComponentEntity, TypeComponent } from '@amad-web-admin/shared';
 
 export const componentsToolBox: ComponentEntity[] = [
   buttonComponent(),
@@ -102,17 +101,4 @@ export function getAlignmentText(
   };
 
   return viewNameMap[alignmentText] ?? 'Unknown Component Type';
-}
-
-export function updateProperty(
-  name: string,
-  value: any,
-  componentEntity: InputSignal<ComponentEntity>
-) {
-  const newComponent = computed(() => componentEntity());
-  newComponent().properties = {
-    ...newComponent().properties,
-    [name]: value,
-  };
-  return newComponent;
 }

@@ -11,8 +11,8 @@
 >
   <div
     coreResizable
-    (onFinishResize)="onFinishResized($event)"
-    (onResize)="onResize($event)"
+    (finishResized)="onFinishResized($event)"
+    (resized)="onResize($event)"
     [ngStyle]="{
         'width.px':component().properties.size.width ,
         'height.px':component().properties.size.height ,

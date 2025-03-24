@@ -4,7 +4,7 @@ import {
   MunicipalityResponse,
   NeighborhoodsResponse,
   StatesResponse,
-} from '@amad-web-admin/modules/network';
+} from '@amad-web-admin/shared';
 
 export const sepomexActionRequest = createActionGroup({
   source: 'sepomex',
@@ -27,7 +27,7 @@ export const sepomexActionResponse = createActionGroup({
 export const sepomexAppAction = createActionGroup({
   source: 'sepomex',
   events: {
-    fail: props<{ error: any }>(),
+    fail: props<{ error: unknown }>(),
     load: props<{ value: boolean }>(),
     reset: emptyProps(),
   },

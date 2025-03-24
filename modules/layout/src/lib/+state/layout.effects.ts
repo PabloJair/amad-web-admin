@@ -1,17 +1,13 @@
 import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import {
-  layoutAppAction,
-  layoutRequestAction,
-  layoutResponseAction,
-} from './layout.actions';
+import { layoutAppAction, layoutRequestAction, layoutResponseAction } from './layout.actions';
 import { catchError, map, of, switchMap } from 'rxjs';
-import * as networkModule from '@amad-web-admin/modules/network';
+import { ProjectsService } from '@amad-web-admin/modules/network';
 
 @Injectable()
 export class LayoutEffects {
   private actions$ = inject(Actions);
-  private service$ = inject(networkModule.ProjectsService);
+  private service$ = inject(ProjectsService);
 
   updateJsonProject$ = createEffect(() =>
     this.actions$.pipe(

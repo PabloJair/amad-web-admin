@@ -1,10 +1,6 @@
 import { SepomexState } from './sepomex.state';
 import { createFeature, createReducer, on } from '@ngrx/store';
-import {
-  sepomexActionRequest,
-  sepomexActionResponse,
-  sepomexAppAction,
-} from './sepomex.action';
+import { sepomexActionRequest, sepomexActionResponse, sepomexAppAction } from './sepomex.action';
 import { projectInitialState } from '../projects.reducer';
 
 export const SEPOMEX_REDUCER_KEY = 'sepomex';
@@ -20,58 +16,58 @@ export const sepomexInitalState: SepomexState = {
 
 export const sepomexReducer = createReducer(
   sepomexInitalState,
-  on(sepomexActionRequest.listMunicipality, (state, action) => ({
+  on(sepomexActionRequest.listMunicipality, (state) => ({
     ...state,
     municipality: [],
     neighborhoods: [],
-    error: null,
+    error: undefined,
     loader: true,
   })),
-  on(sepomexActionRequest.listState, (state, action) => ({
+  on(sepomexActionRequest.listState, (state) => ({
     ...state,
     states: [],
     municipality: [],
     neighborhoods: [],
-    error: null,
+    error: undefined,
     loader: true,
   })),
-  on(sepomexActionRequest.listMunicipality, (state, action) => ({
+  on(sepomexActionRequest.listMunicipality, (state) => ({
     ...state,
     neighborhoods: [],
-    error: null,
+    error: undefined,
     loader: true,
   })),
-  on(sepomexActionRequest.searchCP, (state, action) => ({
+  on(sepomexActionRequest.searchCP, (state) => ({
     ...state,
     states: [],
     municipality: [],
     neighborhoods: [],
     searchCP: undefined,
-    error: null,
+    error: undefined,
     loader: true,
   })),
   on(sepomexActionResponse.successListState, (state, action) => ({
     ...state,
     states: action.value,
-    error: null,
+    error: undefined,
     loader: false,
   })),
   on(sepomexActionResponse.successListMunicipality, (state, action) => ({
     ...state,
     municipality: action.value,
-    error: null,
+    error: undefined,
     loader: false,
   })),
   on(sepomexActionResponse.successListNeighborhoods, (state, action) => ({
     ...state,
     neighborhoods: action.value,
-    error: null,
+    error: undefined,
     loader: false,
   })),
   on(sepomexActionResponse.successSearchCP, (state, action) => ({
     ...state,
     searchCP: action.value,
-    error: null,
+    error: undefined,
     loader: false,
   })),
 
@@ -82,7 +78,7 @@ export const sepomexReducer = createReducer(
     states: [],
     municipality: [],
     searchCP: undefined,
-    error: action.error,
+    error: action.error as Error,
   })),
 
   on(sepomexAppAction.reset, (state) => ({

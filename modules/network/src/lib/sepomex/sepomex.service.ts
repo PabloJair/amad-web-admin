@@ -6,7 +6,7 @@ import {
   MunicipalityResponse,
   NeighborhoodsResponse,
   StatesResponse,
-} from './sepomex.response';
+} from '@amad-web-admin/shared';
 import { sepomexEndPoints } from './sepomex.end-points';
 
 @Injectable({
@@ -35,9 +35,7 @@ export class SepomexService {
     );
   }
 
-  listNeighborhood(
-    idMunicipality: number
-  ): Observable<NeighborhoodsResponse[]> {
+  listNeighborhood(idMunicipality: number): Observable<NeighborhoodsResponse[]> {
     return this.http.get<NeighborhoodsResponse[]>(
       `${sepomexEndPoints.GET_ALL_COLONY_X_STATES}${idMunicipality}`,
       {
@@ -47,11 +45,8 @@ export class SepomexService {
   }
 
   searchForCP(cp: string): Observable<CPResponse> {
-    return this.http.get<CPResponse>(
-      `${sepomexEndPoints.SEARCH_FOR_CP}/${cp}`,
-      {
-        headers: this.headers,
-      }
-    );
+    return this.http.get<CPResponse>(`${sepomexEndPoints.SEARCH_FOR_CP}/${cp}`, {
+      headers: this.headers,
+    });
   }
 }

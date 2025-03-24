@@ -6,7 +6,7 @@ import {
   rolAndPermissionsRequestAction,
   rolAndPermissionsResponseAction,
 } from './rol-and-permissions.actions';
-import { UserRolItem } from '@amad-web-admin/modules/network';
+import { UserRolItem } from '@amad-web-admin/shared';
 
 export const USER_ROL_FEATURE_KEY = 'module-roles-and-permissions';
 const selectUserRolId: IdSelector<UserRolItem> = ({ id_rol }) => id_rol;
@@ -43,10 +43,7 @@ export const userRolReducer = createReducer(
   on(rolAndPermissionsResponseAction.successDelete, (state, item) => ({
     ...state,
     loader: false,
-    rolesState: userRolItemEntityAdapter.removeOne(
-      item.value,
-      state.rolesState
-    ),
+    rolesState: userRolItemEntityAdapter.removeOne(item.value, state.rolesState),
   })),
 
   on(rolAndPermissionsRequestAction.add, (state) => ({

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NavigationRoutes } from '@amad-web-admin/modules/core';
-import { UserEdit, UserItem } from '@amad-web-admin/modules/network';
 import { LocalStorageService } from 'angular-web-storage';
+import { UserEdit, UserItem } from '@amad-web-admin/shared';
 
 @Injectable()
 export class UserNavigationService {
@@ -53,10 +53,7 @@ export class UserNavigationService {
 
   navigateToList() {
     this.router
-      .navigate([
-        NavigationRoutes.dashboard.DASHBOARD,
-        NavigationRoutes.userRoutes.USER,
-      ])
+      .navigate([NavigationRoutes.dashboard.DASHBOARD, NavigationRoutes.userRoutes.USER])
       .then(() => true);
   }
 }

@@ -1,13 +1,6 @@
-import {
-  Directive,
-  ElementRef,
-  HostListener,
-  input,
-  output,
-  Renderer2,
-} from '@angular/core';
+import { Directive, ElementRef, HostListener, input, output, Renderer2 } from '@angular/core';
 import { CommonsUI } from '../utils/commons.strings';
-import { CdkDragEnd, CdkDragMove, CdkDragStart } from '@angular/cdk/drag-drop';
+import { CdkDragEnd, CdkDragMove } from '@angular/cdk/drag-drop';
 
 @Directive({
   standalone: true,
@@ -20,7 +13,10 @@ export class DraggableDirective {
   dx = input<number>(CommonsUI.ZERO);
   dy = input<number>(CommonsUI.ZERO);
 
-  constructor(private el: ElementRef, private renderer: Renderer2) {}
+  constructor(
+    private el: ElementRef,
+    private renderer: Renderer2
+  ) {}
 
   @HostListener('cdkDragEnded', ['$event'])
   onDragEnd(event: CdkDragEnd): void {
@@ -42,7 +38,7 @@ export class DraggableDirective {
   }
 
   @HostListener('cdkDragStarted', ['$event'])
-  onDragStart(event: CdkDragStart): void {
+  onDragStart(): void {
     console.log('dx:', this.dx);
     console.log('dy:', this.dy);
   }

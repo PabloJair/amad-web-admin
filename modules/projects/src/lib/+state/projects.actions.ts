@@ -1,5 +1,6 @@
+import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import {
-  AddOrEditProjectRequest,
+  AddOrEditProject,
   CompanyItem,
   CreateJsonProject,
   FilterProjects,
@@ -8,15 +9,14 @@ import {
   ProjectItem,
   StatusProject,
   UpdateJsonProjectLayout,
-} from '@amad-web-admin/modules/network';
-import { createActionGroup, emptyProps, props } from '@ngrx/store';
+} from '@amad-web-admin/shared';
 
 export const projectRequestAction = createActionGroup({
   source: 'module-users-request',
   events: {
-    add: props<{ value: AddOrEditProjectRequest }>(),
+    add: props<{ value: AddOrEditProject }>(),
     changeStatusProject: props<{ idProject: number; status: StatusProject }>(),
-    edit: props<{ value: AddOrEditProjectRequest; idProject: number }>(),
+    edit: props<{ value: AddOrEditProject; idProject: number }>(),
     listCompany: props<{ value: FilterProjects }>(),
     listProjects: props<{ value: string }>(),
     delete: props<{ value: StatusProject; idProject: number }>(),
@@ -30,8 +30,8 @@ export const projectRequestAction = createActionGroup({
 export const projectResponseAction = createActionGroup({
   source: 'module-users-response',
   events: {
-    successAdd: props<{ value: AddOrEditProjectRequest }>(),
-    successEdit: props<{ value: AddOrEditProjectRequest }>(),
+    successAdd: props<{ value: AddOrEditProject }>(),
+    successEdit: props<{ value: AddOrEditProject }>(),
     successDelete: props<{ idProject: number }>(),
     successChangeStatusProject: props<{
       success: boolean;
@@ -50,7 +50,7 @@ export const projectResponseAction = createActionGroup({
 export const projectAppAction = createActionGroup({
   source: 'module-users',
   events: {
-    fail: props<{ error: any }>(),
+    fail: props<{ error: unknown }>(),
     load: props<{ value: boolean }>(),
     reset: emptyProps(),
   },

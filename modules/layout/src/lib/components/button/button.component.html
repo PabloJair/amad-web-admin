@@ -5,14 +5,14 @@
   (changePosition)="changePosition($event)"
   [dx]="component().properties.position.x"
   [dy]="component().properties.position.y"
-  (click)="onSelectedComponent.emit(component())"
+  (click)="selectedComponent.emit(component())"
 >
 
   <div
     coreResizable
 
-    (onFinishResize)="onFinishResized($event)"
-    (onResize)="onResize($event)"
+    (finishResized)="onFinishResized($event)"
+    (resized)="onResize($event)"
     [minHeight]="CommonsUI.BUTTON_MIN_H"
     [minWidth]="CommonsUI.BUTTON_MIN_W"
 

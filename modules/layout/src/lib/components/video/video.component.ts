@@ -1,9 +1,9 @@
 import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LayoutDragComponent } from '../layout-drag/layout-drag.component';
-import { ComponentEntity } from '@amad-web-admin/modules/layout';
 import { defaultComponentEntity } from '../../entities/defaults-components';
 import { ResizableDirective } from '@amad-web-admin/modules/core';
+import { ComponentEntity } from '@amad-web-admin/shared';
 
 @Component({
   selector: 'lib-video',

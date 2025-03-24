@@ -1,19 +1,29 @@
-import { AfterViewInit, Directive, ElementRef, HostListener, input, output, Renderer2 } from '@angular/core';
+import {
+  AfterViewInit,
+  Directive,
+  ElementRef,
+  HostListener,
+  input,
+  output,
+  Renderer2,
+} from '@angular/core';
 import { CommonsUI } from '../utils/commons.strings';
 
 @Directive({
   standalone: true,
-  selector: '[coreResizable]'
+  selector: '[coreResizable]',
 })
 export class ResizableDirective implements AfterViewInit {
   private resizes: HTMLElement[] = [];
-  onResize = output<{ width: number, height: number }>();
-  onFinishResize = output<boolean>();
+  resized = output<{ width: number; height: number }>();
+  finishResized = output<boolean>();
   minWidth = input<number>(CommonsUI.BUTTON_MIN_W);
   minHeight = input<number>(CommonsUI.BUTTON_MIN_H);
 
-  constructor(private el: ElementRef, private renderer: Renderer2) {
-  }
+  constructor(
+    private el: ElementRef,
+    private renderer: Renderer2
+  ) {}
 
   ngAfterViewInit() {
     this.createResizes();
@@ -22,14 +32,14 @@ export class ResizableDirective implements AfterViewInit {
   @HostListener('mousedown', ['$event']) onMouseDown(event: MouseEvent) {
     if (this.resizes.includes(event.target as HTMLElement)) {
       this.initResize(event);
-      this.onFinishResize.emit(true);
+      this.finishResized.emit(true);
     }
   }
 
   private createResizes() {
     const positions = ['top-left', 'top-right', 'bottom-left', 'bottom-right'];
 
-    positions.forEach(pos => {
+    positions.forEach((pos) => {
       const resizer = this.renderer.createElement('div');
       this.renderer.setStyle(resizer, 'width', '15px');
       this.renderer.setStyle(resizer, 'height', '15px');
@@ -85,17 +95,24 @@ export class ResizableDirective implements AfterViewInit {
     const initialY = event.clientY;
 
     const mouseMoveListener = this.renderer.listen('document', 'mousemove', (e) =>
-      this.onMouseMove(e, initialWidth, initialHeight, initialX, initialY));
+      this.onMouseMove(e, initialWidth, initialHeight, initialX, initialY)
+    );
 
     const mouseUpListener = this.renderer.listen('document', 'mouseup', () => {
       mouseMoveListener();
       mouseUpListener();
       console.log('mouseUpListener');
-      this.onFinishResize.emit(false);
+      this.finishResized.emit(false);
     });
   }
 
-  private onMouseMove(event: MouseEvent, initialWidth: number, initialHeight: number, initialX: number, initialY: number) {
+  private onMouseMove(
+    event: MouseEvent,
+    initialWidth: number,
+    initialHeight: number,
+    initialX: number,
+    initialY: number
+  ) {
     const element = this.el.nativeElement;
     let newWidth = initialWidth + (event.clientX - initialX);
     let newHeight = initialHeight + (event.clientY - initialY);
@@ -106,8 +123,7 @@ export class ResizableDirective implements AfterViewInit {
     if (newHeight <= this.minHeight()) {
       newHeight = this.minHeight();
     }
-    this.onResize.emit({ height: newHeight, width: newWidth });
-
+    this.resized.emit({ height: newHeight, width: newWidth });
 
     this.renderer.setStyle(element, 'width', `${newWidth}px`);
     this.renderer.setStyle(element, 'height', `${newHeight}px`);

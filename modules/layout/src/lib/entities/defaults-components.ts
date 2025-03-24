@@ -1,13 +1,13 @@
+import { CommonsUI } from '@amad-web-admin/modules/core';
+import { v4 as uuidv4 } from 'uuid';
 import {
-  ComponentEntity,
-  TypeComponent,
   Actions,
+  ComponentEntity,
   PositionAlignment,
   Properties,
   TextAlignment,
-} from '@amad-web-admin/modules/network';
-import { CommonsUI } from '@amad-web-admin/modules/core';
-import { v4 as uuidv4 } from 'uuid';
+  TypeComponent,
+} from '@amad-web-admin/shared';
 
 export function defaultActions(): Actions {
   return new (class implements Actions {

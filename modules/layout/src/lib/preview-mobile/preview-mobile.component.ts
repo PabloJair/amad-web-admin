@@ -1,7 +1,6 @@
 import { ChangeDetectorRef, Component, output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CdkDragHandle } from '@angular/cdk/drag-drop';
-import { ComponentEntity, TypeComponent } from '@amad-web-admin/modules/network';
 import { ButtonComponent } from '../components/button/button.component';
 import { createComponent } from '../entities/compontents-utils';
 import { TextComponent } from '../components/text/text.component';
@@ -10,6 +9,7 @@ import { ButtonImageComponent } from '../components/buttom-image/button-image.co
 import { CarouselComponent } from '../components/carousel/carousel.component';
 import { defaultComponentEntity } from '../entities/defaults-components';
 import { VideoComponent } from '../components/video/video.component';
+import { ComponentEntity, TypeComponent } from '@amad-web-admin/shared';
 
 @Component({
   selector: 'lib-preview-mobile',
@@ -33,13 +33,17 @@ export class PreviewMobileComponent {
     height: 0,
     width: 0,
   });
-  onSelectedComponent = output<ComponentEntity>();
+  selectedComponent = output<ComponentEntity>();
   clean = output();
 
   constructor(private cdr: ChangeDetectorRef) {}
 
   public addNewComponent(typeComponent: TypeComponent): ComponentEntity {
     const component = { ...createComponent(typeComponent) };
+    const list = this.componentEntitiesAdd();
+    if (!list) {
+      throw new Error('componentEntitiesAdd() returned undefined');
+    }
     this.componentEntitiesAdd().push(component);
     this.cdr.detectChanges();
 
@@ -64,7 +68,7 @@ export class PreviewMobileComponent {
   protected readonly TypeComponent = TypeComponent;
 
   showProperties(item: ComponentEntity) {
-    this.onSelectedComponent.emit(item);
+    this.selectedComponent.emit(item);
   }
 
   protected readonly defaultComponentEntity = defaultComponentEntity();

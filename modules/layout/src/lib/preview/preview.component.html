@@ -36,10 +36,10 @@
     <mat-card-content class=" max-h-max ">
       <div class="flex justify-center    gap-4 w-full  h-full">
         <lib-toolbox class="flex-initial w-1/6"
-                     (onAddComponent)="onAddComponent($event)"
+                     (addedComponent)="onAddComponent($event)"
         ></lib-toolbox>
         <lib-preview-mobile
-          (onSelectedComponent)="onSelectedComponent($event)"
+          (selectedComponent)="onSelectedComponent($event)"
         ></lib-preview-mobile>
         <div class="flex-initial w-1/3">
           <lib-properties [componentEntity]="selectedComponent()"

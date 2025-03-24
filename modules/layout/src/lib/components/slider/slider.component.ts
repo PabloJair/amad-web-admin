@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ItemCarousel } from '../../../../../network/src/lib/layout/entities/properties';
+import { ItemCarousel } from '@amad-web-admin/shared';
 
 @Component({
   selector: 'lib-slider',
@@ -13,8 +13,6 @@ export class SliderComponent {
   slides = input<ItemCarousel[]>([]);
 
   currentSlide = 0;
-
-  constructor() {}
 
   onPreviousClick() {
     const previous = this.currentSlide - 1;

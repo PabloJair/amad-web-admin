@@ -1,3 +1,4 @@
+import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import {
   FilterRoles,
   FilterUser,
@@ -6,8 +7,7 @@ import {
   UserEdit,
   UserItem,
   UserRolItem,
-} from '@amad-web-admin/modules/network';
-import { createActionGroup, emptyProps, props } from '@ngrx/store';
+} from '@amad-web-admin/shared';
 
 export const userRequestAction = createActionGroup({
   source: 'module-users-request',

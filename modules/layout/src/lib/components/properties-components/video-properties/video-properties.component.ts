@@ -11,8 +11,9 @@ import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { defaultComponentEntity } from '../../../entities/defaults-components';
-import { ComponentEntity, UploadService } from '@amad-web-admin/modules/network';
+import { UploadService } from '@amad-web-admin/modules/network';
 import { CommonsStrings } from '@amad-web-admin/modules/core';
+import { ComponentEntity } from '@amad-web-admin/shared';
 
 @Component({
   selector: 'lib-video-properties',

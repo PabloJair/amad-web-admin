@@ -22,16 +22,8 @@ import { NavigationRoutes } from '@amad-web-admin/modules/core';
 import { ToolboxComponent } from '../toolbox/toolbox.component';
 import { PropertiesComponent } from '../properties/properties.component';
 import { PreviewMobileComponent } from '../preview-mobile/preview-mobile.component';
-import { ComponentEntity, TypeComponent } from '@amad-web-admin/modules/network';
 import { NavigationLayoutService } from '../commons/navigation-layout.service';
-import {
-  ApplicantProject,
-  View,
-  createDefaultApplicantProject,
-  createDefaultApplicantProjectLayout,
-  JsonProject,
-  ProjectItem,
-} from '@amad-web-admin/modules/network';
+
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { SelectLayoutsComponent } from '../select-layouts/select-layouts.component';
 import { MatCheckbox, MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox';
@@ -39,6 +31,16 @@ import { LayoutFacade } from '../+state/layout.facade';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoaderSnackbarComponent } from '@amad-web-admin/modules/ui-elements';
 import { defaultComponentEntity } from '../entities/defaults-components';
+import {
+  ApplicantProject,
+  ComponentEntity,
+  createDefaultApplicantProject,
+  createDefaultApplicantProjectLayout,
+  JsonProject,
+  ProjectItem,
+  TypeComponent,
+  View,
+} from '@amad-web-admin/shared';
 
 @Component({
   standalone: true,
@@ -108,7 +110,7 @@ export class PreviewComponent implements AfterViewInit {
         this.projectInformation.jsonProject.json
       ) as ApplicantProject;
       // Proceed with using the 'user' object
-    } catch (error) {
+    } catch {
       this.applicantProject = createDefaultApplicantProject();
       // Handle the error appropriately
     }

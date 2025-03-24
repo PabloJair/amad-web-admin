@@ -13,13 +13,14 @@ export class PreviewMobileCanvasComponent implements AfterViewInit {
   canvasRef!: ElementRef<HTMLCanvasElement>;
   private ctx!: CanvasRenderingContext2D;
 
-  private buttons: any[] = [];
+  private buttons: { x: number; y: number; width: number; height: number; text: string }[] = [];
   private activeButtonIndex: number | null = null; // Índice del botón activo
   private isResizing = false;
   private resizeHandleSize = 10;
 
   ngAfterViewInit() {
     const canvas = this.canvasRef.nativeElement;
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     this.ctx = canvas.getContext('2d')!;
 
     // Crear algunos botones iniciales
@@ -50,11 +51,7 @@ export class PreviewMobileCanvasComponent implements AfterViewInit {
       // Dibujar el texto
       this.ctx.fillStyle = 'black';
       this.ctx.font = '16px Arial';
-      this.ctx.fillText(
-        button.text,
-        button.x + 10,
-        button.y + button.height / 2 + 5
-      );
+      this.ctx.fillText(button.text, button.x + 10, button.y + button.height / 2 + 5);
 
       // Dibujar el manejador de redimensionamiento
       this.ctx.fillStyle = 'blue';
@@ -82,7 +79,17 @@ export class PreviewMobileCanvasComponent implements AfterViewInit {
     return null;
   }
 
-  isOnResizeHandle(x: number, y: number, button: any): boolean {
+  isOnResizeHandle(
+    x: number,
+    y: number,
+    button: {
+      x: number;
+      y: number;
+      width: number;
+      height: number;
+      text: string;
+    }
+  ): boolean {
     return (
       x >= button.x + button.width - this.resizeHandleSize &&
       x <= button.x + button.width &&
@@ -123,10 +130,7 @@ export class PreviewMobileCanvasComponent implements AfterViewInit {
       const newWidth = x - button.x;
       const newHeight = y - button.y;
 
-      if (
-        newWidth > this.resizeHandleSize &&
-        newHeight > this.resizeHandleSize
-      ) {
+      if (newWidth > this.resizeHandleSize && newHeight > this.resizeHandleSize) {
         button.width = newWidth;
         button.height = newHeight;
         this.drawButtons();

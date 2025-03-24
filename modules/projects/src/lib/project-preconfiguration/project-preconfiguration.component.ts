@@ -8,12 +8,7 @@ import {
   ImageUploadComponent,
 } from '@amad-web-admin/modules/ui-elements';
 import { FileUploadValidators } from '@iplab/ngx-file-upload';
-import {
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import {
   MatCard,
@@ -27,6 +22,12 @@ import { MatInput } from '@angular/material/input';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { CommonsStrings, NavigationRoutes } from '@amad-web-admin/modules/core';
 import { ProjectNavigationService } from '../commons/project-navigation.service';
+import { UploadService } from '@amad-web-admin/modules/network';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { ProjectsFacade } from '../+state/projects.facade';
+import { MatIconModule } from '@angular/material/icon';
+import { NgxMaskDirective } from 'ngx-mask';
+import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
 import {
   ApplicantProject,
   ApplicantProjectStatus,
@@ -34,13 +35,7 @@ import {
   JsonProject,
   ProjectItem,
   UpdateJsonProjectLayout,
-  UploadService,
-} from '@amad-web-admin/modules/network';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { ProjectsFacade } from '../+state/projects.facade';
-import { MatIconModule } from '@angular/material/icon';
-import { NgxMaskDirective } from 'ngx-mask';
-import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
+} from '@amad-web-admin/shared';
 
 @Component({
   selector: 'lib-project-preconfiguration',
@@ -144,9 +139,7 @@ export class ProjectPreconfigurationComponent {
     this.addConfigurationForm.controls.activeGeoLocalization.setValue(
       this.appProject.preconfiguration.activeGeoLocalization
     );
-    this.addConfigurationForm.controls.offline.setValue(
-      this.appProject.preconfiguration.offline
-    );
+    this.addConfigurationForm.controls.offline.setValue(this.appProject.preconfiguration.offline);
     this.addConfigurationForm.controls.showState.setValue(
       this.appProject.preconfiguration.showState
     );
@@ -156,15 +149,11 @@ export class ProjectPreconfigurationComponent {
     this.addConfigurationForm.controls.tagAnalyticOpen.setValue(
       this.appProject.preconfiguration.tagAnalyticOpen
     );
-    this.addConfigurationForm.controls.urlSound.setValue(
-      this.appProject.preconfiguration.urlSound
-    );
+    this.addConfigurationForm.controls.urlSound.setValue(this.appProject.preconfiguration.urlSound);
     this.addConfigurationForm.controls.urlAnalytics.setValue(
       this.appProject.preconfiguration.urlAnalytics
     );
-    this.addConfigurationForm.controls.urlAnalytics.setValue(
-      this.appProject.appId
-    );
+    this.addConfigurationForm.controls.urlAnalytics.setValue(this.appProject.appId);
     this.addConfigurationForm.controls.status.setValue(
       this.appProject.status == ApplicantProjectStatus.ACTIVE
     );
@@ -182,8 +171,7 @@ export class ProjectPreconfigurationComponent {
     this.appProject.status = this.addConfigurationForm.controls.status.value
       ? ApplicantProjectStatus.ACTIVE
       : ApplicantProjectStatus.DISABLE;
-    this.appProject.appId =
-      this.addConfigurationForm.controls.appId.value ?? '';
+    this.appProject.appId = this.addConfigurationForm.controls.appId.value ?? '';
     this.appProject.preconfiguration.tagAnalyticOpen =
       this.addConfigurationForm.controls.tagAnalyticOpen.value ?? '';
     this.uploadJson();
@@ -212,10 +200,7 @@ export class ProjectPreconfigurationComponent {
       language: this.projectItem.codeLanguage,
       status: 1,
     };
-    this.projectFacade.UpdateJsonProject(
-      updateJson,
-      this.projectItem.jsonProject.id_json
-    );
+    this.projectFacade.UpdateJsonProject(updateJson, this.projectItem.jsonProject.id_json);
 
     const success$ = this.projectFacade.anySuccess.subscribe((value) => {
       this.spinner.hide();
@@ -237,10 +222,7 @@ export class ProjectPreconfigurationComponent {
         success$.unsubscribe();
       }
     });
-    this.projectFacade.UpdateJsonProject(
-      updateJson,
-      this.projectItem.jsonProject.id_json
-    );
+    this.projectFacade.UpdateJsonProject(updateJson, this.projectItem.jsonProject.id_json);
   }
 
   addOtherPhone(value: string) {
@@ -249,9 +231,7 @@ export class ProjectPreconfigurationComponent {
 
   deleteInterceptorPhone(item: string) {
     this.appProject.preconfiguration.interceptorPhone =
-      this.appProject.preconfiguration.interceptorPhone.filter(
-        (value) => value != item
-      );
+      this.appProject.preconfiguration.interceptorPhone.filter((value) => value != item);
   }
 
   protected readonly CommonsStrings = CommonsStrings;

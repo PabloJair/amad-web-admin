@@ -1,15 +1,13 @@
 import { Action, ActionReducer, MetaReducer } from '@ngrx/store';
-import {APPLICATION_LOGOUT_ACTION} from "./application.actions";
+import { APPLICATION_LOGOUT_ACTION } from './application.actions';
 
-function LogoutMetaReducer<State>(
-  reducer: ActionReducer<State>,
-): ActionReducer<any> {
-  return function clearStateFn(state: State, action: Action) {
+export function logoutMetaReducer<State>(reducer: ActionReducer<State>): ActionReducer<State> {
+  return function clearStateFn(state: State | undefined, action: Action): State {
     if (action.type === APPLICATION_LOGOUT_ACTION) {
-      state = {} as State; // ==> Emptying state here
+      state = undefined; // limpia el estado de forma compatible con Store
     }
     return reducer(state, action);
   };
 }
 
-export const metaReducers: MetaReducer[] = [LogoutMetaReducer];
+export const metaReducers: MetaReducer[] = [logoutMetaReducer];

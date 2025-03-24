@@ -2,13 +2,14 @@ import { Component, Inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatLine } from '@angular/material/core';
 import { MatListItem, MatListItemTitle, MatNavList } from '@angular/material/list';
-import {
-  ApplicantProject,
-  View,
-  createDefaultApplicantProjectLayout,
-} from '@amad-web-admin/modules/network';
+
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { MatButton } from '@angular/material/button';
+import {
+  ApplicantProject,
+  createDefaultApplicantProjectLayout,
+  View,
+} from '@amad-web-admin/shared';
 
 @Component({
   standalone: true,

@@ -1,34 +1,16 @@
 import { Component, computed, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
-import { ComponentEntity } from '@amad-web-admin/modules/layout';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { ComponentEntity } from '@amad-web-admin/shared';
 import { LayoutDragComponent } from '../layout-drag/layout-drag.component';
 import { CommonsUI, ResizableDirective } from '@amad-web-admin/modules/core';
 import { SliderComponent } from '../slider/slider.component';
-import { CdkDrag } from '@angular/cdk/drag-drop';
 import { carouselComponent } from '../../entities/defaults-components';
-
-interface Image {
-  src: string;
-  title?: string;
-  alt?: string;
-}
 
 @Component({
   selector: 'lib-carousel',
   standalone: true,
-  imports: [
-    CommonModule,
-    LayoutDragComponent,
-    ResizableDirective,
-    SliderComponent,
-  ],
+  imports: [CommonModule, LayoutDragComponent, ResizableDirective, SliderComponent],
   templateUrl: './carousel.component.html',
   styleUrl: './carousel.component.scss',
   animations: [

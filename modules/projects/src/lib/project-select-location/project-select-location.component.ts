@@ -10,17 +10,17 @@ import { MatButton } from '@angular/material/button';
 import { MatFormField } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { SepomexFacade } from '../+state/sepomex/sepomex.facade';
-import {
-  LocationConfiguration,
-  MunicipalityResponse,
-  NeighborhoodsResponse,
-  StatesResponse,
-} from '@amad-web-admin/modules/network';
 import { FormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInput } from '@angular/material/input';
 import { Subscription } from 'rxjs';
 import { AutoUnsubscribe } from '@amad-web-admin/modules/core';
+import {
+  LocationConfiguration,
+  MunicipalityResponse,
+  NeighborhoodsResponse,
+  StatesResponse,
+} from '@amad-web-admin/shared';
 
 @Component({
   selector: 'lib-project-select-location',

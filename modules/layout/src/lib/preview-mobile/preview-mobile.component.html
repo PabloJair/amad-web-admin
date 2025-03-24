@@ -15,7 +15,7 @@
             cdkDragBoundaryName="#boundary"
             (click)="showProperties(item)"
             [component]="item"
-            (onSelectedComponent)="showProperties($event)"
+            (selectedComponent)="showProperties($event)"
           ></lib-app-button>
         }
         @case (TypeComponent.TEXT) {

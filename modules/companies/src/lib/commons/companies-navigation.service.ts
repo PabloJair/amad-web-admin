@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { NavigationRoutes } from '@amad-web-admin/modules/core';
-import { CompanyItem } from '@amad-web-admin/modules/network';
+import { CompanyItem } from '@amad-web-admin/shared';
 
 @Injectable()
 export class CompaniesNavigationService {
@@ -30,10 +30,7 @@ export class CompaniesNavigationService {
 
   navigateToList() {
     this.router
-      .navigate([
-        NavigationRoutes.dashboard.DASHBOARD,
-        NavigationRoutes.company.COMPANY,
-      ])
+      .navigate([NavigationRoutes.dashboard.DASHBOARD, NavigationRoutes.company.COMPANY])
       .then(() => true);
   }
 }

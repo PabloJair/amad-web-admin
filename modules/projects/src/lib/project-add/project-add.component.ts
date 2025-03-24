@@ -7,13 +7,7 @@ import {
 import { MatCardModule } from '@angular/material/card';
 import { CommonsStrings, NavigationRoutes } from '@amad-web-admin/modules/core';
 import { MatButtonModule } from '@angular/material/button';
-import {
-  AddOrEditProjectRequest,
-  CompanyItem,
-  ProjectStatus,
-  Status,
-  UploadService,
-} from '@amad-web-admin/modules/network';
+import { UploadService } from '@amad-web-admin/modules/network';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
@@ -27,10 +21,10 @@ import {
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { ProjectNavigationService } from '../commons/project-navigation.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { JsonPipe } from '@angular/common';
 import { File } from '@ngx-dropzone/cdk';
 import { ProjectsFacade } from '../+state/projects.facade';
 import { Subscription } from 'rxjs';
+import { AddOrEditProject, CompanyItem, ProjectStatus, Status } from '@amad-web-admin/shared';
 
 @Component({
   standalone: true,
@@ -117,7 +111,7 @@ export class ProjectAddComponent {
       name: this.companyItem?.nombre ?? '',
     });
 
-    this.add$$ = this.projectFacade.anySuccess.subscribe((value) => {
+    this.add$$ = this.projectFacade.anySuccess.subscribe(() => {
       this.loading$.set(false);
       navigation.navigateToList();
     });
@@ -151,7 +145,7 @@ export class ProjectAddComponent {
   add() {
     this.loading$.set(true);
 
-    const request: AddOrEditProjectRequest = {
+    const request: AddOrEditProject = {
       application_description: this.addCompanyForm.controls.application_description.value,
       icon: '',
       application_name: this.addCompanyForm.controls.application_name.value,

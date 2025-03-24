@@ -1,13 +1,9 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { NavigationRoutes } from '@amad-web-admin/modules/core';
-import {
-  CompanyItem,
-  JsonProject,
-  ProjectItem,
-} from '@amad-web-admin/modules/network';
 import { LocalStorageService } from 'angular-web-storage';
 import { Location } from '@angular/common';
+import { CompanyItem, JsonProject, ProjectItem } from '@amad-web-admin/shared';
 
 @Injectable()
 export class ProjectNavigationService {
@@ -21,11 +17,8 @@ export class ProjectNavigationService {
   private KEY_JSON_PROJECT = 'KEY_JSON_PROJECT';
 
   getEditProject(): ProjectItem {
-    const project = this.router.getCurrentNavigation()?.extras
-      .state as ProjectItem;
-    return project !== undefined
-      ? project
-      : this.localStorage.get(this.KEY_PROJECT);
+    const project = this.router.getCurrentNavigation()?.extras.state as ProjectItem;
+    return project !== undefined ? project : this.localStorage.get(this.KEY_PROJECT);
   }
 
   getJsonConfiguration(): {
@@ -33,8 +26,6 @@ export class ProjectNavigationService {
     codeLanguage: string;
     project: ProjectItem;
   } {
-    const project = this.router.getCurrentNavigation()?.extras
-      .state as JsonProject;
     return this.localStorage.get(this.KEY_JSON_PROJECT);
   }
 
@@ -75,11 +66,7 @@ export class ProjectNavigationService {
       .then(() => true);
   }
 
-  navigateToLayout(
-    jsonProject: JsonProject,
-    project: ProjectItem,
-    codeLanguage: string
-  ) {
+  navigateToLayout(jsonProject: JsonProject, project: ProjectItem, codeLanguage: string) {
     const state = {
       jsonProject,
       codeLanguage,
@@ -88,18 +75,11 @@ export class ProjectNavigationService {
     this.localStorage.set(this.KEY_JSON_PROJECT, state);
 
     this.router
-      .navigate([
-        NavigationRoutes.dashboard.DASHBOARD,
-        NavigationRoutes.layout.HOME,
-      ])
+      .navigate([NavigationRoutes.dashboard.DASHBOARD, NavigationRoutes.layout.HOME])
       .then(() => true);
   }
 
-  navigateToConfiguration(
-    jsonProject: JsonProject,
-    project: ProjectItem,
-    codeLanguage: string
-  ) {
+  navigateToConfiguration(jsonProject: JsonProject, project: ProjectItem, codeLanguage: string) {
     const state = {
       jsonProject,
       codeLanguage,
@@ -125,10 +105,7 @@ export class ProjectNavigationService {
 
   navigateToList() {
     this.router
-      .navigate([
-        NavigationRoutes.dashboard.DASHBOARD,
-        NavigationRoutes.projects.PROJECT,
-      ])
+      .navigate([NavigationRoutes.dashboard.DASHBOARD, NavigationRoutes.projects.PROJECT])
       .then(() => true);
   }
 
@@ -136,11 +113,7 @@ export class ProjectNavigationService {
     this.location.back();
   }
 
-  navigateToInformationData(
-    jsonProject: JsonProject,
-    project: ProjectItem,
-    codeLanguage: string
-  ) {
+  navigateToInformationData(jsonProject: JsonProject, project: ProjectItem, codeLanguage: string) {
     const state = {
       jsonProject,
       codeLanguage,

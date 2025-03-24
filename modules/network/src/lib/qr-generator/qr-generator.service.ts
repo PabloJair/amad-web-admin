@@ -1,6 +1,5 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { QRCode } from '@amad-web-admin/modules/network';
 
 @Injectable({
   providedIn: 'root',

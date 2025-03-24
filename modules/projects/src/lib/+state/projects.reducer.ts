@@ -1,26 +1,19 @@
 import { EntityAdapter, createEntityAdapter, IdSelector } from '@ngrx/entity';
 import { ProjectAppState } from './projects.state';
 import { createFeature, createReducer, on } from '@ngrx/store';
-import { CompanyItem, ProjectItem } from '@amad-web-admin/modules/network';
-import {
-  projectAppAction,
-  projectRequestAction,
-  projectResponseAction,
-} from './projects.actions';
+import { projectAppAction, projectRequestAction, projectResponseAction } from './projects.actions';
+import { CompanyItem, ProjectItem } from '@amad-web-admin/shared';
 
 export const PROJECT_FEATURE_KEY = 'module-project';
-const selectProjectId: IdSelector<ProjectItem> = ({ id_application }) =>
-  id_application;
+const selectProjectId: IdSelector<ProjectItem> = ({ id_application }) => id_application;
 const selectCompanyId: IdSelector<CompanyItem> = ({ id_cia }) => id_cia;
 
-export const projectAdapter: EntityAdapter<ProjectItem> =
-  createEntityAdapter<ProjectItem>({
-    selectId: selectProjectId,
-  });
-export const companiesAdapter: EntityAdapter<CompanyItem> =
-  createEntityAdapter<CompanyItem>({
-    selectId: selectCompanyId,
-  });
+export const projectAdapter: EntityAdapter<ProjectItem> = createEntityAdapter<ProjectItem>({
+  selectId: selectProjectId,
+});
+export const companiesAdapter: EntityAdapter<CompanyItem> = createEntityAdapter<CompanyItem>({
+  selectId: selectCompanyId,
+});
 
 export const projectInitialState: ProjectAppState = {
   languages: [],
@@ -141,7 +134,7 @@ export const projectsReducer = createReducer(
     ...state,
     projectInitialState,
   })),
-  on(projectRequestAction.getLanguages, (state, items) => ({
+  on(projectRequestAction.getLanguages, (state) => ({
     ...state,
     languages: [],
     error: null,
@@ -153,9 +146,9 @@ export const projectsReducer = createReducer(
     error: null,
     loader: false,
   })),
-  on(projectRequestAction.createJsonProject, (state, items) => ({
+  on(projectRequestAction.createJsonProject, (state) => ({
     ...state,
-    anySuccess: null,
+    anySuccess: undefined,
     error: null,
     loader: true,
   })),
@@ -165,9 +158,9 @@ export const projectsReducer = createReducer(
     error: null,
     loader: false,
   })),
-  on(projectRequestAction.updateJsonProject, (state, items) => ({
+  on(projectRequestAction.updateJsonProject, (state) => ({
     ...state,
-    anySuccess: null,
+    anySuccess: undefined,
     error: null,
     loader: true,
   })),

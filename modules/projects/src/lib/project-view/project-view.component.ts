@@ -4,13 +4,13 @@ import { MatListItemIcon, MatListModule } from '@angular/material/list';
 import { MatLine } from '@angular/material/core';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { ProjectsFacade } from '../+state/projects.facade';
-import { CompanyItem, ProjectItem, ProjectStatus } from '@amad-web-admin/modules/network';
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { ProjectNavigationService } from '../commons/project-navigation.service';
 import { DialogResult, DialogService, ResultType } from '@amad-web-admin/modules/ui-elements';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
+import { CompanyItem, ProjectItem, ProjectStatus } from '@amad-web-admin/shared';
 
 @Component({
   standalone: true,

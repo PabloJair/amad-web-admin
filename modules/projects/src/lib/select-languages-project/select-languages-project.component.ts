@@ -3,16 +3,16 @@ import { CommonModule } from '@angular/common';
 import { MatLine } from '@angular/material/core';
 import { MatListItem, MatListItemTitle, MatNavList } from '@angular/material/list';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { ProjectsFacade } from '../+state/projects.facade';
+import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import { ProjectNavigationService } from '../commons/project-navigation.service';
+import { TypeView } from './TypeView';
 import {
   JsonProject,
   LanguagesProject,
   ProjectInformation,
   ProjectItem,
-} from '@amad-web-admin/modules/network';
-import { ProjectsFacade } from '../+state/projects.facade';
-import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
-import { ProjectNavigationService } from '../commons/project-navigation.service';
-import { TypeView } from './TypeView';
+} from '@amad-web-admin/shared';
 
 @Component({
   selector: 'lib-select-languages-project',
@@ -78,7 +78,7 @@ export class SelectLanguagesProjectComponent implements AfterViewInit {
             status: 1,
             json: '',
             id_application: this.data.projectItem.id_application,
-            id_json: value,
+            id_json: value as number,
             is_default: true,
           });
           anySuccess.unsubscribe();

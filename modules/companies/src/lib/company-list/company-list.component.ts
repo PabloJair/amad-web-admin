@@ -43,15 +43,12 @@ import {
   defaultEmptyOrNull,
   NavigationRoutes,
 } from '@amad-web-admin/modules/core';
-import { CompanyItem } from '@amad-web-admin/modules/network';
 import { Subscription } from 'rxjs';
-import { CompanyStatus } from '@amad-web-admin/modules/network';
 import { CompanyFacade } from '../+state/company.facade';
 import { RouterLink } from '@angular/router';
 import { CompaniesNavigationService } from '../commons/companies-navigation.service';
-import { companyResponseAction } from '../+state/company.actions';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
+import { CompanyItem, CompanyStatus } from '@amad-web-admin/shared';
 
 @Component({
   selector: 'lib-company-list',
@@ -161,11 +158,9 @@ export class CompanyListComponent implements AfterViewInit {
   ) {
     this.companyFacade.reset();
 
-    this.listCompany$$ = this.companyFacade.listCompanies$.subscribe(
-      (value) => {
-        this.dataSource.data = value;
-      }
-    );
+    this.listCompany$$ = this.companyFacade.listCompanies$.subscribe((value) => {
+      this.dataSource.data = value;
+    });
     this.loaded$$ = this.companyFacade.loaded$.subscribe((value) => {
       if (value) {
         this.spinner.show().then();
@@ -175,16 +170,12 @@ export class CompanyListComponent implements AfterViewInit {
     });
     this.companyFacade.error$.subscribe((value) => {
       if (value) {
-        this.dialog.showError(
-          'Atención',
-          `Error al desactivar la compañia`,
-          CommonsStrings.ACCEPT
-        );
+        this.dialog.showError('Atención', `Error al desactivar la compañia`, CommonsStrings.ACCEPT);
       }
     });
 
     this.companyFacade.success$.subscribe((value) => {
-      if (value == companyResponseAction.successDelete) {
+      if (value) {
         this.changeTypeCompany(CompanyStatus.ACTIVE);
       }
     });

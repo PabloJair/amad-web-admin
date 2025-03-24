@@ -2,15 +2,15 @@ import { inject, Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { projectsSelector } from './projects.selector';
 import { filter, skip } from 'rxjs';
+import { projectAppAction, projectRequestAction } from './projects.actions';
 import {
-  AddOrEditProjectRequest,
+  AddOrEditProject,
   CreateJsonProject,
   FilterProjects,
   ProjectItem,
   ProjectStatus,
   UpdateJsonProjectLayout,
-} from '@amad-web-admin/modules/network';
-import { projectAppAction, projectRequestAction } from './projects.actions';
+} from '@amad-web-admin/shared';
 
 @Injectable()
 export class ProjectsFacade {
@@ -35,11 +35,11 @@ export class ProjectsFacade {
     this.store.dispatch(projectRequestAction.listProjects({ value: value }));
   }
 
-  public addProject(value: AddOrEditProjectRequest) {
+  public addProject(value: AddOrEditProject) {
     this.store.dispatch(projectRequestAction.add({ value: value }));
   }
 
-  public editProject(idProject: number, value: AddOrEditProjectRequest) {
+  public editProject(idProject: number, value: AddOrEditProject) {
     this.store.dispatch(projectRequestAction.edit({ idProject, value }));
   }
 
@@ -57,9 +57,7 @@ export class ProjectsFacade {
   }
 
   public UpdateJsonProject(value: UpdateJsonProjectLayout, id: number) {
-    this.store.dispatch(
-      projectRequestAction.updateJsonProject({ value, id: id.toString() })
-    );
+    this.store.dispatch(projectRequestAction.updateJsonProject({ value, id: id.toString() }));
   }
 
   public createJsonProject(value: CreateJsonProject) {

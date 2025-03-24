@@ -10,8 +10,8 @@
     coreResizable
     [minHeight]="CommonsUI.IMAGE_MIN_H"
     [minWidth]="CommonsUI.IMAGE_MIN_W"
-    (onFinishResize)="onFinishResized($event)"
-    (onResize)="onResize($event)"
+    (finishResized)="onFinishResized($event)"
+    (resized)="onResize($event)"
     [ngStyle]="{
         'fontSize.px': component().properties.fontSize,
         'color': component().properties.colorText,

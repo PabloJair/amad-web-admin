@@ -2,14 +2,9 @@ import { inject, Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { userSelector } from './user.selector';
 import { filter, skip } from 'rxjs';
-import {
-  FilterRoles,
-  FilterUser,
-  UserAdd,
-  UserEdit,
-  UserItem,
-} from '@amad-web-admin/modules/network';
+
 import { userAppAction, userRequestAction } from './user.actions';
+import { FilterRoles, FilterUser, UserAdd, UserEdit, UserItem } from '@amad-web-admin/shared';
 
 @Injectable()
 export class UsersFacade {
@@ -21,12 +16,13 @@ export class UsersFacade {
   error$ = this.store.pipe(select(userSelector.error), skip(1));
   successAddUser$ = this.store.pipe(
     select(userSelector.anySuccess),
-    filter(filter => filter != null),
+    filter((filter) => filter != null)
   );
   userInformation$ = this.store.pipe(
     select(userSelector.userInformation),
-    filter(filter => filter != null),
+    filter((filter) => filter != null)
   );
+
   public getListUsers(filter: FilterUser) {
     this.store.dispatch(userRequestAction.list({ value: filter }));
   }
@@ -38,6 +34,7 @@ export class UsersFacade {
   public editUser(value: UserEdit, idUser: number) {
     this.store.dispatch(userRequestAction.edit({ value, idUser }));
   }
+
   public userInformation(value: UserItem) {
     this.store.dispatch(userRequestAction.getInformation({ value }));
   }

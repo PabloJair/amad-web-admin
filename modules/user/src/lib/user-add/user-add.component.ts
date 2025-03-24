@@ -21,9 +21,9 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AutoUnsubscribe, CommonsStrings, NavigationRoutes } from '@amad-web-admin/modules/core';
 import { UserNavigationService } from '../commons/user-navigation.service';
 import { UsersFacade } from '../+state/user.facade';
-import { StatusRol, UserStatus } from '@amad-web-admin/modules/network';
 import { MatSelectModule } from '@angular/material/select';
 import { Subscription } from 'rxjs';
+import { StatusRol } from '@amad-web-admin/shared';
 
 @AutoUnsubscribe
 @Component({

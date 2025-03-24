@@ -27,8 +27,8 @@ import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { AutoUnsubscribe, CommonsStrings, NavigationRoutes } from '@amad-web-admin/modules/core';
 import { Subscription } from 'rxjs';
 import { RolesAndPermissionFacade } from '../+store/roles-and-permission.facade';
-import { AddUserRol } from '@amad-web-admin/modules/network';
 import { RolPermissionNavigationService } from '../commons/rol-permission-navigation.service';
+import { AddUserRol } from '@amad-web-admin/shared';
 
 @AutoUnsubscribe
 @Component({
@@ -65,7 +65,7 @@ export class RolAddComponent {
     protected rolesAndPermissionFacade: RolesAndPermissionFacade,
     protected navigation: RolPermissionNavigationService
   ) {
-    this.successAddRol$$ = rolesAndPermissionFacade.successRol$.subscribe((value) => {
+    this.successAddRol$$ = rolesAndPermissionFacade.successRol$.subscribe(() => {
       this.loading$.set(false);
       this.navigation.navigateToList();
     });

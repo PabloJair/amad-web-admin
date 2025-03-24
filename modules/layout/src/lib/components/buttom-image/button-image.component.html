@@ -9,8 +9,8 @@
     coreResizable
     [minHeight]="CommonsUI.BUTTON_IMAGE_MIN_H"
     [minWidth]="CommonsUI.BUTTON_IMAGE_MIN_W"
-    (onFinishResize)="onFinishResized($event)"
-    (onResize)="onResize($event)"
+    (finishResized)="onFinishResized($event)"
+    (resized)="onResize($event)"
     [ngStyle]="{
         'fontSize.px': component().properties.fontSize,
         'background-color':component().properties.background ?? 'gray',

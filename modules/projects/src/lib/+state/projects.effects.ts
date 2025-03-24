@@ -1,13 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import {
-  projectAppAction,
-  projectRequestAction,
-  projectResponseAction,
-} from './projects.actions';
+import { projectAppAction, projectRequestAction, projectResponseAction } from './projects.actions';
 import { catchError, map, of, switchMap } from 'rxjs';
 import * as networkModule from '@amad-web-admin/modules/network';
-import { Status } from '@amad-web-admin/modules/network';
+import { Status } from '@amad-web-admin/shared';
 
 @Injectable()
 export class ProjectsEffects {
@@ -65,18 +61,16 @@ export class ProjectsEffects {
     this.actions$.pipe(
       ofType(projectRequestAction.changeStatusProject),
       switchMap((request) =>
-        this.service$
-          .changeStatusCompany(request.idProject, request.status)
-          .pipe(
-            map((response) =>
-              projectResponseAction.successChangeStatusProject({
-                success: response.status == Status.OK,
-                idProject: request.idProject,
-                status: request.status,
-              })
-            ),
-            catchError((error) => of(projectAppAction.fail(error.error)))
-          )
+        this.service$.changeStatusCompany(request.idProject, request.status).pipe(
+          map((response) =>
+            projectResponseAction.successChangeStatusProject({
+              success: response.status == Status.OK,
+              idProject: request.idProject,
+              status: request.status,
+            })
+          ),
+          catchError((error) => of(projectAppAction.fail(error.error)))
+        )
       )
     )
   );
@@ -84,7 +78,7 @@ export class ProjectsEffects {
   getLanguages$ = createEffect(() =>
     this.actions$.pipe(
       ofType(projectRequestAction.getLanguages),
-      switchMap((request) =>
+      switchMap(() =>
         this.service$.getLanguages().pipe(
           map((response) =>
             projectResponseAction.successLanguages({
@@ -133,7 +127,7 @@ export class ProjectsEffects {
       ofType(projectRequestAction.edit),
       switchMap((request) =>
         this.service$.putProject(request.idProject, request.value).pipe(
-          map((response) =>
+          map(() =>
             projectResponseAction.successEdit({
               value: request.value,
             })

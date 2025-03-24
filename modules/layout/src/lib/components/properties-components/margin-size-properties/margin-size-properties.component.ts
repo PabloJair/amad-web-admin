@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDivider } from '@angular/material/divider';
 import {
@@ -10,9 +10,9 @@ import {
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
-import { ComponentEntity } from '@amad-web-admin/modules/layout';
 import { FormsModule } from '@angular/forms';
 import { defaultComponentEntity } from '../../../entities/defaults-components';
+import { ComponentEntity } from '@amad-web-admin/shared';
 
 @Component({
   selector: 'lib-margin-size-properties',

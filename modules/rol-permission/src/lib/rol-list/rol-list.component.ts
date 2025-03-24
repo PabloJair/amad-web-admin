@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
-import { NgIf } from '@angular/common';
 import {
   BadgeGreenComponent,
   BadgeRedComponent,
   BreadcrumbComponent,
   BreadcrumbItem,
+  DialogResult,
   DialogService,
   ResultType,
 } from '@amad-web-admin/modules/ui-elements';
@@ -21,17 +21,12 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import {
-  StatusRol,
-  UserRolItem,
-  UserRolStatus,
-} from '@amad-web-admin/modules/network';
 import { RolesAndPermissionFacade } from '../+store/roles-and-permission.facade';
 import { Subscription } from 'rxjs';
 import { RolPermissionNavigationService } from '../commons/rol-permission-navigation.service';
-import { CompanyStatus } from '@amad-web-admin/modules/network';
 import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
 import { listBreadcrumb } from '../commons/breadcrumb-rol';
+import { StatusRol, UserRolItem, UserRolStatus } from '@amad-web-admin/shared';
 
 @Component({
   selector: 'lib-rol-list',
@@ -62,13 +57,7 @@ import { listBreadcrumb } from '../commons/breadcrumb-rol';
 })
 export class RolListComponent implements AfterViewInit, OnDestroy {
   dataSource = new MatTableDataSource<UserRolItem>([]);
-  displayedColumns: string[] = [
-    'id',
-    'name',
-    'description',
-    'status',
-    'action',
-  ];
+  displayedColumns: string[] = ['id', 'name', 'description', 'status', 'action'];
   protected breadcrumbItems: BreadcrumbItem[] = listBreadcrumb();
   private listRolUser$$: Subscription;
   private loaded$$: Subscription;
@@ -80,11 +69,9 @@ export class RolListComponent implements AfterViewInit, OnDestroy {
     protected dialog: DialogService,
     private spinner: NgxSpinnerService
   ) {
-    this.listRolUser$$ = this.rolesAndPermissionsFacade.listRol$.subscribe(
-      (value) => {
-        this.dataSource.data = value;
-      }
-    );
+    this.listRolUser$$ = this.rolesAndPermissionsFacade.listRol$.subscribe((value) => {
+      this.dataSource.data = value;
+    });
 
     this.loaded$$ = this.rolesAndPermissionsFacade.loaded$.subscribe((value) =>
       value ? spinner.show() : spinner.hide()
@@ -102,17 +89,12 @@ export class RolListComponent implements AfterViewInit, OnDestroy {
 
   delete(element: UserRolItem) {
     this.dialog
-      .showWarning(
-        'Deseasea eliminar el Rol?',
-        'Advertencia',
-        'Aceptar',
-        'Cancelar'
-      )
-      .subscribe((value) => {
+      .showWarning('Deseasea eliminar el Rol?', 'Advertencia', 'Aceptar', 'Cancelar')
+      .subscribe((value: DialogResult) =>
         value.resultType == ResultType.BUTTON_TWO
           ? this.rolesAndPermissionsFacade.deleteRol(element.id_rol)
-          : null;
-      });
+          : null
+      );
   }
 
   showStatus(number: number) {
@@ -134,5 +116,4 @@ export class RolListComponent implements AfterViewInit, OnDestroy {
 
   protected readonly UserRolStatus = UserRolStatus;
   protected readonly StatusRol = StatusRol;
-  protected readonly CompanyStatus = CompanyStatus;
 }

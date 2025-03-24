@@ -1,11 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as networkModule from '@amad-web-admin/modules/network';
-import {
-  sepomexActionRequest,
-  sepomexActionResponse,
-  sepomexAppAction,
-} from './sepomex.action';
+import { sepomexActionRequest, sepomexActionResponse, sepomexAppAction } from './sepomex.action';
 import { catchError, map, of, switchMap } from 'rxjs';
 
 @Injectable()
@@ -16,7 +12,7 @@ export class SepomexEffect {
   getStates$ = createEffect(() =>
     this.actions$.pipe(
       ofType(sepomexActionRequest.listState),
-      switchMap((request) =>
+      switchMap(() =>
         this.service$.listStates().pipe(
           map((response) =>
             sepomexActionResponse.successListState({

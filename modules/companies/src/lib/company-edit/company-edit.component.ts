@@ -5,7 +5,6 @@ import {
   BreadcrumbItem,
   ButtonLoaderComponent,
   DialogService,
-  ResultType,
 } from '@amad-web-admin/modules/ui-elements';
 import {
   FormControl,
@@ -28,17 +27,8 @@ import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { Subscription } from 'rxjs';
 import { CompanyFacade } from '../+state/company.facade';
 import { CompaniesNavigationService } from '../commons/companies-navigation.service';
-import {
-  AutoUnsubscribe,
-  CommonsStrings,
-  NavigationRoutes,
-} from '@amad-web-admin/modules/core';
-import {
-  CompanyItem,
-  EditCompany,
-  ProjectStatus,
-} from '@amad-web-admin/modules/network';
-import { CompanyStatus } from '../../../../network/src/lib/companies/entities/company-status';
+import { AutoUnsubscribe, CommonsStrings, NavigationRoutes } from '@amad-web-admin/modules/core';
+import { CompanyItem, CompanyStatus, EditCompany, ProjectStatus } from '@amad-web-admin/shared';
 import { NgxMaskDirective } from 'ngx-mask';
 
 @AutoUnsubscribe
@@ -140,18 +130,14 @@ export class CompanyEditComponent implements AfterViewInit {
     if (this.companyItem == undefined) {
       this.dialogService
         .showError(CommonsStrings.ERROR_GENERIC_TITLE, 'Error al cargar el Rol')
-        .subscribe((value) => {
+        .subscribe(() => {
           this.navigate.navigateToList();
         });
       return;
     }
-    this.editCompanyForm.controls.status.setValue(
-      this.companyItem.status == ProjectStatus.ACTIVE
-    );
+    this.editCompanyForm.controls.status.setValue(this.companyItem.status == ProjectStatus.ACTIVE);
     this.editCompanyForm.controls.nombre.setValue(this.companyItem.nombre);
-    this.editCompanyForm.controls.nombre_comercial.setValue(
-      this.companyItem.nombre_comercial
-    );
+    this.editCompanyForm.controls.nombre_comercial.setValue(this.companyItem.nombre_comercial);
     this.editCompanyForm.controls.contacto.setValue(this.companyItem.contacto);
     this.editCompanyForm.controls.telefono.setValue(this.companyItem.telefono);
   }
@@ -160,23 +146,15 @@ export class CompanyEditComponent implements AfterViewInit {
     this.successEditRol$$ = this.facade.success$.subscribe((value) => {
       console.log(value);
       if (value) {
-        this.dialogService.showSuccess(
-          'Atención',
-          'Compañia actualizada correctamente '
-        );
+        this.dialogService.showSuccess('Atención', 'Compañia actualizada correctamente ');
         this.loading$.set(false);
       }
     });
 
-    this.loading$$ = this.facade.loaded$.subscribe((value) =>
-      this.loading$.set(value)
-    );
+    this.loading$$ = this.facade.loaded$.subscribe((value) => this.loading$.set(value));
 
     this.error$$ = this.facade.error$.subscribe((value) => {
-      this.dialogService.showError(
-        CommonsStrings.ERROR_GENERIC_TITLE,
-        value.message
-      );
+      this.dialogService.showError(CommonsStrings.ERROR_GENERIC_TITLE, (value as Error).message);
     });
   }
 }

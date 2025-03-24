@@ -1,9 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { filter, map, skip } from 'rxjs';
+import { filter, skip } from 'rxjs';
 import { sepomexSelector } from './sepomex.selector';
 import { sepomexActionRequest, sepomexAppAction } from './sepomex.action';
-import { data } from 'autoprefixer';
 
 @Injectable()
 export class SepomexFacade {
@@ -33,9 +32,7 @@ export class SepomexFacade {
   }
 
   public getListNeighborhoods(idMunicipality: number) {
-    this.store.dispatch(
-      sepomexActionRequest.listNeighborhoods({ idMunicipality })
-    );
+    this.store.dispatch(sepomexActionRequest.listNeighborhoods({ idMunicipality }));
   }
 
   public reset() {

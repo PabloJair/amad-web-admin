@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, computed, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ComponentEntity } from '@amad-web-admin/modules/layout';
+import { ComponentEntity } from '@amad-web-admin/shared';
 import { CommonsUI, ResizableDirective } from '@amad-web-admin/modules/core';
 import { LayoutDragComponent } from '../layout-drag/layout-drag.component';
 import { getAlignmentText } from '../../entities/compontents-utils';
@@ -15,7 +15,7 @@ import { defaultComponentEntity } from '../../entities/defaults-components';
 })
 export class ButtonComponent implements AfterViewInit {
   cdkDragBoundaryName = input<string>('');
-  onSelectedComponent = output<ComponentEntity>();
+  selectedComponent = output<ComponentEntity>();
   public component = input<ComponentEntity>(defaultComponentEntity());
   totalSize = input<{ width: number; height: number }>({
     height: 0,
@@ -36,7 +36,7 @@ export class ButtonComponent implements AfterViewInit {
   }
 
   onResize($event: { width: number; height: number }) {
-    this.onSelectedComponent.emit(this.component());
+    this.selectedComponent.emit(this.component());
     this.component().properties.size = $event;
     this.isDragging = true;
   }

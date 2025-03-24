@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { BaseResponse } from '../base-response';
+import { BaseResponse } from '@amad-web-admin/shared';
 import { UploadEndpoints } from './upload.endpoints';
 
 @Injectable({
@@ -13,9 +13,6 @@ export class UploadService {
   uploadFile(file: File): Observable<BaseResponse<string>> {
     const formData: FormData = new FormData();
     formData.append('uploadedFile', file);
-    return this.http.post<BaseResponse<string>>(
-      UploadEndpoints.upload,
-      formData
-    );
+    return this.http.post<BaseResponse<string>>(UploadEndpoints.upload, formData);
   }
 }

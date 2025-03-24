@@ -1,9 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { skip } from 'rxjs';
-import { UpdateJsonProjectLayout } from '@amad-web-admin/modules/network';
 import { layoutSelector } from './layout.selector';
 import { layoutAppAction, layoutRequestAction } from './layout.actions';
+import { UpdateJsonProjectLayout } from '@amad-web-admin/shared';
 
 @Injectable()
 export class LayoutFacade {
@@ -14,9 +14,7 @@ export class LayoutFacade {
   error$ = this.store.pipe(select(layoutSelector.error), skip(1));
 
   public UpdateJsonProject(value: UpdateJsonProjectLayout, id: number) {
-    this.store.dispatch(
-      layoutRequestAction.updateJsonProject({ value, id: id.toString() })
-    );
+    this.store.dispatch(layoutRequestAction.updateJsonProject({ value, id: id.toString() }));
   }
 
   public reset() {

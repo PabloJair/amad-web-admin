@@ -13,23 +13,11 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {
-  BreadcrumbComponent,
-  ButtonLoaderComponent,
-} from '@amad-web-admin/modules/ui-elements';
+import { BreadcrumbComponent, ButtonLoaderComponent } from '@amad-web-admin/modules/ui-elements';
 import { createFileUploadImageControlDefault } from '@amad-web-admin/modules/core';
 import { ProjectNavigationService } from '../commons/project-navigation.service';
 import { ProjectSelectLocationComponent } from '../project-select-location/project-select-location.component';
-import {
-  ApplicantProject,
-  getJsonData,
-  JsonProject,
-  LocationConfiguration,
-  PersonalInformation,
-  ProjectItem,
-  TypeInputPersonalInformation,
-  UploadService,
-} from '@amad-web-admin/modules/network';
+import { UploadService } from '@amad-web-admin/modules/network';
 
 import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
 import {
@@ -40,6 +28,15 @@ import {
 import { MatInputModule } from '@angular/material/input';
 import { getBreadcrumbInformationPersonal } from '../commons/BreadcrumbsCommons';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
+import {
+  ApplicantProject,
+  getJsonData,
+  JsonProject,
+  LocationConfiguration,
+  PersonalInformation,
+  ProjectItem,
+  TypeInputPersonalInformation,
+} from '@amad-web-admin/shared';
 import { ProjectsFacade } from '@amad-web-admin/modules/projects';
 
 @Component({
@@ -70,8 +67,7 @@ import { ProjectsFacade } from '@amad-web-admin/modules/projects';
 })
 export class ProjectInformationDataComponent {
   // Protected variables
-  protected readonly TypeInputPersonalInformation =
-    TypeInputPersonalInformation;
+  protected readonly TypeInputPersonalInformation = TypeInputPersonalInformation;
 
   // Public variables
   public readonly fileUploadControl = createFileUploadImageControlDefault();
@@ -83,9 +79,7 @@ export class ProjectInformationDataComponent {
     showTypesData: [],
     active: false,
   };
-  personalInformation = signal<PersonalInformation>(
-    this.defaultPersonalInformation
-  );
+  personalInformation = signal<PersonalInformation>(this.defaultPersonalInformation);
   public selectedFields: TypeInputPersonalInformation[] = [];
   public fields: TypeInputPersonalInformation[] = [];
 
@@ -106,19 +100,15 @@ export class ProjectInformationDataComponent {
     this.initializeData();
 
     // Show spinner based on facade state
-    this.projectFacade.loaded$.subscribe((value) => {
-      value ? this.spinnerService.show() : this.spinnerService.hide();
-    });
+    this.projectFacade.loaded$.subscribe((value: boolean) =>
+      value ? this.spinnerService.show() : this.spinnerService.hide()
+    );
   }
 
   /** Handle Drag and Drop events */
   drop(event: CdkDragDrop<TypeInputPersonalInformation[]>) {
     if (event.previousContainer === event.container) {
-      moveItemInArray(
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
       transferArrayItem(
         event.previousContainer.data,
@@ -144,14 +134,12 @@ export class ProjectInformationDataComponent {
 
     this.spinnerService.show().then();
     if (this.fileUploadControl.value[0]) {
-      this.uploadImage
-        .uploadFile(this.fileUploadControl.value[0])
-        .subscribe((value) => {
-          this.personalInformation().urlImage = value.data;
-          jsonData.personalInformation = this.personalInformation();
-          this.spinnerService.hide().then();
-          this.uploadJson(jsonData);
-        });
+      this.uploadImage.uploadFile(this.fileUploadControl.value[0]).subscribe((value) => {
+        this.personalInformation().urlImage = value.data;
+        jsonData.personalInformation = this.personalInformation();
+        this.spinnerService.hide().then();
+        this.uploadJson(jsonData);
+      });
     } else {
       if (
         !this.personalInformation().showTypesData.includes(
@@ -188,23 +176,14 @@ export class ProjectInformationDataComponent {
         this.defaultPersonalInformation
     );
     const applicantProject = getJsonData(this.projectItem.jsonProject);
-    this.selectedFields =
-      applicantProject.personalInformation?.showTypesData ?? [];
+    this.selectedFields = applicantProject.personalInformation?.showTypesData ?? [];
     this.personalInformation().locationInformation =
       applicantProject.personalInformation?.locationInformation ?? null;
 
-    if (
-      !this.personalInformation().showTypesData.includes(
-        TypeInputPersonalInformation.PHONE
-      )
-    ) {
+    if (!this.personalInformation().showTypesData.includes(TypeInputPersonalInformation.PHONE)) {
       this.fields.push(TypeInputPersonalInformation.PHONE);
     }
-    if (
-      !this.personalInformation().showTypesData.includes(
-        TypeInputPersonalInformation.NAME
-      )
-    ) {
+    if (!this.personalInformation().showTypesData.includes(TypeInputPersonalInformation.NAME)) {
       this.fields.push(TypeInputPersonalInformation.NAME);
     }
     if (
@@ -214,11 +193,7 @@ export class ProjectInformationDataComponent {
     ) {
       this.fields.push(TypeInputPersonalInformation.LOCALIZATION_CONFIGURATION);
     }
-    if (
-      !this.personalInformation().showTypesData.includes(
-        TypeInputPersonalInformation.EMAIL
-      )
-    ) {
+    if (!this.personalInformation().showTypesData.includes(TypeInputPersonalInformation.EMAIL)) {
       this.fields.push(TypeInputPersonalInformation.EMAIL);
     }
   }
@@ -237,9 +212,8 @@ export class ProjectInformationDataComponent {
 
   private requiresLocationConfig(): boolean {
     return (
-      this.selectedFields.includes(
-        TypeInputPersonalInformation.LOCALIZATION_CONFIGURATION
-      ) && this.personalInformation().locationInformation === null
+      this.selectedFields.includes(TypeInputPersonalInformation.LOCALIZATION_CONFIGURATION) &&
+      this.personalInformation().locationInformation === null
     );
   }
 
@@ -254,8 +228,7 @@ export class ProjectInformationDataComponent {
     }
   }
 
-  protected readonly getBreadcrumbInformationPersonal =
-    getBreadcrumbInformationPersonal;
+  protected readonly getBreadcrumbInformationPersonal = getBreadcrumbInformationPersonal;
 
   deleteItem(item: TypeInputPersonalInformation) {
     this.selectedFields = this.selectedFields.filter((value) => value !== item);

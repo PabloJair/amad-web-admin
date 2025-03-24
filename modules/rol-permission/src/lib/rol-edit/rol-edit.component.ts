@@ -29,13 +29,9 @@ import { AutoUnsubscribe, CommonsStrings } from '@amad-web-admin/modules/core';
 import { Subscription } from 'rxjs';
 import { RolesAndPermissionFacade } from '../+store/roles-and-permission.facade';
 import { RolPermissionNavigationService } from '../commons/rol-permission-navigation.service';
-import {
-  EditUserRol,
-  StatusRol,
-  UserRolItem,
-  UserRolStatus,
-} from '@amad-web-admin/modules/network';
+
 import { editBreadcrumb } from '../commons/breadcrumb-rol';
+import { EditUserRol, StatusRol, UserRolItem, UserRolStatus } from '@amad-web-admin/shared';
 
 @AutoUnsubscribe
 @Component({
@@ -77,29 +73,22 @@ export class RolEditComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.rolesAndPermissionFacade.loaded$.subscribe((value) =>
-      this.loading$.set(value)
-    );
+    this.rolesAndPermissionFacade.loaded$.subscribe((value) => this.loading$.set(value));
 
     this.error$$ = this.rolesAndPermissionFacade.error$.subscribe((value) => {
-      this.dialogService.showError(
-        CommonsStrings.ERROR_GENERIC_TITLE,
-        value.message
-      );
+      this.dialogService.showError(CommonsStrings.ERROR_GENERIC_TITLE, value.message);
     });
 
-    this.successAddRol$$ = this.rolesAndPermissionFacade.successRol$.subscribe(
-      (value) => {
-        this.dialogService
-          .showSuccess('Atención', 'Rol actualizado correctamente ')
-          .subscribe((value1) => {
-            if (value1.resultType == ResultType.BUTTON_ONE) {
-              this.navigation.navigateToList();
-            }
-          });
-        this.loading$.set(false);
-      }
-    );
+    this.successAddRol$$ = this.rolesAndPermissionFacade.successRol$.subscribe((value) => {
+      this.dialogService
+        .showSuccess('Atención', 'Rol actualizado correctamente ')
+        .subscribe((value1) => {
+          if (value1.resultType == ResultType.BUTTON_ONE) {
+            this.navigation.navigateToList();
+          }
+        });
+      this.loading$.set(false);
+    });
     this.setup();
   }
 
@@ -121,9 +110,7 @@ export class RolEditComponent implements AfterViewInit {
   });
 
   private setup() {
-    this.editRolForm.controls.status.setValue(
-      this.userRolItem.status == UserRolStatus.ACTIVE
-    );
+    this.editRolForm.controls.status.setValue(this.userRolItem.status == UserRolStatus.ACTIVE);
     this.editRolForm.controls.desc_rol.setValue(this.userRolItem.desc_rol);
     this.editRolForm.controls.desc_larga.setValue(this.userRolItem.desc_larga);
   }
@@ -132,15 +119,11 @@ export class RolEditComponent implements AfterViewInit {
     const item: EditUserRol = {
       desc_larga: this.editRolForm.controls.desc_larga.value,
       desc_rol: this.editRolForm.controls.desc_rol.value,
-      status: this.editRolForm.controls.status.value
-        ? StatusRol.ENABLED
-        : StatusRol.DISABLED,
+      status: this.editRolForm.controls.status.value ? StatusRol.ENABLED : StatusRol.DISABLED,
     };
     this.navigation.setEditRolPermission({
       id_rol: this.userRolItem.id_rol,
-      status: this.editRolForm.controls.status.value
-        ? UserRolStatus.ACTIVE
-        : UserRolStatus.DISABLE,
+      status: this.editRolForm.controls.status.value ? UserRolStatus.ACTIVE : UserRolStatus.DISABLE,
       desc_rol: item.desc_larga,
       desc_larga: item.desc_larga,
     });

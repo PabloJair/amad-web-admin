@@ -6,15 +6,7 @@ import {
   ButtonLoaderComponent,
   DialogService,
   ImageUploadComponent,
-  ResultType,
 } from '@amad-web-admin/modules/ui-elements';
-import {
-  FileUploadComponent,
-  FileUploadControl,
-  FileUploadDropZoneComponent,
-  FileUploadListItemComponent,
-  FileUploadValidators,
-} from '@iplab/ngx-file-upload';
 import { MatButton } from '@angular/material/button';
 import {
   MatCard,
@@ -22,28 +14,14 @@ import {
   MatCardContent,
   MatCardHeader,
   MatCardModule,
-  MatCardTitle,
 } from '@angular/material/card';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
-import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonsStrings } from '@amad-web-admin/modules/core';
 import { ProjectNavigationService } from '../commons/project-navigation.service';
-import {
-  AddOrEditProjectRequest,
-  CompanyItem,
-  ProjectInformation,
-  ProjectItem,
-  ProjectStatus,
-  Status,
-  UploadService,
-} from '@amad-web-admin/modules/network';
+import { QrGeneratorService, UploadService } from '@amad-web-admin/modules/network';
 import { ProjectsFacade } from '../+state/projects.facade';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { SelectLanguagesProjectComponent } from '../select-languages-project/select-languages-project.component';
@@ -51,7 +29,14 @@ import { File } from '@ngx-dropzone/cdk';
 import { TypeView } from '../select-languages-project/TypeView';
 import { NgxMaskDirective } from 'ngx-mask';
 import { breadcrumbsEditProject } from '../commons/BreadcrumbsCommons';
-import { QrGeneratorService } from '../../../../network/src/lib/qr-generator/qr-generator.service';
+import {
+  AddOrEditProject,
+  CompanyItem,
+  ProjectInformation,
+  ProjectItem,
+  ProjectStatus,
+  Status,
+} from '@amad-web-admin/shared';
 
 @Component({
   standalone: true,
@@ -90,13 +75,10 @@ export class ProjectEditComponent implements OnDestroy {
       nonNullable: true,
       validators: Validators.required,
     }),
-    application_description: new FormControl<string>(
-      CommonsStrings.EMPTY_STRING,
-      {
-        nonNullable: true,
-        validators: Validators.required,
-      }
-    ),
+    application_description: new FormControl<string>(CommonsStrings.EMPTY_STRING, {
+      nonNullable: true,
+      validators: Validators.required,
+    }),
     status: new FormControl<boolean>(true, {
       nonNullable: true,
       validators: Validators.required,
@@ -104,10 +86,7 @@ export class ProjectEditComponent implements OnDestroy {
     url: new FormControl<string>(CommonsStrings.EMPTY_STRING),
     version: new FormControl<string>(CommonsStrings.EMPTY_STRING, {
       nonNullable: true,
-      validators: [
-        Validators.required,
-        Validators.pattern(CommonsStrings.REGEX_VERSION),
-      ],
+      validators: [Validators.required, Validators.pattern(CommonsStrings.REGEX_VERSION)],
     }),
   });
 
@@ -137,9 +116,7 @@ export class ProjectEditComponent implements OnDestroy {
 
     this.projectFacade.anySuccess.subscribe((value) => {
       if (value) {
-        this.dialogService
-          .showSuccess('Atención', 'Proyecto actualizado correctamente')
-          .subscribe((value1) => {});
+        this.dialogService.showSuccess('Atención', 'Proyecto actualizado correctamente');
       }
       this.loading$.set(false);
     });
@@ -157,12 +134,8 @@ export class ProjectEditComponent implements OnDestroy {
     this.editProjectForm.controls.application_description.setValue(
       this.projectItem?.application_description ?? ''
     );
-    this.editProjectForm.controls.version.setValue(
-      this.projectItem?.version ?? ''
-    );
-    this.editProjectForm.controls.status.setValue(
-      this.projectItem?.status == ProjectStatus.ACTIVE
-    );
+    this.editProjectForm.controls.version.setValue(this.projectItem?.version ?? '');
+    this.editProjectForm.controls.status.setValue(this.projectItem?.status == ProjectStatus.ACTIVE);
     this.editProjectForm.controls.url.setValue(this.projectItem?.url_qr ?? '');
     this.iconUrl = this.projectItem?.icon ?? '';
     this.iconQR = this.projectItem?.icon_qr ?? '';
@@ -171,28 +144,21 @@ export class ProjectEditComponent implements OnDestroy {
   edit() {
     const value = {
       application_name:
-        this.editProjectForm.controls.application_name.value ??
-        CommonsStrings.EMPTY_STRING,
+        this.editProjectForm.controls.application_name.value ?? CommonsStrings.EMPTY_STRING,
       application_description:
-        this.editProjectForm.controls.application_description.value ??
-        CommonsStrings.EMPTY_STRING,
+        this.editProjectForm.controls.application_description.value ?? CommonsStrings.EMPTY_STRING,
       status: this.editProjectForm.controls.status.value
         ? ProjectStatus.ACTIVE
         : ProjectStatus.DISABLE,
-      version:
-        this.editProjectForm.controls.version.value ??
-        CommonsStrings.EMPTY_STRING,
+      version: this.editProjectForm.controls.version.value ?? CommonsStrings.EMPTY_STRING,
       url_qr: this.editProjectForm.controls.url.value ?? '',
       id_cia: this.projectItem?.id_cia,
       icon: this.iconUrl,
       icon_qr: this.iconQR,
       id_app_google: CommonsStrings.EMPTY_STRING,
-    } as AddOrEditProjectRequest;
+    } as AddOrEditProject;
 
-    this.projectFacade.editProject(
-      this.projectItem?.id_application ?? -1,
-      value
-    );
+    this.projectFacade.editProject(this.projectItem?.id_application ?? -1, value);
   }
 
   goToConfiguration() {
@@ -243,16 +209,11 @@ export class ProjectEditComponent implements OnDestroy {
   generateQR() {
     if (this.editProjectForm.controls.url.value) {
       this.qrGenerator
-        .generateQR(
-          this.editProjectForm.controls.url.value ?? '',
-          this.projectItem?.icon ?? ''
-        )
+        .generateQR(this.editProjectForm.controls.url.value ?? '', this.projectItem?.icon ?? '')
         .subscribe((result) => {
-          const file = new File(
-            [result],
-            `${this.projectItem?.id_application}.png`,
-            { type: 'image/png' }
-          );
+          const file = new File([result], `${this.projectItem?.id_application}.png`, {
+            type: 'image/png',
+          });
 
           this.loadImage(file, (urlServer) => {
             this.iconQR = urlServer;

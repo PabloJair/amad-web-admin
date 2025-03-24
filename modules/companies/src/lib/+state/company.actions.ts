@@ -1,12 +1,5 @@
-import {
-  CompanyItem,
-  EditCompany,
-  FilterProjects,
-  StatusProject,
-} from '@amad-web-admin/modules/network';
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { AddCompany } from '@amad-web-admin/modules/network';
-import { CompanyStatus } from '../../../../network/src/lib/companies/entities/company-status';
+import { AddCompany, CompanyItem, EditCompany, FilterProjects } from '@amad-web-admin/shared';
 
 export const companyRequestAction = createActionGroup({
   source: 'module-company-request',
@@ -22,16 +15,16 @@ export const companyResponseAction = createActionGroup({
   source: 'module-company-response',
   events: {
     successListCompany: props<{ value: CompanyItem[] }>(),
-    successAdd: props<{ value: String }>(),
-    successEdit: props<{ value: String }>(),
-    successDelete: props<{ value: String }>(),
+    successAdd: props<{ value: string }>(),
+    successEdit: props<{ value: string }>(),
+    successDelete: props<{ value: string }>(),
   },
 });
 
 export const companyAppAction = createActionGroup({
   source: 'module-company',
   events: {
-    fail: props<{ error: any }>(),
+    fail: props<{ error: unknown }>(),
     load: props<{ value: boolean }>(),
     reset: emptyProps(),
   },

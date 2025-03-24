@@ -1,5 +1,5 @@
 export interface LayoutState {
   loader: boolean;
-  error: any;
-  anySuccess: any;
+  error: unknown;
+  anySuccess: string | undefined;
 }

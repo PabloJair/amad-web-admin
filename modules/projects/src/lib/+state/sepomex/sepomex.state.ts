@@ -3,7 +3,7 @@ import {
   MunicipalityResponse,
   NeighborhoodsResponse,
   StatesResponse,
-} from '@amad-web-admin/modules/network';
+} from '@amad-web-admin/shared';
 
 export interface SepomexState {
   states: StatesResponse[];
@@ -11,5 +11,5 @@ export interface SepomexState {
   neighborhoods: NeighborhoodsResponse[];
   searchCP: CPResponse | undefined;
   loader: boolean;
-  error: any;
+  error: Error | undefined;
 }

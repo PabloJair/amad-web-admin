@@ -1,22 +1,20 @@
 import { Component, input, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ComponentEntity } from '@amad-web-admin/modules/layout';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
-import { ItemCarousel } from '../../../../../../network/src/lib/layout/entities/properties';
+import { ComponentEntity, ItemCarousel } from '@amad-web-admin/shared';
 import {
   FileUploadComponent,
   FileUploadControl,
   FileUploadDropZoneComponent,
-  FileUploadListItemComponent,
   FileUploadValidators,
 } from '@iplab/ngx-file-upload';
 import { CommonsStrings } from '@amad-web-admin/modules/core';
 import { v4 as uuidv4 } from 'uuid';
 import { MatButtonModule } from '@angular/material/button';
-import { UploadService } from '@amad-web-admin/modules/network';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { defaultComponentEntity } from '../../../entities/defaults-components';
+import { UploadService } from '@amad-web-admin/modules/network';
 
 @Component({
   selector: 'lib-carousel-properties',

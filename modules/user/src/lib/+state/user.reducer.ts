@@ -1,26 +1,20 @@
 import { EntityAdapter, createEntityAdapter, IdSelector } from '@ngrx/entity';
 import { UserAppState } from './user.state';
 import { createFeature, createReducer, on } from '@ngrx/store';
-import { UserItem, UserRolItem } from '@amad-web-admin/modules/network';
-import {
-  userAppAction,
-  userRequestAction,
-  userResponseAction,
-} from './user.actions';
+import { userAppAction, userRequestAction, userResponseAction } from './user.actions';
+import { UserItem, UserRolItem } from '@amad-web-admin/shared';
 
 export const USER_FEATURE_KEY = 'module-user';
 const selectUserId: IdSelector<UserItem> = ({ id_usuario }) => id_usuario;
 const selectRolId: IdSelector<UserRolItem> = ({ id_rol }) => id_rol;
 
-export const userAdapter: EntityAdapter<UserItem> =
-  createEntityAdapter<UserItem>({
-    selectId: selectUserId,
-  });
+export const userAdapter: EntityAdapter<UserItem> = createEntityAdapter<UserItem>({
+  selectId: selectUserId,
+});
 
-export const userRolAdapter: EntityAdapter<UserRolItem> =
-  createEntityAdapter<UserRolItem>({
-    selectId: selectRolId,
-  });
+export const userRolAdapter: EntityAdapter<UserRolItem> = createEntityAdapter<UserRolItem>({
+  selectId: selectRolId,
+});
 export const userInitialState: UserAppState = {
   anySuccess: undefined,
   error: undefined,

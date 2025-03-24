@@ -24,11 +24,7 @@ import {
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
-import {
-  AutoUnsubscribe,
-  CommonsStrings,
-  NavigationRoutes,
-} from '@amad-web-admin/modules/core';
+import { AutoUnsubscribe, CommonsStrings, NavigationRoutes } from '@amad-web-admin/modules/core';
 import { CompanyFacade } from '../+state/company.facade';
 import { CompaniesNavigationService } from '../commons/companies-navigation.service';
 import { Subscription } from 'rxjs';
@@ -70,20 +66,15 @@ export class CompanyAddComponent {
     protected navigate: CompaniesNavigationService,
     protected dialogService: DialogService
   ) {
-    this.successAddRol$$ = this.facade.success$.subscribe((value) => {
+    this.successAddRol$$ = this.facade.success$.subscribe(() => {
       this.loading$.set(false);
       this.navigate.navigateToList();
     });
 
-    this.loading$$ = this.facade.loaded$.subscribe((value) =>
-      this.loading$.set(value)
-    );
+    this.loading$$ = this.facade.loaded$.subscribe((value) => this.loading$.set(value));
 
     this.error$$ = this.facade.error$.subscribe((value) => {
-      this.dialogService.showError(
-        CommonsStrings.ERROR_GENERIC_TITLE,
-        value.message
-      );
+      this.dialogService.showError(CommonsStrings.ERROR_GENERIC_TITLE, (value as Error).message);
     });
   }
 

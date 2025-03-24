@@ -59,7 +59,7 @@ export class NavMenuComponent {
   closeSession() {
     this.dialogService
       .showWarning('¿Deseas cerrar sesión?', '', CommonsStrings.ACCEPT, CommonsStrings.CANCEL)
-      .subscribe((value) => {
+      .subscribe(() => {
         this.authenticationInformationService.deleteSession();
         window.location.reload();
       });

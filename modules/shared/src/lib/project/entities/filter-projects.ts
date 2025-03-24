@@ -1,4 +1,4 @@
-import { CompanyStatus } from '../../companies/entities/company-status';
+import { CompanyStatus } from '@amad-web-admin/shared';
 
 export interface FilterProjects {
   nombre_comercial?: string;

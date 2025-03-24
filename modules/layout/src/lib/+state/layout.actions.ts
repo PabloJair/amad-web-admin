@@ -1,5 +1,5 @@
-import { UpdateJsonProjectLayout } from '@amad-web-admin/modules/network';
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
+import { UpdateJsonProjectLayout } from '@amad-web-admin/shared';
 
 export const layoutRequestAction = createActionGroup({
   source: 'module-layout-request',
@@ -18,7 +18,7 @@ export const layoutResponseAction = createActionGroup({
 export const layoutAppAction = createActionGroup({
   source: 'module-users',
   events: {
-    fail: props<{ error: any }>(),
+    fail: props<{ error: unknown }>(),
     load: props<{ value: boolean }>(),
     reset: emptyProps(),
   },

@@ -12,7 +12,7 @@ import {
   getDayForNumber,
   ShowBySchedule,
   TypeComponent,
-} from '@amad-web-admin/modules/network';
+} from '@amad-web-admin/shared';
 import { MatButton } from '@angular/material/button';
 import { MatDivider } from '@angular/material/divider';
 import {

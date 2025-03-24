@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { BaseResponse } from '../base-response';
 import { projectsEndpoints } from './projects.endpoints';
-import { FilterProjects } from './entities/filter-projects';
 import {
-  AddOrEditProjectRequest,
+  FilterProjects,
+  AddOrEditProject,
   CompanyItem,
   CreateJsonProject,
   LanguagesProject,
@@ -13,7 +12,8 @@ import {
   ProjectItem,
   StatusProject,
   UpdateJsonProjectLayout,
-} from './entities/projects.entities';
+  BaseResponse,
+} from '@amad-web-admin/shared';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +25,7 @@ export class ProjectsService {
     return this.http.post<BaseResponse<CompanyItem[]>>(projectsEndpoints.POST_LIST_COMPANY, filter);
   }
 
-  addProject(project: AddOrEditProjectRequest): Observable<BaseResponse<number>> {
+  addProject(project: AddOrEditProject): Observable<BaseResponse<number>> {
     return this.http.post<BaseResponse<number>>(projectsEndpoints.ADD_PROJECTS, project);
   }
 
@@ -54,7 +54,7 @@ export class ProjectsService {
 
   putProject(
     idProject: number,
-    addOrEditProjectRequest: AddOrEditProjectRequest
+    addOrEditProjectRequest: AddOrEditProject
   ): Observable<BaseResponse<string>> {
     return this.http.put<BaseResponse<string>>(
       `${projectsEndpoints.PUT_PROJECT}${idProject}`,
@@ -78,7 +78,6 @@ export class ProjectsService {
   }
 
   getLanguages(): Observable<BaseResponse<LanguagesProject[]>> {
-    const url = projectsEndpoints.GET_LANGUAGES;
     return this.http.get<BaseResponse<LanguagesProject[]>>(projectsEndpoints.GET_LANGUAGES);
   }
 }

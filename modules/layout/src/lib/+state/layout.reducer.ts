@@ -12,9 +12,9 @@ export const layoutInitialState: LayoutState = {
 
 export const layoutReducer = createReducer(
   layoutInitialState,
-  on(layoutRequestAction.updateJsonProject, (state, items) => ({
+  on(layoutRequestAction.updateJsonProject, (state) => ({
     ...state,
-    anySuccess: null,
+    anySuccess: undefined,
     error: null,
     loader: true,
   })),

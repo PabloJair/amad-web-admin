@@ -1,13 +1,13 @@
 import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { ComponentEntity, TypeComponent, UploadService } from '@amad-web-admin/modules/network';
+import { UploadService } from '@amad-web-admin/modules/network';
+import { ComponentEntity, PositionAlignment, TypeComponent } from '@amad-web-admin/shared';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ImageUploadComponent } from '@amad-web-admin/modules/ui-elements';
 import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
-import { PositionAlignment } from '@amad-web-admin/modules/layout';
 import { defaultComponentEntity } from '../../../entities/defaults-components';
 
 @Component({

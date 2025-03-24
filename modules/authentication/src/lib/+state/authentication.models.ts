@@ -1,5 +1,5 @@
-import { UserInformation } from '@amad-web-admin/modules/network';
 import { GoogleCodeToken } from '../google-code-token';
+import { UserInformation } from '@amad-web-admin/shared';
 
 export interface AuthenticationEntity {
   userInformation: UserInformation | null;

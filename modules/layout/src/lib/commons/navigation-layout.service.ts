@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LocalStorageService } from 'angular-web-storage';
-import { JsonProject, ProjectItem } from '@amad-web-admin/modules/network';
+import { JsonProject, ProjectItem } from '@amad-web-admin/shared';
 
 @Injectable()
 export class NavigationLayoutService {

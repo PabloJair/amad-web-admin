@@ -42,12 +42,11 @@ import {
   defaultEmptyOrNull,
   NavigationRoutes,
 } from '@amad-web-admin/modules/core';
-import { CompanyItem, ProjectStatus } from '@amad-web-admin/modules/network';
 import { Subscription } from 'rxjs';
 import { ProjectsFacade } from '../+state/projects.facade';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { ProjectViewComponent } from '../project-view/project-view.component';
-import { CompanyStatus } from '../../../../network/src/lib/companies/entities/company-status';
+import { CompanyItem, CompanyStatus, ProjectStatus } from '@amad-web-admin/shared';
 
 @AutoUnsubscribe
 @Component({

@@ -7,23 +7,14 @@ import {
   rolAndPermissionsAppAction,
   rolAndPermissionsRequestAction,
 } from './rol-and-permissions.actions';
-import {
-  AddUserRol,
-  EditUserRol,
-  FilterRoles,
-} from '@amad-web-admin/modules/network';
+import { AddUserRol, EditUserRol, FilterRoles } from '@amad-web-admin/shared';
 
 @Injectable()
 export class RolesAndPermissionFacade {
   private readonly store = inject(Store);
 
-  loaded$ = this.store.pipe(
-    select(rolesAndPermissionsSelector.loader),
-    skip(1)
-  );
-  listRol$ = this.store.pipe(
-    select(rolesAndPermissionsSelector.userRolesState)
-  );
+  loaded$ = this.store.pipe(select(rolesAndPermissionsSelector.loader), skip(1));
+  listRol$ = this.store.pipe(select(rolesAndPermissionsSelector.userRolesState));
   error$ = this.store.pipe(select(rolesAndPermissionsSelector.error), skip(1));
   successRol$ = this.store.pipe(
     select(rolesAndPermissionsSelector.anySuccess),

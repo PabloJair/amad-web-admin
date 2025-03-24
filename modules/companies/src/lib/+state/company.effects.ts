@@ -1,10 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import {
-  companyAppAction,
-  companyRequestAction,
-  companyResponseAction,
-} from './company.actions';
+import { companyAppAction, companyRequestAction, companyResponseAction } from './company.actions';
 import { catchError, map, of, switchMap } from 'rxjs';
 import * as networkModule from '@amad-web-admin/modules/network';
 
@@ -65,7 +61,7 @@ export class CompanyEffects {
       ofType(companyRequestAction.edit),
       switchMap((request) =>
         this.company$.edit(request.value, request.id).pipe(
-          map((response) =>
+          map(() =>
             companyResponseAction.successEdit({
               value: 'OK',
             })

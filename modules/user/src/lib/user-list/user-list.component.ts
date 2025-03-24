@@ -1,10 +1,5 @@
 import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
-import {
-  StatusRol,
-  UserItem,
-  UserRolItem,
-  UserStatus,
-} from '@amad-web-admin/modules/network';
+
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { UsersFacade } from '../+state/user.facade';
@@ -32,6 +27,7 @@ import { MatIcon } from '@angular/material/icon';
 import { UserNavigationService } from '../commons/user-navigation.service';
 import { listBreadcrumbItems } from '../commons/brandcrumb-user';
 import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
+import { StatusRol, UserItem, UserRolItem, UserStatus } from '@amad-web-admin/shared';
 
 @Component({
   selector: 'lib-user-list',
@@ -62,15 +58,7 @@ import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
 })
 @AutoUnsubscribe
 export class UserListComponent implements AfterViewInit, OnDestroy {
-  displayedColumns: string[] = [
-    'userID',
-    'user',
-    'email',
-    'username',
-    'rol',
-    'status',
-    'action',
-  ];
+  displayedColumns: string[] = ['userID', 'user', 'email', 'username', 'rol', 'status', 'action'];
   dataSource = new MatTableDataSource<UserItem>([]);
   protected readonly UserStatus = UserStatus;
 
@@ -97,9 +85,9 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
     this.listRol$$ = this.userFacade.listRol$.subscribe((value) => {
       this.userRolItem = value;
     });
-    this.loaded$$ = this.userFacade.loaded$.subscribe((value) => {
-      value ? spinner.show() : spinner.hide();
-    });
+    this.loaded$$ = this.userFacade.loaded$.subscribe((value) =>
+      value ? spinner.show() : spinner.hide()
+    );
   }
 
   getNameRol(idRol: number): string {
@@ -135,9 +123,7 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
         'Cancelar'
       )
       .subscribe((value) => {
-        value.resultType == ResultType.BUTTON_TWO
-          ? this.userFacade.deleteUser(element)
-          : null;
+        value.resultType == ResultType.BUTTON_TWO ? this.userFacade.deleteUser(element) : null;
       });
   }
 }

@@ -58,7 +58,7 @@ export class LoginComponent implements AfterViewInit {
         this.showDialogGoogleCode(value.qrCode);
       }
     });
-    this.authenticationFacade.fail$.subscribe((value) => {
+    this.authenticationFacade.fail$.subscribe(() => {
       this.dialogService.showError(
         'Credenciales incorrectas',
         'Revisa tu usuario o contraseña para poder ingresar'
@@ -70,7 +70,7 @@ export class LoginComponent implements AfterViewInit {
 
   login2F(googleCode: string, token: string) {
     this.authenticationFacade.login2f({ googleCode }, token);
-    const service = this.authenticationFacade.successLogin$.subscribe((value) => {
+    const service = this.authenticationFacade.successLogin$.subscribe(() => {
       this.applicationNavigate.navigateToDashboard();
       service.unsubscribe();
     });

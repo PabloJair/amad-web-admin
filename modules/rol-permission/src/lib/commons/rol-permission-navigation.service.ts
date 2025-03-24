@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { NavigationRoutes } from '@amad-web-admin/modules/core';
-import { UserRolItem } from '@amad-web-admin/modules/network';
 import { LocalStorageService } from 'angular-web-storage';
+import { UserRolItem } from '@amad-web-admin/shared';
 
 @Injectable()
 export class RolPermissionNavigationService {
@@ -55,10 +55,7 @@ export class RolPermissionNavigationService {
 
   navigateToList() {
     this.router
-      .navigate([
-        NavigationRoutes.dashboard.DASHBOARD,
-        NavigationRoutes.rolesAndPermission.ROLES,
-      ])
+      .navigate([NavigationRoutes.dashboard.DASHBOARD, NavigationRoutes.rolesAndPermission.ROLES])
       .then(() => true);
   }
 }

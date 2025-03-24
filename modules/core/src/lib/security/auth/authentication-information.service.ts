@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { LocalEncryptedService } from '../local-encrypter/local-encrypted.service';
-import { BaseResponse, UserInformation } from '@amad-web-admin/modules/network';
 import { jwtDecode, JwtPayload } from 'jwt-decode';
-import { environment } from '../../../../../../src/environments/environment';
+import { environment } from '@env';
+import { BaseResponse, UserInformation } from '@amad-web-admin/shared';
 
 @Injectable({
   providedIn: 'root',
@@ -14,17 +14,15 @@ export class AuthenticationInformationService {
   private PERMISSIONS = 'PERMISSIONS';
   private HAS_REMIND_ME_SESSION = 'HAS_REMIND_ME_SESSION';
   private USER = 'USER';
-  private userInformation?: BaseResponse<UserInformation> | undefined =
-    undefined;
+  private userInformation?: BaseResponse<UserInformation> | undefined = undefined;
 
   getUserInformation() {
     if (this.userInformation != null) {
       return this.userInformation;
     } else {
       this.userInformation =
-        this.localEncrypted.getValue<BaseResponse<UserInformation>>(
-          environment.LOGIN_KEY ?? ''
-        ) ?? undefined;
+        this.localEncrypted.getValue<BaseResponse<UserInformation>>(environment.LOGIN_KEY ?? '') ??
+        undefined;
     }
     return this.userInformation;
   }
@@ -58,7 +56,7 @@ export class AuthenticationInformationService {
 
   getExpiredToken(): number {
     const token = this.getUserInformation()?.token;
-    return token ? jwtDecode<JwtPayload>(token).exp ?? 0 : 0;
+    return token ? (jwtDecode<JwtPayload>(token).exp ?? 0) : 0;
   }
 
   createSession(userInformation: BaseResponse<UserInformation>) {

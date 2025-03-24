@@ -1,9 +1,5 @@
-import {
-  ModuleUserInformation,
-  UserItem,
-  UserRolItem,
-} from '@amad-web-admin/modules/network';
 import { EntityState } from '@ngrx/entity';
+import { ModuleUserInformation, UserItem, UserRolItem } from '@amad-web-admin/shared';
 
 export interface UserState extends EntityState<UserItem> {
   selectedUserItem: ModuleUserInformation | null;

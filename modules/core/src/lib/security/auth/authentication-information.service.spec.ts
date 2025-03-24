@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-
-import { AuthenticationInformationService } from '@amad-web-admin/modules/core';
+import { AuthenticationInformationService } from './authentication-information.service';
 
 describe('AuthenticationService', () => {
   let service: AuthenticationInformationService;
